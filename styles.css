@@ -115,23 +115,83 @@
 
 .date {
     font-weight: bold;
-    text-decoration: underline;
+    /* text-decoration: underline; */
+    margin-bottom: 10px;
 }
 
-.day-entry {
+/* .day-entry {
     margin-left: 10px;
     margin-bottom: 20px;
-}
-
-.day-details {
-    margin-left: 10px;
-}
+} */
 
 .time-of-day {
     font-weight: bold;
 }
 
-.activity-details {
-    margin-left: 10px;
+
+/* ========= Itinerary Page Styling ==========*/
+.day-details {
+    display: flex;
 }
 
+.date {
+    font-size: larger;
+}
+
+.activity-details {
+    border: solid 1px black;
+    border-radius: 5px;
+    padding: 15px;
+    margin-right: 10px;
+    margin-bottom: 30px;
+    max-width: 300px;
+    min-width: 300px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#activity-image {
+    border-radius: 3px;
+    padding-bottom: 5px;
+}
+
+.time-of-day {
+    color: rgb(136, 136, 136);
+}
+
+.activity-buttons {
+    background-color: rgb(215, 215, 215);
+    border-radius: 3px;
+    padding: 8px 23px 8px 23px;
+    /* margin-right: 15px; */
+    font-size: 14px;
+    /* min-width: 120px; */
+}
+
+.activity-button-container {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    min-width: 100%;
+
+    /* background-color: rgb(215, 215, 215); */
+    border-radius: 3px;
+    /* padding: 3px 8px 3px 8px; */
+    /* margin-right: 15px; */
+    /* font-size: 14px; */
+}
+
+.activity-img-container {
+    position: relative;
+    text-align: left;
+    color: white;
+}
+
+.image-header {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+}

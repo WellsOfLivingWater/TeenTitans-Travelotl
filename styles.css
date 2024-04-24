@@ -134,6 +134,10 @@
     display: flex;
 }
 
+.date {
+    font-size: larger;
+}
+
 .activity-details {
     border: solid 1px black;
     border-radius: 5px;
@@ -181,5 +185,13 @@
 }
 
 .activity-img-container {
-    
+    position: relative;
+    text-align: left;
+    color: white;
+}
+
+.image-header {
+    position: absolute;
+    top: 8px;
+    left: 16px;
 }

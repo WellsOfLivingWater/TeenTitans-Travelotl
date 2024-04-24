@@ -1,6 +1,12 @@
-node_modules
+// Personal stuff
 .DS_Store
 .vscode
-gitpush.zsh
+
+// Build files
 dist
 config.env
+
+// Dependencies
+yarn.lock
+package-lock.json
+node_modules

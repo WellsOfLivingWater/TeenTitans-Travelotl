@@ -2,16 +2,20 @@ import image from '../assets/placeholder-image.jpeg';
 
 const Itinerary = ({ itinerary }) => {
   // console.log("Itinerary Component:", itinerary.itinerary.itinerary);
+  const suggestActivities = () => {
+    console.log(itinerary);
+  }
+
   if (itinerary) return (
     <div id='itinerary-details'>
-      {Object.entries(itinerary.itinerary).map(([date, timesOfDay]) => (
+      {Object.entries(itinerary).map(([date, timesOfDay]) => (
         <div className="day-entry" key={date}>
           <p className='date'>{date}</p>
           <div className="day-details">
             {Object.entries(timesOfDay).map(([timeOfDay, suggestion]) => (
               <div className='activity-details' key={timeOfDay}>
                 <div>
-                  <div class='activity-img-container'>
+                  <div className='activity-img-container'>
                     <img id="activity-image" src={image} height="300" width="300"/>
                     <div className='image-header'><b>{suggestion.activity}</b></div>
                   </div>
@@ -23,7 +27,7 @@ const Itinerary = ({ itinerary }) => {
                 </div>
                 <div className='activity-button-container'>
                   <button className='activity-buttons'>Details</button>
-                  <button className='activity-buttons'>Change Activity</button>
+                  <button className='activity-buttons' onClick={suggestActivities}>Change Activity</button>
                   <button className='activity-buttons'>Remove</button></div>
               </div>
             ))}

@@ -7,7 +7,11 @@ router.post('/build', (req, res, next)=>{
   console.log("build route invoked");
   return next();
 },authController.protect, tripController.buildTrip, tripController.saveTrip, (req, res) => {
-  res.status(201).send(res.locals.itinerary);
+  res.status(201).send(res.locals.trip);
+});
+
+router.post('/suggest', authController.protect, tripController.generateSuggestions, (req, res) => {
+  res.status(201).send(res.locals.suggestions);
 });
 
 router.get('/retrieve', authController.protect, tripController.retrieveAll, (req, res) => {

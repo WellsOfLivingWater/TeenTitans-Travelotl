@@ -36,8 +36,17 @@ const Page6 = () => {
         body: JSON.stringify(formData)
       });
       const parsedData = await response.json();
+      
+      
+      const parsedTrip = JSON.parse(parsedData.trip);
+      
+      const payload = {
+        itinerary: parsedTrip.itinerary,
+        itineraryID: parsedData._id,
+      };
+      
       if (response.ok) {
-        dispatch(updateItinerary(parsedData.itinerary));
+        dispatch(updateItinerary(payload));
         navigate('/itinerary');
         setLoading(false);
       } else {

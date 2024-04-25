@@ -57,6 +57,7 @@ const Manager = () => {
 
   const seeDetails = async (e) => {
     const tripId = e.target.parentNode.parentNode.id;
+    console.log(tripId);
 
     try {
       let itineraryList = await fetch('api/trip/retrieve', {
@@ -79,9 +80,16 @@ const Manager = () => {
           break;
         }
       }
-      console.log("See Details of:", foundTrip);
+      // console.log("See Details of:", foundTrip);
+      const payload = {
+        itinerary: foundTrip.itinerary,
+        itineraryID: tripId,
+      };
+      console.log('See details ===>', payload.itinerary);
+
       if (foundTrip) {
-        dispatch(updateItinerary(foundTrip.itinerary));
+        // dispatch(updateItinerary(foundTrip.itinerary));
+        dispatch(updateItinerary(payload));
         navigate('/itinerary');
       }
       

@@ -1,9 +1,18 @@
+import { useState } from 'react';
 import image from '../assets/placeholder-image.jpeg';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import UpdateModal from './UpdateModal';
 
-const Itinerary = ({ itinerary }) => {
-  // console.log("Itinerary Component:", itinerary.itinerary.itinerary);
+const Itinerary = ({ itinerary, itineraryID }) => {
+  const [show, setShow] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
+
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
+  
   const suggestActivities = () => {
-    console.log(itinerary);
+    console.log(itineraryID);
   }
 
   if (itinerary) return (
@@ -19,7 +28,7 @@ const Itinerary = ({ itinerary }) => {
                     <img id="activity-image" src={image} height="300" width="300"/>
                     <div className='image-header'><b>{suggestion.activity}</b></div>
                   </div>
-                  <p className="time-of-day">{timeOfDay}</p>
+                  <h5 className="time-of-day">{timeOfDay}</h5>
                   {/* <p><b>{suggestion.activity}</b></p> */}
                   <p>{suggestion.description}</p>
                   <p>{suggestion.address}</p>
@@ -27,13 +36,22 @@ const Itinerary = ({ itinerary }) => {
                 </div>
                 <div className='activity-button-container'>
                   <button className='activity-buttons'>Details</button>
-                  <button className='activity-buttons' onClick={suggestActivities}>Change Activity</button>
+                  <Button variant="primary" onClick={() => setModalShow(true)}>
+                    Change Activity
+                  </Button>
                   <button className='activity-buttons'>Remove</button></div>
               </div>
             ))}
           </div>
         </div>
       ))}
+      <>
+        <UpdateModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          itineraryID={itineraryID}
+        />
+      </>
     </div>
   );
 };

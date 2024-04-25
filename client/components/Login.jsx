@@ -1,14 +1,34 @@
-import Header from "./Header";
+/**
+ * @file Renders a login component, which displays a form for users to enter their
+ * email and password to log in to the application.
+ * 
+ * @todo Reduxify the login form to handle state management.
+ * 
+ * @module Login
+ * @returns {JSX.Element} The rendered login component.
+ */
+// Package dependencies
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import React, { useState } from 'react';
+// Components
+import Header from "./Header";
 
 const Login = () => {
-  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  /**
+   * Handles the form submission event.
+   * Sends a POST request to the server to log in the user.
+   * If the request is successful, the user is redirected to the home page.
+   * 
+   * @async
+   * @param {Event} e - The form submission event object.
+   */
+  const handleSubmit = async e => {
     e.preventDefault();
 
     const res = await fetch ('/api/users/login', {
@@ -17,7 +37,7 @@ const Login = () => {
       body: JSON.stringify({email, password}),
     })
 
-    if(res.ok){
+    if (res.ok) {
       const user = await res.json();
       localStorage.setItem('userToken', user.token);
       console.log(user)
@@ -32,12 +52,12 @@ const Login = () => {
       <form onSubmit={handleSubmit}>
         <label>
           Email:
-          <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
         </label>
         <br />
         <label>
           Password:
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
         </label>
         <br />
         <button type="submit">Login</button>

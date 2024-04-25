@@ -1,3 +1,10 @@
+/**
+ * @file Header component for the application.
+ * Contains links to the home page, manager page, about page, register page, and login page.
+ * 
+ * @module Header
+ * @returns {JSX.Element} The rendered header component.
+ */
 import { Link } from 'react-router-dom';
 
 const Header = () => {

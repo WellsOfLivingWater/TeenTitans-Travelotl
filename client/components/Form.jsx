@@ -1,8 +1,30 @@
+/**
+ * @file Renders the form for user to input parameters for the trip.
+ * Outlets to child routes for each page of the form.
+ * Transitions between child routes are animated using react-spring.
+ * 
+ * @todo Correct animation so that the previous page's components slide out to the left.
+ * @todo Correct styling so that there is no moving background color and border.
+ * @todo Move navigation buttons to the left and right of the form inputs.
+ * 
+ * @todo Perhaps add a background image using Google Images API based on the user's destination.
+ * @todo Perhaps implement a Material UI stepper to show the user's progress through the form.
+ * 
+ * @module Form
+ * @returns {JSX.Element} The rendered form component.
+ */
+// Package dependencies
 import { Outlet, useLocation } from 'react-router-dom';
 import { useTransition, animated } from '@react-spring/web';
 
+// Components
 import Header from './Header';
 
+/** 
+ * Renders a component that animates the transition between child routes.
+ * 
+ * @returns {JSX.Element} The animated routes component.
+ */
 const AnimatedRoutes = () => {
   const location = useLocation();
   const transitions = useTransition(location?.pathname, {
@@ -18,21 +40,18 @@ const AnimatedRoutes = () => {
   ));
 };
 
-const Form = () => {
-  
-  return (
-    <>
-      <Header />
-      <div className="form-container">
-        <div>
-          <h2 className='text-2xl text-center font-bold'>Enter in your travel details...</h2>
-        </div>
-        <div style={{ position: 'relative' }}>
-          <AnimatedRoutes />
-        </div>
+const Form = () => (
+  <>
+    <Header />
+    <div className="form-container">
+      <div>
+        <h2 className='text-2xl text-center font-bold'>Enter in your travel details...</h2>
       </div>
-    </>
-  );
-};
+      <div style={{ position: 'relative' }}>
+        <AnimatedRoutes />
+      </div>
+    </div>
+  </>
+);
 
 export default Form;

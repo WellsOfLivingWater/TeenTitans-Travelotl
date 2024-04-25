@@ -1,5 +1,18 @@
+/**
+ * @file Renders the itinerary details for the user's trip.
+ * 
+ * @module Itinerary
+ * @returns {JSX.Element} The rendered itinerary component.
+ */
+// Assets
 import image from '../assets/placeholder-image.jpeg';
 
+/**
+ * Renders the itinerary details for the user's trip.
+ * 
+ * @param {Object} itinerary The itinerary object containing OpenAI API's response. 
+ * @returns {JSX.Element} The rendered itinerary component.
+ */
 const Itinerary = ({ itinerary }) => {
   // console.log("Itinerary Component:", itinerary.itinerary.itinerary);
   if (itinerary) return (

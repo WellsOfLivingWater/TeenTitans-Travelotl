@@ -1,15 +1,30 @@
+/**
+ * @file Renders the second page of the form.
+ * Allows the user to input the start date and end date of the trip
+ * and navigate to the previous and next pages.
+ * 
+ * @module Page2
+ * @returns {JSX.Element} The rendered second page of the form.
+ */
+// Package dependencies
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
+// Redux actions
 import { updateStartDate, updateEndDate } from '../../reducers/tripReducer';
 
 const Page2 = () => {
-  const navigate = useNavigate();
-
   const { startDate, endDate } = useSelector(state => state.trip);
   
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  /**
+   * Handles the input change event for the start date and end date inputs.
+   * Updates the corresponding values in the Redux store.
+   * 
+   * @param {Event} e - The input change event object.
+   */
   const handleInputChange = e => {
     const { name, value } = e.target;
     if (name === 'startDate') {
@@ -19,9 +34,15 @@ const Page2 = () => {
     }
   }
 
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
+  /**
+   * Handles the key down event for the start date and end date inputs.
+   * Navigates to the next page if the Enter key is pressed.
+   * 
+   * @param {Event} e - The key down event object.
+   */
+  const handleKeyDown = e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
       navigate('/form/page3');
     }
   };
@@ -52,10 +73,16 @@ const Page2 = () => {
           onKeyDown={handleKeyDown}
         />
       </div>
-      <div >
+
+      {/* Navigation buttons */}
+      <div>
+
+        {/* Back button */}
         <Link to='/form'>
           <button className='m-4 underline text-blue-600' type='button'>Back</button>
         </Link>
+
+        {/* Next button */}
         <Link to='/form/page3'>
           <button className='m-4 underline text-blue-600' type='button'>Next</button>
         </Link>

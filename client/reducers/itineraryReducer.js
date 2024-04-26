@@ -11,7 +11,9 @@ const itinerarySlice = createSlice({
   initialState,
   reducers: {
     updateItinerary(state, action) {
-      state.itinerary = action.payload;
+      const { itinerary, itineraryID } = action.payload;
+      state.itinerary = itinerary;
+      state.itineraryID = itineraryID;
     },
     updateLoading(state, action) {
       state.loading = action.payload;

@@ -58,8 +58,18 @@ const Page6 = () => {
         body: JSON.stringify(formData)
       });
       const parsedData = await response.json();
+      console.log('build tripId ===>', parsedData._id);
+      
+      const parsedTrip = JSON.parse(parsedData.trip);
+      
+      const payload = {
+        itinerary: parsedTrip.itinerary,
+        itineraryID: parsedData._id,
+      };
+
+      // console.log('parsed trip data from fetch ===>', payload.itinerary);
       if (response.ok) {
-        dispatch(updateItinerary(parsedData.itinerary));
+        dispatch(updateItinerary(payload));
         navigate('/itinerary');
         dispatch(updateLoading(false));
       } else {

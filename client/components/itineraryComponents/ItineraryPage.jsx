@@ -8,18 +8,20 @@
 // Package dependencies
 import { useSelector } from "react-redux";
 
-// Components
-import Header from "./Header";
+import Header from "../Header";
 import Itinerary from "./Itinerary"
 
-const ItineraryPage = () => {
-  const itinerary = useSelector(state => state.itinerary);
 
+const ItineraryPage = () => {
+  const { itinerary, itineraryID } = useSelector(state => state.itinerary);
+  // console.log('itineraryPage itinerary ===>', itinerary);
+  // console.log('state itineraryID ===>', itineraryID)
+  // console.log('Itinerary Page state selector ===>', itinerary);
   return (
     <div>
       <Header />
       <h2>Your Itinerary</h2>
-      <Itinerary itinerary={itinerary} />
+      <Itinerary itinerary={itinerary} itineraryID={itineraryID}/>
     </div>
   );
 };

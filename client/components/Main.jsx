@@ -1,5 +1,15 @@
-import Header from "./Header";
+/**
+ * @file Renders the home page of the application.
+ * Allows the user to navigate to the form to plan a trip.
+ * 
+ * @module Main
+ * @returns {JSX.Element} The rendered home page component.
+ */
+// Package dependencies
 import { Link } from "react-router-dom";
+
+// Components
+import Header from "./Header";
 
 const Main = () => {
   return (

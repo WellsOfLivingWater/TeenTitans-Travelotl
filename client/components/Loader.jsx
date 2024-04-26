@@ -1,5 +1,12 @@
+/**
+ * @file Renders a loader component, which displays a loading animation while the
+ * application is fetching data.
+ * 
+ * @module Loader
+ * @returns {JSX.Element} The rendered loader component.
+ */
+// Assets
 import video from "../assets/loader.mp4"
-
 
 const Loader = () => {
   return (

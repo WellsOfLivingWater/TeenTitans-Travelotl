@@ -1,11 +1,24 @@
+/**
+ * @file Renders the itinerary manager component.
+ * Allows the user to view, delete, and navigate to the details of their itineraries.
+ * 
+ * @todo Reduxify the component to manage state.
+ * 
+ * @module Manager
+ * @returns {JSX.Element} The rendered itinerary manager component.
+ */
+// Package dependencies
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { updateItinerary } from "../reducers/itineraryReducer";
 import { Link, useNavigate } from 'react-router-dom';
+
+// Components
 import Header from "./Header";
 
 const Manager = () => {
   const [itineraries, setItineraries] = useState([]);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -33,8 +46,15 @@ const Manager = () => {
     
   }, []);
 
-  const deleteItinerary = async (e) => {
+  /**
+   * Deletes the selected itinerary from the database.
+   * 
+   * @async
+   * @param {Event} e The event object.
+   */
+  const deleteItinerary = async e => {
     const tripId = e.target.parentNode.parentNode.id;
+    
     try {
       let remainingTrips = await fetch('api/trip/delete', {
         method: 'DELETE',
@@ -46,16 +66,19 @@ const Manager = () => {
       });
 
       remainingTrips = await remainingTrips.json();
-
       setItineraries(remainingTrips);
-
     } catch (err) {
-      console.error('Error with request:', error);
+      console.error('Error with request:', err);
     }
-    
   }
 
-  const seeDetails = async (e) => {
+  /**
+   * Navigates to the details of the selected itinerary.
+   * 
+   * @async
+   * @param {Event} e The event object.
+   */
+  const seeDetails = async e => {
     const tripId = e.target.parentNode.parentNode.id;
     console.log(tripId);
 

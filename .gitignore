@@ -1,12 +1,12 @@
-// Personal stuff
+# Personal stuff
 .DS_Store
 .vscode
 
-// Build files
+# Build files
 dist
 config.env
 
-// Dependencies
+# Dependencies
 yarn.lock
 package-lock.json
 node_modules

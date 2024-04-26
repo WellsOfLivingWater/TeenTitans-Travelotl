@@ -3,7 +3,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import UpdateModal from './UpdateModal';
 import { useState } from 'react';
-import image from '../../assets/placeholder-image.jpeg';
+import image from '../../assets/placeholder-image.jpg';
 
 const ActivityCard = ({ itineraryID, suggestion }) => {
   const [show, setShow] = useState(false);
@@ -34,17 +34,7 @@ const ActivityCard = ({ itineraryID, suggestion }) => {
         <Button variant="primary" activity={suggestion.activity}>
           Select Activity
         </Button>
-        <Card.Link href="#">Card Link</Card.Link>
-        <Card.Link href="#">Another Link</Card.Link>
       </Card.Body>
-      <>
-        <UpdateModal
-          show={modalShow}
-          onHide={() => setModalShow(false)}
-          itineraryID={itineraryID}
-          activity={suggestion.activity}
-        />
-      </>
     </Card>
   );
 }

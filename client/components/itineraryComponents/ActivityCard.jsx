@@ -3,18 +3,22 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import UpdateModal from './UpdateModal';
 import { useState } from 'react';
-import image from '../../assets/placeholder-image.jpeg';
+import image from '../../assets/placeholder-image.jpg';
 
 const ActivityCard = ({ itinerary, itineraryID, suggestion }) => {
   const [modalShow, setModalShow] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   const [isFetched, setIsFetched] = useState(false);
 
+  const hideModal = async (e) => {
+    setModalShow(false);
+    setIsFetched(false);
+  }
+
   const openModal = async (e) => {
-    // console.log('modal click ===>', suggestion.activity);
     const formData = {
-      activity: props.activity,
-      itinerary: props.itinerary,
+      activity: suggestion.activity,
+      itinerary: itinerary,
     }
 
     fetch('/api/trip/suggest', {
@@ -28,10 +32,12 @@ const ActivityCard = ({ itinerary, itineraryID, suggestion }) => {
       .then(response => response.json())
       .then(response => {
         setSuggestions(response.activities);
-        console.log('fetch suggestion response ===>',response);
-        console.log('response.activities ====>',response.activities)
+        // console.log('fetch suggestion response ===>',response);
+        // console.log('response.activities ====>',response.activities);
+        setIsFetched(true);
+        setModalShow(true);
       });
-    setModalShow(true);
+    
   }
   
   return (
@@ -45,8 +51,6 @@ const ActivityCard = ({ itinerary, itineraryID, suggestion }) => {
       </Card.Body>
       <ListGroup className="list-group-flush">
         <ListGroup.Item>{suggestion.address}</ListGroup.Item>
-        {/* <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-        <ListGroup.Item>Vestibulum at eros</ListGroup.Item> */}
       </ListGroup>
       <Card.Body>
         <Button variant="primary">
@@ -58,14 +62,14 @@ const ActivityCard = ({ itinerary, itineraryID, suggestion }) => {
         </Button>
       </Card.Body>
       <>
-        <UpdateModal
+        {isFetched && <UpdateModal
           show={modalShow}
-          onHide={() => setModalShow(false)}
+          onHide={hideModal}
           // itinerary={itinerary}
           // itineraryid={itineraryID}
-          // activity={suggestion.activity}
+          activity={suggestion.activity}
           suggestions={suggestions}
-        />
+        />}
       </>
     </Card>
   );

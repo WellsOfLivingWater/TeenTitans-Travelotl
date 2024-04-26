@@ -116,7 +116,7 @@ const tripController = {
     const { activity, itinerary } = req.body;
     
     // Update prompt below to reflect req.body information - DONE (J.H.)
-    const prompt = `Without repeating anything in this itinerary: ${itinerary}, can you provide only 3 alternative activity suggestions for this activity, ${activity}. Please provide the output in json format following this schema:
+    const prompt = `Can you provide only 3 alternative activity suggestions for this activity, ${activity}. Do not repeat anything in this itinerary: ${itinerary}. Please provide the output in json format following this schema:
     {
       activities: [
         {
@@ -140,7 +140,7 @@ const tripController = {
         response_format: { type: "json_object" },
       });
       
-      console.log(completion.choices[0]);
+      // console.log(completion.choices[0]);
       res.locals.suggestions = JSON.parse(completion.choices[0].message.content);
       return next();
     } catch (err) {

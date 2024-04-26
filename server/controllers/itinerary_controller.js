@@ -39,7 +39,7 @@ const tripController = {
     // Update prompt below to reflect req.body information - DONE (J.H.)
     const prompt = `Make an itinerary for a trip for ${travelers} to ${destination} from ${startDate} until ${endDate}. I have a budget of ${budget}. Include the following types of attractions: ${activities.join(
       ', '
-    )} for a ${groupDescription}. Organize the itinerary by the following times of day: morning, afternoon, and evening. Recommend specific places of interest with their address, their google place id, thier google ratings and thier hours. Limit cross-city commutes by grouping places of interest by geography for each day. Output the response in json format following this schema:
+    )} for a ${groupDescription}. Organize the itinerary by the following times of day: morning, afternoon, and evening. Recommend specific places of interest with their address. Limit cross-city commutes by grouping places of interest by geography for each day. Output the response in json format following this schema:
     // {
     //   itinerary: {
     //     date: {

@@ -4,27 +4,24 @@
  * navigate to the previous page, and submit the form to the back end server.
  * While waiting for a response from the server, a loader component is displayed.
  * 
- * @todo Reduxify the loading state.
- * 
  * @module Page6
  * @returns {JSX.Element} The rendered sixth page of the form.
  */
 // Package dependencies
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 // Redux actions
 import { updateGroupDescription } from '../../reducers/tripReducer';
-import { updateItinerary } from '../../reducers/itineraryReducer';
+import { updateItinerary, updateLoading } from '../../reducers/itineraryReducer';
 
 // Components
 import Loader from '../Loader';
 
 const Page6 = () => {
-  const { groupDescription } = useSelector(state => state.trip);
   const formData = useSelector(state => state.trip);
-  const [loading, setLoading] = useState(false); // This needs to be Reduxified
+  const { groupDescription } = formData;
+  const { loading } = useSelector(state => state.itinerary);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -49,7 +46,7 @@ const Page6 = () => {
    * @param {Event} e - The event object.
    */
   const handleClick = async () => {
-    setLoading(true); // This needs to be Reduxified
+    dispatch(updateLoading(true));
     try {
       console.log('data sent to back end server to make API request');
       const response = await fetch('/api/trip/build', {
@@ -64,7 +61,7 @@ const Page6 = () => {
       if (response.ok) {
         dispatch(updateItinerary(parsedData.itinerary));
         navigate('/itinerary');
-        setLoading(false); // This needs to be Reduxified
+        dispatch(updateLoading(false));
       } else {
         throw new Error('failed to retrieve data');
       }
@@ -88,7 +85,7 @@ const Page6 = () => {
   return (
     <div className="bg-gray-300 rounded border-4 border-black ">
       <div>
-        { loading ? // This needs to be Reduxified
+        { loading ?
           
           // Display the loader component if the loading state is true
           <div id='loader'>

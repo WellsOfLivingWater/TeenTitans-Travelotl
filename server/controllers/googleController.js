@@ -1,16 +1,16 @@
 const googleController = {};
 const apikey = process.env.GOOGLE_API_KEY;
-// const apikey = 'AIzaSyD0lvlQlcZ_WZC13FzBneimCpePKxjUwng';
+
 const fields =
   'formattedAddress,location,nationalPhoneNumber,rating,googleMapsUri,websiteUri,regularOpeningHours,reviews,accessibilityOptions,photos';
 
-googleController.getPlaceId = async (res, req, next) => {
-  const textQuery = JSON.stringify(req.body);
-  console.log('this is body -=>', JSON.stringify(req.body));
+googleController.getPlaceId = async (req, res, next) => {
+  const textQuery = req.body;
+  console.log('this is body -=>', req.body);
   //   console.log('this is from body -=>', textQuery);
   const requestBody = {
-    textQuery: 'Experience the Fremont Street Zipline, las vegas',
-    // textQuery: `${reqBody}`,
+    // textQuery: 'Experience the Fremont Street Zipline, las vegas',
+    textQuery: `${textQuery}`,
   };
 
   const headers = {
@@ -31,7 +31,7 @@ googleController.getPlaceId = async (res, req, next) => {
       requestOptions
     );
     const data = await response.json();
-    console.log(data.places);
+    console.log('this is coming back --->', data.places);
     // res.locals.placeId = data.places;
     return next();
   } catch (err) {

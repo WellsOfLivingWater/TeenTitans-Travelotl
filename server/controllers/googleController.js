@@ -5,13 +5,7 @@ const fields =
   'formattedAddress,location,nationalPhoneNumber,rating,googleMapsUri,websiteUri,regularOpeningHours,reviews,accessibilityOptions,photos';
 
 googleController.getPlaceId = async (req, res, next) => {
-  const textQuery = req.body;
-  console.log('this is body -=>', req.body);
-  //   console.log('this is from body -=>', textQuery);
-  const requestBody = {
-    // textQuery: 'Experience the Fremont Street Zipline, las vegas',
-    textQuery: `${textQuery}`,
-  };
+  const textQuery = JSON.stringify(req.body);
 
   const headers = {
     'Content-Type': 'application/json',
@@ -23,16 +17,17 @@ googleController.getPlaceId = async (req, res, next) => {
   const requestOptions = {
     method: 'POST',
     headers: headers,
-    body: JSON.stringify(requestBody),
+    body: textQuery,
   };
+
   try {
     const response = await fetch(
       'https://places.googleapis.com/v1/places:searchText?languageCode=en',
       requestOptions
     );
     const data = await response.json();
-    console.log('this is coming back --->', data.places);
-    // res.locals.placeId = data.places;
+    // console.log('this is coming back --->', data.places[0].id);
+    res.locals.placeId = data.places[0].id;
     return next();
   } catch (err) {
     throw new Error('Error fetching Place ID: ' + err.message);
@@ -40,7 +35,8 @@ googleController.getPlaceId = async (req, res, next) => {
 };
 
 googleController.getPlaceDetails = async (req, res, next) => {
-  const { placeId } = req.params;
+  //   const { placeId } = req.params;
+  const placeId = res.locals.placeId;
   const placeDetialURL = `https://places.googleapis.com/v1/places/${placeId}?languageCode=en&fields=${fields}&key=${apikey}`;
   try {
     const response = await fetch(placeDetialURL);

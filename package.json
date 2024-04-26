@@ -1,10 +1,10 @@
 {
   "name": "travelotl",
   "version": "1.0.0",
-  "description": "Scratch project",
+  "description": "Iteration project",
   "main": "index.js",
-  "repository": "https://github.com/Jaysus119/Travelotl.git",
-  "author": "Team Axolotl",
+  "repository": "https://github.com/WellsOfLivingWater/TeenTitans-Travelotl.git",
+  "author": "Team Teen Titans",
   "license": "MIT",
   "private": false,
   "scripts": {

@@ -5,8 +5,11 @@ import ActivityCard from './ActivityCard';
 import SuggestionCard from './SuggestionCard'
 
 const UpdateModal = (props) => {
-  console.log(props);
-  const [suggestions, setSuggestions] = useState([]);
+  const date = new Date;
+  console.log(date, props);
+  const { suggestions } = props.suggestions;
+  console.log("updateModal suggestions ===>", suggestions);
+  // const [suggestions, setSuggestions] = useState([]);
   const [isLoading, setLoading] = useState(false);
 
   // useEffect(() => {
@@ -24,8 +27,8 @@ const UpdateModal = (props) => {
   //     body: JSON.stringify(formData)
   //   })
   //     .then(response => response.json())
-  //     .then(resposne => {
-  //       setSuggestions(response);
+  //     .then(response => {
+  //       setSuggestions(response.activities);
   //       console.log('fetch suggestion response ===>',response);
   //       console.log('response.activities ====>',response.activities)
   //     });
@@ -33,11 +36,11 @@ const UpdateModal = (props) => {
       
   
   const suggestActivities = () => {
-    console.log(props.itineraryID);
-    console.log(props.tripActivity);
+    // console.log(props.itineraryid);
+    // console.log(props.tripActivity);
   }
 
-  // const renderSuggestions = suggestions.activities.map((suggestion, index) => {
+  // const renderSuggestions = suggestions.map((suggestion, index) => {
   //   return (<SuggestionCard key={index} suggestion={suggestion}/>)
   // });
   const renderSuggestions = [];
@@ -48,7 +51,7 @@ const UpdateModal = (props) => {
   return (
     <Modal
       {...props}
-      // size="lg"
+      size="lg"
       // dialogClassName="modal-1000w"
       aria-labelledby="contained-modal-title-vcenter"
       centered

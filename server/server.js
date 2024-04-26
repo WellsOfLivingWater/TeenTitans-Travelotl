@@ -27,9 +27,9 @@ const port = 3000;
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'client')));
-// app.use(express.urlencoded({ extended: true })); //parse urlencoded bodies
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true })); //parse urlencoded bodies
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
 
 app.use('/api/google-api', require('./routes/googleMapApiRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));

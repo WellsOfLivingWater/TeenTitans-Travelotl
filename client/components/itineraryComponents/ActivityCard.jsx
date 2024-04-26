@@ -5,16 +5,15 @@ import UpdateModal from './UpdateModal';
 import { useState } from 'react';
 import image from '../../assets/placeholder-image.jpeg';
 
-const ActivityCard = ({ itineraryID, suggestion }) => {
-  const [show, setShow] = useState(false);
+const ActivityCard = ({ itinerary, itineraryID, suggestion }) => {
   const [modalShow, setModalShow] = useState(false);
 
-  // const handleClose = () => setShow(false);
-  const openModal = (e) => {
-    console.log('modal click ===>', suggestion.activity);
-    // console.log()
+  const openModal = async (e) => {
+    // console.log('modal click ===>', suggestion.activity);
+    
     setModalShow(true);
   }
+  
   return (
     <Card style={{ width: '18rem' }}>
       <Card.Img variant="top" src={image} />
@@ -40,6 +39,7 @@ const ActivityCard = ({ itineraryID, suggestion }) => {
         <UpdateModal
           show={modalShow}
           onHide={() => setModalShow(false)}
+          itinerary={itinerary}
           itineraryID={itineraryID}
           activity={suggestion.activity}
         />

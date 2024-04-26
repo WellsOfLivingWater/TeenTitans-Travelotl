@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import ActivityCard from './ActivityCard';
@@ -6,34 +6,49 @@ import SuggestionCard from './SuggestionCard'
 
 const UpdateModal = (props) => {
   console.log(props);
-  // const formData = {
-  //   itinerary,
-  //   activity: 
-  // };
+  const [suggestions, setSuggestions] = useState([]);
+  const [isLoading, setLoading] = useState(false);
 
-  // const response = await fetch('/api/trip/suggest', {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //     'Authorization': `Bearer ${localStorage.getItem('userToken')}`,
-  //   },
-  //   body: JSON.stringify(formData)
-  // });
+  // useEffect(() => {
+  //   const formData = {
+  //     activity: props.activity,
+  //     itinerary: props.itinerary,
+  //   }
 
+  //   fetch('/api/trip/suggest', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': `Bearer ${localStorage.getItem('userToken')}`,
+  //     },
+  //     body: JSON.stringify(formData)
+  //   })
+  //     .then(response => response.json())
+  //     .then(resposne => {
+  //       setSuggestions(response);
+  //       console.log('fetch suggestion response ===>',response);
+  //       console.log('response.activities ====>',response.activities)
+  //     });
+  // }, []);
+      
+  
   const suggestActivities = () => {
     console.log(props.itineraryID);
     console.log(props.tripActivity);
   }
 
+  // const renderSuggestions = suggestions.activities.map((suggestion, index) => {
+  //   return (<SuggestionCard key={index} suggestion={suggestion}/>)
+  // });
   const renderSuggestions = [];
-  for (let i = 0; i < 3; i++) {
-    renderSuggestions.push(<SuggestionCard key={i} itineraryID={'test'} suggestion={'test'}/>)
-  }
+  // for (let i = 0; i < 3; i++) {
+  //   renderSuggestions.push(<SuggestionCard key={i} itineraryID={'test'} suggestion={'test'}/>)
+  // }
 
   return (
     <Modal
       {...props}
-      size="lg"
+      // size="lg"
       // dialogClassName="modal-1000w"
       aria-labelledby="contained-modal-title-vcenter"
       centered

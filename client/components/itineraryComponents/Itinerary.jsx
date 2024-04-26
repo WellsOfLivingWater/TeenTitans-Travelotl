@@ -23,7 +23,7 @@ const Itinerary = ({ itinerary, itineraryID }) => {
           <p className='date'>{date}</p>
           <div className="day-details">
             {Object.entries(timesOfDay).map(([timeOfDay, suggestion]) => (
-              <ActivityCard key={timeOfDay} itineraryID={itineraryID} suggestion={suggestion}/>
+              <ActivityCard key={timeOfDay} itinerary={itinerary} itineraryID={itineraryID} suggestion={suggestion}/>
               // <div className='activity-details' key={timeOfDay}>
               //   <div>
               //     <div className='activity-img-container'>

@@ -2,22 +2,22 @@
  * @file Renders the itinerary manager component.
  * Allows the user to view, delete, and navigate to the details of their itineraries.
  * 
- * @todo Reduxify the component to manage state.
+ * @todo Eliminate redundant DB query.
  * 
  * @module Manager
  * @returns {JSX.Element} The rendered itinerary manager component.
  */
 // Package dependencies
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { updateItinerary } from "../reducers/itineraryReducer";
-import { Link, useNavigate } from 'react-router-dom';
+import { updateItineraries, updateItinerary } from "../reducers/itineraryReducer";
+import { useNavigate } from 'react-router-dom';
 
 // Components
 import Header from "./Header";
 
 const Manager = () => {
-  const [itineraries, setItineraries] = useState([]);
+  const { itineraries } = useSelector(state => state.itinerary);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -36,8 +36,7 @@ const Manager = () => {
         itineraryList = await itineraryList.json();
   
         console.log(itineraryList);
-        setItineraries(itineraryList);
-  
+        dispatch(updateItineraries(itineraryList));
       }
       getItineraryList();   
     } catch (error) {
@@ -66,7 +65,7 @@ const Manager = () => {
       });
 
       remainingTrips = await remainingTrips.json();
-      setItineraries(remainingTrips);
+      dispatch(updateItineraries(remainingTrips));
     } catch (err) {
       console.error('Error with request:', err);
     }

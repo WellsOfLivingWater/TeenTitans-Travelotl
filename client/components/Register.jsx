@@ -9,17 +9,16 @@
  * @returns {JSX.Element} The rendered registration component.
  */
 // Package dependencies
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Components
 import Header from "./Header";
 
 const Register = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  let firstName;
+  let lastName;
+  let email;
+  let password;
 
   const navigate = useNavigate();
 
@@ -52,22 +51,22 @@ const Register = () => {
       <form onSubmit={handleSubmit} method='post' action='submit' id='registerForm'>
         <label>
           First Name:
-          <input type="text" value={firstName} onChange={e => setFirstName(e.target.value)} />
+          <input type="text" value={firstName} />
         </label>
         <br />
         <label>
           Last Name:
-          <input type="text" value={lastName} onChange={e => setLastName(e.target.value)} />
+          <input type="text" value={lastName} />
         </label>
         <br />
         <label>
           Email:
-          <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
+          <input type="text" value={email} />
         </label>
         <br />
         <label>
           Password:
-          <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+          <input type="password" value={password} />
         </label>
         <br />
         <button type="submit">Register</button>

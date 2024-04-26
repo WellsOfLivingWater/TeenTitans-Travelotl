@@ -2,21 +2,18 @@
  * @file Renders a login component, which displays a form for users to enter their
  * email and password to log in to the application.
  * 
- * @todo Reduxify the login form to handle state management.
- * 
  * @module Login
  * @returns {JSX.Element} The rendered login component.
  */
 // Package dependencies
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Components
 import Header from "./Header";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  let email;
+  let password;
   
   const navigate = useNavigate();
 
@@ -52,12 +49,12 @@ const Login = () => {
       <form onSubmit={handleSubmit}>
         <label>
           Email:
-          <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
+          <input type="text" value={email} />
         </label>
         <br />
         <label>
           Password:
-          <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+          <input type="password" value={password} />
         </label>
         <br />
         <button type="submit">Login</button>

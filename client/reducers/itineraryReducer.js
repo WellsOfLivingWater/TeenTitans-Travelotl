@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   itinerary: {},
   loading: false,
+  itineraries: [],
 };
 
 const itinerarySlice = createSlice({
@@ -15,9 +16,12 @@ const itinerarySlice = createSlice({
     updateLoading(state, action) {
       state.loading = action.payload;
     },
+    updateItineraries(state, action) {
+      state.itineraries = action.payload;
+    },
   },
 });
 
 export const { actions, reducer } = itinerarySlice;
-export const { updateItinerary, updateLoading } = actions;
+export const { updateItinerary, updateLoading, updateItineraries } = actions;
 export default reducer;

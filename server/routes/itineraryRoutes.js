@@ -20,7 +20,7 @@ router.get('/retrieve', authController.protect, tripController.retrieveAll, (req
 });
 
 router.delete('/delete', authController.protect, tripController.deleteTrip, (req, res) => {
-  res.status(200);
-})
+  res.status(200).send('Trip deleted successfully.');
+});
 
 module.exports = router;

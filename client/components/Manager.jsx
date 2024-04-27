@@ -2,7 +2,6 @@
  * @file Renders the itinerary manager component.
  * Allows the user to view, delete, and navigate to the details of their itineraries.
  * 
- * @async
  * @module Manager
  * @returns {JSX.Element} The rendered itinerary manager component.
  */
@@ -15,31 +14,24 @@ import { useNavigate } from 'react-router-dom';
 // Components
 import Header from "./Header";
 
-const Manager = async () => {
+const Manager = () => {
   const { itineraries } = useSelector(state => state.itinerary);
-  
-  const itineraryList = [...itineraries];
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // Retrieve all itineraries associated with the user and update state
-  useEffect(async () => {
+  useEffect(() => {
     try {
-      const getItineraryList = async () => {
-        let itineraryList = await fetch('api/trip/retrieve', {
+      const getItineraries = async () => {
+        dispatch(updateItineraries(await fetch('api/trip/retrieve', {
           method: 'GET',
-            headers: {
-              'Authorization': `Bearer ${localStorage.getItem('userToken')}`,
-            },
-        });
-  
-        itineraryList = await itineraryList.json();
-  
-        console.log(itineraryList);
-        dispatch(updateItineraries(itineraryList));
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('userToken')}`,
+          },
+        }).then(res => res.json())));
       }
-      await getItineraryList();   
+      getItineraries();
     } catch (error) {
       console.error('Error with request:', error);
     }
@@ -64,8 +56,7 @@ const Manager = async () => {
         },
         body: JSON.stringify({ tripId: tripId }),
       });
-
-      let remainingTrips = itineraryList.filter(trip => trip._id !== tripId);
+      let remainingTrips = itineraries.filter(trip => trip._id !== tripId);
       dispatch(updateItineraries(remainingTrips));
     } catch (err) {
       console.error('Error with request:', err);
@@ -83,7 +74,7 @@ const Manager = async () => {
 
     try {
       let foundTrip;
-      for (const trip of itineraryList) {
+      for (const trip of itineraries) {
         if (trip._id === tripId) {
           foundTrip = JSON.parse(trip.trip);
           break;
@@ -106,13 +97,17 @@ const Manager = async () => {
     }
   };
 
-  const renderList = itineraryList.map((itinerary) => {
-    return (<div className='trip-tile' key={itinerary._id} id={itinerary._id}>
-      <h3>{itinerary.destination}</h3>
-      <p>From: <b>{itinerary.startDate}</b></p>
-      <p>To: <b>{itinerary.endDate}</b></p>
-      <p>Created on: <b>{new Date(itinerary.createdAt).toLocaleString()}</b></p>
-      <div className="tile-buttons"><button onClick={ seeDetails }>See Details</button><button onClick={ deleteItinerary }>Delete</button></div>
+  const renderList = itineraries.map((itinerary) => {
+    return (
+      <div className='trip-tile' key={itinerary._id} id={itinerary._id}>
+        <h3>{itinerary.destination}</h3>
+        <p>From: <b>{itinerary.startDate}</b></p>
+        <p>To: <b>{itinerary.endDate}</b></p>
+        <p>Created on: <b>{new Date(itinerary.createdAt).toLocaleString()}</b></p>
+        <div className="tile-buttons">
+          <button onClick={seeDetails}>See Details</button>
+          <button onClick={deleteItinerary}>Delete</button>
+        </div>
     </div>)
   })
   // state: { itinerary: { itinerary: itinerary.trip }}

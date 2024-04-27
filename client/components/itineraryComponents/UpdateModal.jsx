@@ -1,20 +1,18 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import SuggestionCard from './SuggestionCard'
 import Loader from '../Spinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateItinerary } from '../../reducers/itineraryReducer';
-import { useNavigate } from 'react-router-dom';
-
 
 const UpdateModal = (props) => {
-  console.log(props);
+  // console.log(props);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { loading, suggestions } = useSelector(state => state.suggestions);
   const { itinerary, itineraryID } = useSelector(state => state.itinerary);
-  const { newActivity, oldActivity, selectedTime } = useSelector(state => state.suggestions);
+  const { newActivity, selectedTime } = useSelector(state => state.suggestions);
+
   console.log("Update Modal Activity:", selectedTime);
   
   const saveUpdate = () => {
@@ -22,7 +20,6 @@ const UpdateModal = (props) => {
     const copyItinerary = JSON.parse(JSON.stringify(itinerary));
     const copyActivity = JSON.parse(JSON.stringify(newActivity));
     copyItinerary[selectedTime.date][selectedTime.timeOfDay] = copyActivity;
-    // console.log("after:", copyItinerary);
 
     const formData = {
       itineraryID,
@@ -48,6 +45,7 @@ const UpdateModal = (props) => {
         props.onHide();
       })
       .catch(err => {
+
         console.log('error updating itinerary details in database ===>', err);
       });
   }
@@ -62,28 +60,30 @@ const UpdateModal = (props) => {
   }
 
   return (
-    <Modal
-      {...props}
-      size="lg"
-      // dialogClassName="modal-90vw"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Select a new activity
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body className="d-flex justify-content-">
-        {loading ? <div id='suggestion-card-spinner'><Loader /><p>Fetching your suggestions..</p></div> :
-          renderSuggestions
-        }
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
-        <Button onClick={saveUpdate}>Save</Button>
-      </Modal.Footer>
-    </Modal>
+    <div>
+      <Modal
+        {...props}
+        size="lg"
+        // dialogClassName="modal-90vw"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Select a new activity
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="d-flex justify-content-">
+          {loading ? <div id='suggestion-card-spinner'><Loader /><p>Fetching your suggestions..</p></div> :
+            renderSuggestions
+          }
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={props.onHide}>Close</Button>
+          <Button onClick={saveUpdate}>Save</Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
   );
 }
 

@@ -37,9 +37,15 @@ const SuggestionCard = ({ itineraryID, suggestion }) => {
         <ListGroup.Item>Vestibulum at eros</ListGroup.Item> */}
       </ListGroup>
       <Card.Body>
-        <Button variant={buttonVariant} onClick={selectActivity}>
-          Select Activity
-        </Button>
+        {
+          buttonVariant === 'primary' ?
+          <Button variant='primary' onClick={selectActivity}>
+            Select Activity
+          </Button> :
+          <Button variant='success'>
+            Selected
+         </Button>
+        }
       </Card.Body>
     </Card>
   );

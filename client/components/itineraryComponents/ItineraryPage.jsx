@@ -6,17 +6,13 @@
  * @returns {JSX.Element} The rendered itinerary page component.
  */
 // Package dependencies
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
 import Header from "../Header";
 import Itinerary from "./Itinerary"
 
-
 const ItineraryPage = () => {
-  const { itinerary, itineraryID } = useSelector(state => state.itinerary);
-  // console.log('itineraryPage itinerary ===>', itinerary);
-  // console.log('state itineraryID ===>', itineraryID)
-  // console.log('Itinerary Page state selector ===>', itinerary);
+  const { itinerary, itineraryID} = useSelector(state => state.itinerary);
+
   return (
     <div>
       <Header />

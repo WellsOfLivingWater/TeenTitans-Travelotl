@@ -18,16 +18,6 @@ import ActivityCard from './ActivityCard';
  * @returns {JSX.Element} The rendered itinerary component.
  */
 const Itinerary = ({ itinerary, itineraryID }) => {
-  // const [show, setShow] = useState(false);
-  // const [modalShow, setModalShow] = useState(false);
-
-  // // const handleClose = () => setShow(false);
-  // const openModal = (e) => {
-  //   console.log('modal click ===>', e);
-  //   // console.log()
-  //   setModalShow(true);
-  // }
-
   if (itinerary) return (
     <div id='itinerary-details'>
       {Object.entries(itinerary).map(([date, timesOfDay]) => (
@@ -35,7 +25,13 @@ const Itinerary = ({ itinerary, itineraryID }) => {
           <p className='date'>{date}</p>
           <div className="day-details">
             {Object.entries(timesOfDay).map(([timeOfDay, suggestion]) => (
-              <ActivityCard key={timeOfDay} time={{date, timeOfDay}} itinerary={itinerary} itineraryID={itineraryID} suggestion={suggestion}/>
+              <ActivityCard 
+                key={timeOfDay} 
+                time={{date, timeOfDay}} 
+                itinerary={itinerary} 
+                itineraryID={itineraryID} 
+                suggestion={suggestion}
+              />
             ))}
           </div>
         </div>

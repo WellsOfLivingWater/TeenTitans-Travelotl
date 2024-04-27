@@ -8,20 +8,6 @@ const { recompileSchema } = require('../models/User');
 
 const openai = new OpenAI({ apiKey: process.env.OPEN_AI_API_KEY });
 
-// TEST DATA - DELETE WHEN FINISHEDßß
-// const travelPlans = {
-//   destination: 'Los Angeles, CA',
-//   startDate: 'June 2, 2024',
-//   endDate: 'June 8, 2024',
-//   activities: [],
-//   budget: 500,
-//   travelers: 1,
-//   groupDescription: 'Solo traveler',
-//   loading: false,
-//   error: null,
-// }
-// ========= end of TEST DATA ============
-
 const tripController = {
   // buildTrip - To fetch itinerary from API request to Open AI
   async buildTrip(req, res, next) {
@@ -72,9 +58,10 @@ const tripController = {
         model: 'gpt-3.5-turbo',
         response_format: { type: 'json_object' },
       });
-
-      console.log(completion.choices[0]);
+      
+      // console.log(completion.choices[0]);
       res.locals.itinerary = JSON.parse(completion.choices[0].message.content);
+      console.log(res.locals.itinerary);
       return next();
     } catch (err) {
       console.log(err);
@@ -82,7 +69,7 @@ const tripController = {
   },
 
   // saveTrip - To save the contents of the generated itinerary into the database
-  saveTrip(req, res, next) {
+  async saveTrip(req, res, next) {
     // const { email } = req.body;
     Itinerary.create({
       // email: req.body.email,
@@ -93,8 +80,10 @@ const tripController = {
       endDate: req.body.endDate,
       trip: JSON.stringify(res.locals.itinerary),
     })
-      .then((result) => {
-        console.log('itinerary successfully saved in database');
+      .then (result => {
+        console.log("itinerary successfully saved in database");
+        res.locals.trip = result;
+        console.log('saveTrip results', res.locals.trip);
         return next();
       })
       .catch((err) => {
@@ -144,6 +133,44 @@ const tripController = {
         console.error('retrieveAllTrips ERROR =>', err);
       });
   },
-};
+
+  // generateSuggestions - generates alternative activities the user can use to update their itinerary
+  async generateSuggestions(req, res, next) {
+    console.log("generateSuggestions invoked");
+    const { activity, itinerary } = req.body;
+    
+    // Update prompt below to reflect req.body information - DONE (J.H.)
+    const prompt = `Can you provide only 3 alternative activity suggestions for this activity, ${activity}. Do not repeat anything in this itinerary: ${itinerary}. Please provide the output in json format following this schema:
+    {
+      activities: [
+        {
+          activity: string,
+          description: string,
+          address: string,
+        }
+      ]
+    }
+    Thank you.`;
+
+    // console.log(prompt);
+    try {
+      const completion = await openai.chat.completions.create({
+        messages: [{"role": "system", "content": "You are a helpful travel planning assistant."},
+            {
+              "role": "user", 
+              "content": prompt,
+            }],
+        model: "gpt-3.5-turbo",
+        response_format: { type: "json_object" },
+      });
+      
+      // console.log(completion.choices[0]);
+      res.locals.suggestions = JSON.parse(completion.choices[0].message.content);
+      return next();
+    } catch (err) {
+      console.log(err);
+    }
+  },
+}
 
 module.exports = tripController;

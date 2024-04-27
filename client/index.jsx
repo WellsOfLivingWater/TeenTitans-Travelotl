@@ -27,7 +27,8 @@ import Page3 from './components/formPages/Page3';
 import Page4 from './components/formPages/Page4';
 import Page5 from './components/formPages/Page5';
 import Page6 from './components/formPages/Page6';
-import ItineraryPage from './components/ItineraryPage';
+import ItineraryPage from './components/itineraryComponents/ItineraryPage';
+// import Register from './components/Register';
 
 // Styles
 import '../styles.css';

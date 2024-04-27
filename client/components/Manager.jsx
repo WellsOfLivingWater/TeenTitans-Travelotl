@@ -2,8 +2,6 @@
  * @file Renders the itinerary manager component.
  * Allows the user to view, delete, and navigate to the details of their itineraries.
  * 
- * @todo Eliminate redundant DB query.
- * 
  * @async
  * @module Manager
  * @returns {JSX.Element} The rendered itinerary manager component.

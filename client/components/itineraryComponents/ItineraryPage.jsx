@@ -8,6 +8,7 @@
 // Package dependencies
 import { useSelector } from "react-redux";
 
+// Components
 import Header from "../Header";
 import Itinerary from "./Itinerary"
 

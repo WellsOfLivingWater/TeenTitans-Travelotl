@@ -14,12 +14,15 @@
     "server": "nodemon"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/material": "^5.15.15",
     "@react-spring/web": "^9.7.3",
     "@reduxjs/toolkit": "^2.2.2",
     "autoprefixer": "^10.4.19",
     "bcryptjs": "^2.4.3",
-    "bootstrap": "^5.3.3",
     "body-parser": "^1.20.2",
+    "bootstrap": "^5.3.3",
     "express": "^4.12.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.1",

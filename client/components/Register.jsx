@@ -51,22 +51,22 @@ const Register = () => {
       <form onSubmit={handleSubmit} method='post' action='submit' id='registerForm'>
         <label>
           First Name:
-          <input type="text" value={firstName} />
+          <input type="text" value={firstName} onChange={e => { firstName = e.target.value; }} />
         </label>
         <br />
         <label>
           Last Name:
-          <input type="text" value={lastName} />
+          <input type="text" value={lastName} onChange={e => { lastName = e.target.value; }} />
         </label>
         <br />
         <label>
           Email:
-          <input type="text" value={email} />
+          <input type="text" value={email} onChange={e => { email = e.target.value; }} />
         </label>
         <br />
         <label>
           Password:
-          <input type="password" value={password} />
+          <input type="password" value={password} onChange={e => { password = e.target.value; }} />
         </label>
         <br />
         <button type="submit">Register</button>

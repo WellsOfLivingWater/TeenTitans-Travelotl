@@ -49,12 +49,12 @@ const Login = () => {
       <form onSubmit={handleSubmit}>
         <label>
           Email:
-          <input type="text" value={email} />
+          <input type="text" value={email} onChange={e => { email = e.target.value; }} />
         </label>
         <br />
         <label>
           Password:
-          <input type="password" value={password} />
+          <input type="password" value={password} onChange={e => { password = e.target.value; }} />
         </label>
         <br />
         <button type="submit">Login</button>

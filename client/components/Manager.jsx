@@ -18,6 +18,8 @@ import Header from "./Header";
 
 const Manager = () => {
   const { itineraries } = useSelector(state => state.itinerary);
+  
+  const itineraryList = [...itineraries];
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -82,17 +84,6 @@ const Manager = () => {
     console.log(tripId);
 
     try {
-      let itineraryList = await fetch('api/trip/retrieve', {
-        method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('userToken')}`,
-          },
-      });
-
-      itineraryList = await itineraryList.json();
-
-      // console.log(itineraryList);
-
       let foundTrip;
       for (const trip of itineraryList) {
         // console.log(trip);
@@ -120,7 +111,6 @@ const Manager = () => {
     }
   };
 
-  const itineraryList = [...itineraries];
   const renderList = itineraryList.map((itinerary) => {
     return (<div className='trip-tile' key={itinerary._id} id={itinerary._id}>
       <h3>{itinerary.destination}</h3>

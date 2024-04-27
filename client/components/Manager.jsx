@@ -4,6 +4,7 @@
  * 
  * @todo Eliminate redundant DB query.
  * 
+ * @async
  * @module Manager
  * @returns {JSX.Element} The rendered itinerary manager component.
  */
@@ -16,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 // Components
 import Header from "./Header";
 
-const Manager = () => {
+const Manager = async () => {
   const { itineraries } = useSelector(state => state.itinerary);
   
   const itineraryList = [...itineraries];
@@ -25,7 +26,7 @@ const Manager = () => {
   const navigate = useNavigate();
 
   // Retrieve all itineraries associated with the user and update state
-  useEffect(() => {
+  useEffect(async () => {
     try {
       const getItineraryList = async () => {
         let itineraryList = await fetch('api/trip/retrieve', {
@@ -40,7 +41,7 @@ const Manager = () => {
         console.log(itineraryList);
         dispatch(updateItineraries(itineraryList));
       }
-      getItineraryList();   
+      await getItineraryList();   
     } catch (error) {
       console.error('Error with request:', error);
     }
@@ -57,7 +58,7 @@ const Manager = () => {
     const tripId = e.target.parentNode.parentNode.id;
     
     try {
-      let remainingTrips = await fetch('api/trip/delete', {
+      await fetch('api/trip/delete', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -66,7 +67,7 @@ const Manager = () => {
         body: JSON.stringify({ tripId: tripId }),
       });
 
-      remainingTrips = await remainingTrips.json();
+      let remainingTrips = itineraryList.filter(trip => trip._id !== tripId);
       dispatch(updateItineraries(remainingTrips));
     } catch (err) {
       console.error('Error with request:', err);
@@ -76,24 +77,21 @@ const Manager = () => {
   /**
    * Navigates to the details of the selected itinerary.
    * 
-   * @async
    * @param {Event} e The event object.
    */
-  const seeDetails = async e => {
+  const seeDetails = e => {
     const tripId = e.target.parentNode.parentNode.id;
     console.log(tripId);
 
     try {
       let foundTrip;
       for (const trip of itineraryList) {
-        // console.log(trip);
-        // console.log("Parse ID:", trip.tripId, "| Target ID:", tripId)
         if (trip._id === tripId) {
           foundTrip = JSON.parse(trip.trip);
           break;
         }
       }
-      // console.log("See Details of:", foundTrip);
+      
       const payload = {
         itinerary: foundTrip.itinerary,
         itineraryID: tripId,
@@ -101,7 +99,6 @@ const Manager = () => {
       console.log('See details ===>', payload.itinerary);
 
       if (foundTrip) {
-        // dispatch(updateItinerary(foundTrip.itinerary));
         dispatch(updateItinerary(payload));
         navigate('/itinerary');
       }

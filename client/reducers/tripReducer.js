@@ -12,6 +12,7 @@ const initialState = {
   budget: 500,
   travelers: 1,
   groupDescription: 'Solo traveler',
+  step: 0,
 };
 
 const tripSlice = createSlice({
@@ -39,6 +40,9 @@ const tripSlice = createSlice({
     updateGroupDescription(state, action) {
       state.groupDescription = action.payload;
     },
+    updateStep(state, action) {
+      state.step = action.payload;
+    }
   },
 });
 

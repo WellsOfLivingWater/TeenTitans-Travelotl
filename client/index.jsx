@@ -52,34 +52,34 @@ const root = document.getElementById('root');
  * Render the app.
  */
 createRoot(root).render(
-  <React.StrictMode> {/* Strict mode helps catch common bugs */}
-    <Provider store={store}> {/* Connects the Redux store to the app */}
-      <Router> {/* Sets up the React Router */}
-        <Routes> {/* Defines the routes of the app */}
-          <Route path="/" element={<App />}> {/* The root route */}
-            <Route index element={<Main />} /> {/* The main page */}
+    <React.StrictMode> {/* Strict mode helps catch common bugs */}
+      <Provider store={store}> {/* Connects the Redux store to the app */}
+        <Router> {/* Sets up the React Router */}
+          <Routes> {/* Defines the routes of the app */}
+            <Route path="/" element={<App />}> {/* The root route */}
+              <Route index element={<Main />} /> {/* The main page */}
 
-            {/* Header link routes */}
-            <Route path='/manager' element={<Manager />} />
-            <Route path='/about' element={<About />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
+              {/* Header link routes */}
+              <Route path='/manager' element={<Manager />} />
+              <Route path='/about' element={<About />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/register' element={<Register />} />
 
-            {/* Form route with nested routes for each page of the form */}
-            <Route path="/form" element={<Form />}>
-              <Route index element={<Page1 />} />
-              <Route path="/form/page2" element={<Page2 />} />
-              <Route path="/form/page3" element={<Page3 />} />
-              <Route path="/form/page4" element={<Page4 />} />
-              <Route path="/form/page5" element={<Page5 />} />
-              <Route path="/form/page6" element={<Page6 />} />
+              {/* Form route with nested routes for each page of the form */}
+              <Route path="/form" element={<Form />}>
+                <Route index element={<Page1 />} />
+                <Route path="/form/page2" element={<Page2 />} />
+                <Route path="/form/page3" element={<Page3 />} />
+                <Route path="/form/page4" element={<Page4 />} />
+                <Route path="/form/page5" element={<Page5 />} />
+                <Route path="/form/page6" element={<Page6 />} />
+              </Route>
+
+              {/* Itinerary route */}
+              <Route path="/itinerary" element={<ItineraryPage />} />
             </Route>
-
-            {/* Itinerary route */}
-            <Route path="/itinerary" element={<ItineraryPage />} />
-          </Route>
-        </Routes>
-      </Router>
-    </Provider>
-  </React.StrictMode>
+          </Routes>
+        </Router>
+      </Provider>
+    </React.StrictMode>
 );

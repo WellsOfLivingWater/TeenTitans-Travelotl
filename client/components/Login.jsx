@@ -6,7 +6,7 @@
  * @returns {JSX.Element} The rendered login component.
  */
 // Package dependencies
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
 // Components
 import Header from './Header';
@@ -41,6 +41,8 @@ const Login = () => {
     }
   };
 
+
+
   return (
     <div>
       <Header />
@@ -66,6 +68,11 @@ const Login = () => {
         <br />
         <button type='submit'>Login</button>
       </form>
+      <div>
+        <button style={{backgroundColor:'pink'}}>
+          <Link to="http://localhost:3000/api/users/auth/google" className="auth-link google">Authenticate with Google</Link>
+        </button>
+      </div>
     </div>
   );
 };

@@ -1,21 +1,27 @@
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
-import UpdateModal from './UpdateModal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import image from '../../assets/placeholder-image.jpg';
+import { selectNewActivity } from '../../reducers/suggestionsReducer';
 
-const ActivityCard = ({ itineraryID, suggestion }) => {
-  const [show, setShow] = useState(false);
-  const [modalShow, setModalShow] = useState(false);
+const SuggestionCard = ({ itineraryID, suggestion }) => {
+  console.log("suggestionCard rendered:", suggestion.activity);
+  const [buttonVariant, setVariant] = useState('primary');
+  const { newActivity } = useSelector(state => state.suggestions)
+  const dispatch = useDispatch();
 
-  // const handleClose = () => setShow(false);
-  // const openModal = (e) => {
-  //   console.log('modal click ===>', suggestion.activity);
-  //   // console.log()
-  //   setModalShow(true);
-  // }
+  useEffect(() => {
+    (suggestion.activity === newActivity.activity) ? setVariant('success') : setVariant('primary');
+  });
 
+  const selectActivity = () => {
+    dispatch(selectNewActivity(suggestion));    
+    // console.log('New activity Selected:', suggestion.activity);
+  };
+
+  //border={isSelected ? 'primary' : ''}
   return (
     <Card style={{ width: '18rem' }}>
       <Card.Img variant="top" src={image} />
@@ -31,7 +37,7 @@ const ActivityCard = ({ itineraryID, suggestion }) => {
         <ListGroup.Item>Vestibulum at eros</ListGroup.Item> */}
       </ListGroup>
       <Card.Body>
-        <Button variant="primary" activity={suggestion.activity}>
+        <Button variant={buttonVariant} onClick={selectActivity}>
           Select Activity
         </Button>
       </Card.Body>
@@ -39,4 +45,4 @@ const ActivityCard = ({ itineraryID, suggestion }) => {
   );
 }
 
-export default ActivityCard;
+export default SuggestionCard;

@@ -5,12 +5,10 @@
  * @returns {JSX.Element} The rendered itinerary component.
  */
 // Assets
-import image from '../../assets/placeholder-image.jpeg';
 
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import UpdateModal from './UpdateModal';
 import ActivityCard from './ActivityCard';
 
 /**
@@ -37,7 +35,7 @@ const Itinerary = ({ itinerary, itineraryID }) => {
           <p className='date'>{date}</p>
           <div className="day-details">
             {Object.entries(timesOfDay).map(([timeOfDay, suggestion]) => (
-              <ActivityCard key={timeOfDay} itinerary={itinerary} itineraryID={itineraryID} suggestion={suggestion}/>
+              <ActivityCard key={timeOfDay} time={{date, timeOfDay}} itinerary={itinerary} itineraryID={itineraryID} suggestion={suggestion}/>
             ))}
           </div>
         </div>

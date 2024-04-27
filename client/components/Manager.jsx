@@ -2,8 +2,6 @@
  * @file Renders the itinerary manager component.
  * Allows the user to view, delete, and navigate to the details of their itineraries.
  * 
- * @todo Eliminate redundant DB query.
- * 
  * @module Manager
  * @returns {JSX.Element} The rendered itinerary manager component.
  */
@@ -25,20 +23,15 @@ const Manager = () => {
   // Retrieve all itineraries associated with the user and update state
   useEffect(() => {
     try {
-      const getItineraryList = async () => {
-        let itineraryList = await fetch('api/trip/retrieve', {
+      const getItineraries = async () => {
+        dispatch(updateItineraries(await fetch('api/trip/retrieve', {
           method: 'GET',
-            headers: {
-              'Authorization': `Bearer ${localStorage.getItem('userToken')}`,
-            },
-        });
-  
-        itineraryList = await itineraryList.json();
-  
-        console.log(itineraryList);
-        dispatch(updateItineraries(itineraryList));
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('userToken')}`,
+          },
+        }).then(res => res.json())));
       }
-      getItineraryList();   
+      getItineraries();
     } catch (error) {
       console.error('Error with request:', error);
     }
@@ -55,7 +48,7 @@ const Manager = () => {
     const tripId = e.target.parentNode.parentNode.id;
     
     try {
-      let remainingTrips = await fetch('api/trip/delete', {
+      await fetch('api/trip/delete', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -63,8 +56,7 @@ const Manager = () => {
         },
         body: JSON.stringify({ tripId: tripId }),
       });
-
-      remainingTrips = await remainingTrips.json();
+      let remainingTrips = itineraries.filter(trip => trip._id !== tripId);
       dispatch(updateItineraries(remainingTrips));
     } catch (err) {
       console.error('Error with request:', err);
@@ -74,35 +66,21 @@ const Manager = () => {
   /**
    * Navigates to the details of the selected itinerary.
    * 
-   * @async
    * @param {Event} e The event object.
    */
-  const seeDetails = async e => {
+  const seeDetails = e => {
     const tripId = e.target.parentNode.parentNode.id;
     console.log(tripId);
 
     try {
-      let itineraryList = await fetch('api/trip/retrieve', {
-        method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('userToken')}`,
-          },
-      });
-
-      itineraryList = await itineraryList.json();
-
-      // console.log(itineraryList);
-
       let foundTrip;
-      for (const trip of itineraryList) {
-        // console.log(trip);
-        // console.log("Parse ID:", trip.tripId, "| Target ID:", tripId)
+      for (const trip of itineraries) {
         if (trip._id === tripId) {
           foundTrip = JSON.parse(trip.trip);
           break;
         }
       }
-      // console.log("See Details of:", foundTrip);
+      
       const payload = {
         itinerary: foundTrip.itinerary,
         itineraryID: tripId,
@@ -110,7 +88,6 @@ const Manager = () => {
       console.log('See details ===>', payload.itinerary);
 
       if (foundTrip) {
-        // dispatch(updateItinerary(foundTrip.itinerary));
         dispatch(updateItinerary(payload));
         navigate('/itinerary');
       }
@@ -120,14 +97,17 @@ const Manager = () => {
     }
   };
 
-  const itineraryList = [...itineraries];
-  const renderList = itineraryList.map((itinerary) => {
-    return (<div className='trip-tile' key={itinerary._id} id={itinerary._id}>
-      <h3>{itinerary.destination}</h3>
-      <p>From: <b>{itinerary.startDate}</b></p>
-      <p>To: <b>{itinerary.endDate}</b></p>
-      <p>Created on: <b>{new Date(itinerary.createdAt).toLocaleString()}</b></p>
-      <div className="tile-buttons"><button onClick={ seeDetails }>See Details</button><button onClick={ deleteItinerary }>Delete</button></div>
+  const renderList = itineraries.map((itinerary) => {
+    return (
+      <div className='trip-tile' key={itinerary._id} id={itinerary._id}>
+        <h3>{itinerary.destination}</h3>
+        <p>From: <b>{itinerary.startDate}</b></p>
+        <p>To: <b>{itinerary.endDate}</b></p>
+        <p>Created on: <b>{new Date(itinerary.createdAt).toLocaleString()}</b></p>
+        <div className="tile-buttons">
+          <button onClick={seeDetails}>See Details</button>
+          <button onClick={deleteItinerary}>Delete</button>
+        </div>
     </div>)
   })
   // state: { itinerary: { itinerary: itinerary.trip }}

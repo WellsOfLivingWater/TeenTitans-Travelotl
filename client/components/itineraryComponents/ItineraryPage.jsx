@@ -6,8 +6,10 @@
  * @returns {JSX.Element} The rendered itinerary page component.
  */
 // Package dependencies
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
+// Components
 import Header from "../Header";
 import Itinerary from "./Itinerary"
 
@@ -17,6 +19,12 @@ const ItineraryPage = () => {
   // console.log('itineraryPage itinerary ===>', itinerary);
   // console.log('state itineraryID ===>', itineraryID)
   // console.log('Itinerary Page state selector ===>', itinerary);
+
+  // Scroll to the top of the page when the component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div>
       <Header />

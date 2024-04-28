@@ -7,7 +7,7 @@ require('dotenv').config();
 passport.use(new GoogleStrategy({
     clientID: '43681020146-0meph9rujaamhmpqfeu7m21ir3ha47bd.apps.googleusercontent.com',
     clientSecret: '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',
-    callbackURL: "http://localhost:5173/auth/google/callback",
+    callbackURL: "http://localhost:5173/api/auth/google/callback",
     passReqToCallback   : true
   },
   

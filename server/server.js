@@ -39,7 +39,7 @@ app.use(express.urlencoded({ extended: true })); //parse urlencoded bodies
 app.use('/api/google-api', require('./routes/googleMapApiRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/trip', require('./routes/itineraryRoutes'));
-app.use('/api/users/auth', authRouter)
+app.use('/api/auth', authRouter)
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, '../index.html'));

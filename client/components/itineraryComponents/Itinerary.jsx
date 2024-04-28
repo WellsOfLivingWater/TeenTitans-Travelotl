@@ -4,19 +4,23 @@
  * @module Itinerary
  * @returns {JSX.Element} The rendered itinerary component.
  */
-// Assets
-import image from '../../assets/placeholder-image.jpeg';
-
+// Package dependencies
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+
+// Components
 import UpdateModal from './UpdateModal';
 import ActivityCard from './ActivityCard';
+
+// Assets
+import image from '../../assets/placeholder-image.jpeg';
 
 /**
  * Renders the itinerary details for the user's trip.
  * 
- * @param {Object} itinerary The itinerary object containing OpenAI API's response. 
+ * @param {Object} itinerary The itinerary object containing OpenAI API's response.
+ * @param {Number} itineraryID The itinerary ID.
  * @returns {JSX.Element} The rendered itinerary component.
  */
 const Itinerary = ({ itinerary, itineraryID }) => {

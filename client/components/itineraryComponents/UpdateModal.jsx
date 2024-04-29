@@ -16,7 +16,7 @@ const UpdateModal = (props) => {
   // console.log("Update Modal Activity:", selectedTime);
   
   const saveUpdate = () => {
-    console.log("before:", itinerary);
+    // console.log("before:", itinerary);
     const copyItinerary = JSON.parse(JSON.stringify(itinerary));
     const copyActivity = JSON.parse(JSON.stringify(newActivity));
     copyItinerary[selectedTime.date][selectedTime.timeOfDay] = copyActivity;
@@ -42,10 +42,11 @@ const UpdateModal = (props) => {
           itineraryID: response._id,
         }
         dispatch(updateItinerary(payload));
+        props.toastify();
         props.onHide();
+
       })
       .catch(err => {
-
         console.log('error updating itinerary details in database ===>', err);
       });
   }

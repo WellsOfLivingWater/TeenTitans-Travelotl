@@ -132,6 +132,7 @@
 /* ========= Itinerary Page Styling ==========*/
 #itinerary-title {
     font-size: x-large;
+    font-weight: 300;
     padding-top: 10px;
     padding-left: 20px;
 }

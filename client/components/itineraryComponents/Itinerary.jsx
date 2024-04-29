@@ -8,7 +8,9 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { ToastContainer } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 // Components
 import UpdateModal from './UpdateModal';
@@ -18,6 +20,8 @@ import ActivityCard from './ActivityCard';
 import image from '../../assets/placeholder-image.jpeg';
 
 
+
+
 /**
  * Renders the itinerary details for the user's trip.
  * 
@@ -25,23 +29,31 @@ import image from '../../assets/placeholder-image.jpeg';
  * @param {Number} itineraryID The itinerary ID.
  * @returns {JSX.Element} The rendered itinerary component.
  */
-const convertDate = (date) => {
-  const newDate = new Date(date);
-  return newDate;
-}
-
-const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-
 const Itinerary = ({ itinerary, itineraryID }) => {
+  const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+  const convertDate = (date) => {
+    const newDate = new Date(date);
+    const day = weekday[newDate.getDay()].toString();
+    const fullDate = newDate.toLocaleString('default', {
+      day: "2-digit",
+      month: "long",
+      year: "numeric"
+    }).toString();
+    return `${day} ${fullDate}`;
+  };
+
+  const showToastMessage = () => {
+    toast.success("Woohoo your new itinerary looks good!");
+  };
+
   if (itinerary) return (
     <div id='itinerary-details'>
       {Object.entries(itinerary).map(([date, timesOfDay]) => (
         <div className="day-entry" key={date}>
-          <p className='date'>{weekday[convertDate(date).getDay()].toString()} {convertDate(date).toLocaleString('default', {
-            day: "2-digit",
-            month: "long",
-            year: "numeric"
-          }).toString()}</p>
+          <div>
+            <p className='date'>{convertDate(date)}</p>
+          </div>
           <div className="day-details">
             {Object.entries(timesOfDay).map(([timeOfDay, suggestion]) => (
               <ActivityCard 
@@ -50,6 +62,7 @@ const Itinerary = ({ itinerary, itineraryID }) => {
                 itinerary={itinerary} 
                 itineraryID={itineraryID} 
                 suggestion={suggestion}
+                toastify={showToastMessage}
               />
             ))}
           </div>

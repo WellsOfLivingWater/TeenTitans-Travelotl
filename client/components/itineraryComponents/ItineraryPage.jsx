@@ -13,7 +13,6 @@ import { useSelector } from "react-redux";
 import Header from "../Header";
 import Itinerary from "./Itinerary"
 
-
 const ItineraryPage = () => {
   const { itinerary, itineraryID } = useSelector(state => state.itinerary);
   // console.log('itineraryPage itinerary ===>', itinerary);

@@ -63,6 +63,7 @@ const Page6 = () => {
       const parsedTrip = JSON.parse(parsedData.trip);
       
       const payload = {
+        destination: parsedData.destination,
         itinerary: parsedTrip.itinerary,
         itineraryID: parsedData._id,
       };

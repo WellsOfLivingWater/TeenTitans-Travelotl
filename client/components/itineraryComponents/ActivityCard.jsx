@@ -51,24 +51,38 @@ const ActivityCard = ({ itinerary, itineraryID, time, suggestion }) => {
   
   return (
     <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src={image} />
-      <Card.Body>
-        <Card.Title>{suggestion.activity}</Card.Title>
+      {/* <Card.Img variant="top" src={image} width="100%"/> */}
+      
+      <div id="card-img-container" class="card-img-top">
+        <img src={image} class="card-img" width="100%"/>
+        <div id="img-overlay" className='card-img-overlay text-white'>
+          {/* <Card.Title>{suggestion.activity}</Card.Title> */}
+          <Card.Text>
+            {suggestion.activity}
+          </Card.Text>
+        </div>
+      </div>
+      <Card.Body id="card-description-container">
+        {/* <Card.Title>{suggestion.activity}</Card.Title> */}
+        <Card.Text id='card-addr-label'>
+          ADDRESS
+        </Card.Text>
         <Card.Text>
-          {suggestion.description}
+          {suggestion.address}
         </Card.Text>
       </Card.Body>
-      <ListGroup className="list-group-flush">
+      {/* <ListGroup className="list-group-flush">
         <ListGroup.Item>{suggestion.address}</ListGroup.Item>
-      </ListGroup>
-      <Card.Body>
-        <Button variant="primary">
-          Details
-        </Button>
-        {" "}
-        <Button variant="primary" onClick={openModal} activity={suggestion.activity}>
-          Change Activity
-        </Button>
+      </ListGroup> */}
+      <Card.Body id="card-buttons">
+        <div>
+          <Button variant="primary">
+            Details
+          </Button>
+          <Button variant="primary" onClick={openModal} activity={suggestion.activity}>
+            Change Activity
+          </Button>
+        </div>
       </Card.Body>
       <>
         { modalShow && <UpdateModal

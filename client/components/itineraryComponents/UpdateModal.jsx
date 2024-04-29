@@ -13,7 +13,7 @@ const UpdateModal = (props) => {
   const { itinerary, itineraryID } = useSelector(state => state.itinerary);
   const { newActivity, selectedTime } = useSelector(state => state.suggestions);
 
-  console.log("Update Modal Activity:", selectedTime);
+  // console.log("Update Modal Activity:", selectedTime);
   
   const saveUpdate = () => {
     console.log("before:", itinerary);

@@ -76,13 +76,16 @@ const Manager = () => {
       let foundTrip;
       for (const trip of itineraries) {
         if (trip._id === tripId) {
-          foundTrip = JSON.parse(trip.trip);
+          // foundTrip = JSON.parse(trip.trip);
+          foundTrip = trip;
           break;
         }
       }
       
+      const parsedTrip = JSON.parse(foundTrip.trip);
       const payload = {
-        itinerary: foundTrip.itinerary,
+        destination: foundTrip.destination,
+        itinerary: parsedTrip.itinerary,
         itineraryID: tripId,
       };
       console.log('See details ===>', payload.itinerary);

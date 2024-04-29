@@ -21,11 +21,6 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Manager from './components/Manager';
 import Form from './components/Form';
-import Page1 from './components/formPages/Page1';
-import Page2 from './components/formPages/Page2';
-import Page3 from './components/formPages/Page3';
-import Page4 from './components/formPages/Page4';
-import Page5 from './components/formPages/Page5';
 import ItineraryPage from './components/itineraryComponents/ItineraryPage';
 
 // Styles
@@ -54,8 +49,12 @@ createRoot(root).render(
     <Provider store={store}> {/* Connects the Redux store to the app */}
       <Router> {/* Sets up the React Router */}
         <Routes> {/* Defines the routes of the app */}
-          <Route path="/" element={<App />}> {/* The root route */}
-            <Route index element={<Main />} /> {/* The main page */}
+          
+          {/* The root route */}
+          <Route path="/" element={<App />}>
+            
+            {/* The main page */}
+            <Route index element={<Main />} />
 
             {/* Header link routes */}
             <Route path='/manager' element={<Manager />} />
@@ -63,17 +62,12 @@ createRoot(root).render(
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
 
-            {/* Form route with nested routes for each page of the form */}
-            <Route path="/form" element={<Form />}>
-              <Route index element={<Page1 />} />
-              <Route path="/form/page2" element={<Page2 />} />
-              <Route path="/form/page3" element={<Page3 />} />
-              <Route path="/form/page4" element={<Page4 />} />
-              <Route path="/form/page5" element={<Page5 />} />
-            </Route>
+            {/* Form route */}
+            <Route path="/form" element={<Form />} />
 
             {/* Itinerary route */}
             <Route path="/itinerary" element={<ItineraryPage />} />
+
           </Route>
         </Routes>
       </Router>

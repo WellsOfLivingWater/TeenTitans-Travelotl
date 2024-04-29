@@ -1,22 +1,21 @@
 /**
  * @file Renders the first page of the form.
- * Allows the user to input their destination and navigate to the next page.
+ * Allows the user to input their destination.
  * 
  * @module Page1
  * @returns {JSX.Element} The rendered first page of the form.
  */
 // Package dependencies
+import { forwardRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
 
 // Redux actions
-import { updateDestination } from '../../reducers/tripReducer';
+import { updateDestination, updateStep, updateTransitionDirection } from '../../../reducers/tripReducer';
 
-const Page1 = () => {
-  const { destination } = useSelector(state => state.trip);
+const Page1 = forwardRef((props, ref) => {
+  const { destination, step, transitionDirection } = useSelector(state => state.trip);
   
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   /**
    * Updates the destination value in the Redux store when the input changes.
@@ -36,12 +35,13 @@ const Page1 = () => {
   const handleKeyDown = e => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      navigate('/form/page2');
+      if (transitionDirection === 'right') dispatch(updateTransitionDirection('left'));
+      dispatch(updateStep(step + 1));
     }
   };
 
   return (
-    <div className="bg-gray-300 rounded border-4 border-black">
+    <div ref={ref} className="bg-gray-300 rounded border-4 border-black">
       <label className='text-2xl' htmlFor="destination">
         Destination:
       </label>
@@ -52,15 +52,8 @@ const Page1 = () => {
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
       />
-
-      {/* Next button to navigate to the next page */}
-      <div>
-        <Link to='/form/page2'>
-          <button className='m-4 text-blue-600 underline' type='button'>Next</button>
-        </Link>
-      </div>
     </div>
   )
-};
+});
 
 export default Page1;

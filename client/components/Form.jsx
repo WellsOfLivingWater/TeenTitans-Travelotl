@@ -14,44 +14,52 @@
  * @returns {JSX.Element} The rendered form component.
  */
 // Package dependencies
-import { Outlet, useLocation } from 'react-router-dom';
-import { useTransition, animated } from '@react-spring/web';
+import { useSelector } from 'react-redux';
+// import { Outlet, useLocation, } from 'react-router-dom';
+// import { useTransition, animated } from '@react-spring/web';
 
 // Components
 import Header from './Header';
+import Stepper from './formComponents/Stepper';
+import Navigation from './formComponents/Navigation';
 
 /** 
  * Renders a component that animates the transition between child routes.
  * 
  * @returns {JSX.Element} The animated routes component.
  */
-const AnimatedRoutes = () => {
-  const location = useLocation();
-  const transitions = useTransition(location?.pathname, {
-    from: { position: 'absolute', width: '100%', opacity: 0, transform: 'translate3d(100%,0,0)' },
-    enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
-    leave: { opacity: 0, transform: 'translate3d(-50%,0,0)' },
-  });
+// const AnimatedRoutes = () => {
+//   const location = useLocation();
+//   const transitions = useTransition(location?.pathname, {
+//     from: { position: 'absolute', width: '100%', opacity: 0, transform: 'translate3d(100%,0,0)' },
+//     enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
+//     leave: { opacity: 0, transform: 'translate3d(-50%,0,0)' },
+//   });
 
-  return transitions(style => (
-    <animated.div style={style}>
-      <Outlet />
-    </animated.div>
-  ));
-};
+//   return transitions(style => (
+//     <animated.div style={style}>
+//       <Outlet />
+//     </animated.div>
+//   ));
+// };
 
-const Form = () => (
-  <>
-    <Header />
-    <div className="form-container">
+const Form = () => {
+  const loading = useSelector((state) => state.itinerary.loading);
+  return (
+    <>
+      <Header />
       <div>
-        <h2 className='text-2xl text-center font-bold'>Enter in your travel details...</h2>
+        <h2 className='text-2xl text-center font-bold' hidden={loading}>Enter your travel details...</h2>
+        <div className="form-container" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+          <Stepper />
+          <Navigation />
+        </div>
       </div>
-      <div style={{ position: 'relative' }}>
+      {/* <div style={{ position: 'relative' }}>
         <AnimatedRoutes />
-      </div>
-    </div>
-  </>
-);
+      </div> */}
+    </>
+  )
+};
 
 export default Form;

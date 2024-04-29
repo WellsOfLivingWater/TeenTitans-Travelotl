@@ -5,14 +5,17 @@ const steps = ['Destination', 'Dates', 'Activities', 'Budget', 'Group'];
 
 export default function FormStepper() {
   const step = useSelector((state) => state.trip.step);
+  const loading = useSelector((state) => state.itinerary.loading);
 
   return (
-    <Stepper activeStep={step} alternativeLabel>
-      {steps.map((label) => (
-        <Step key={label}>
-          <StepLabel>{label}</StepLabel>
-        </Step>
-      ))}
-    </Stepper>
+    <div style={{ width: '67%' }} hidden={loading}>
+      <Stepper activeStep={step} alternativeLabel>
+        {steps.map((label) => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+    </div>
   );
-}
+};

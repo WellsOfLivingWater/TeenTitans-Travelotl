@@ -1,30 +1,26 @@
 /**
  * @file Renders the fifth page of the form.
  * Allows the user to input the number of travelers
- * and navigate to the previous and next pages.
+ * and select a group description.
  * 
  * @module Page5
  * @returns {JSX.Element} The rendered fifth page of the form.
  */
 // Package dependencies
+import { forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
 
 // Redux actions
-import { updateTravelers } from "../../reducers/tripReducer";
-import { updateGroupDescription } from '../../reducers/tripReducer';
-import { updateItinerary, updateLoading } from '../../reducers/itineraryReducer';
+import { updateTravelers, updateGroupDescription, updateStep, updateTransitionDirection } from "../../../reducers/tripReducer";
 
 // Components
-import Loader from "../Loader";
+import Loader from "../../Loader";
 
-const Page5 = () => {
-  const formData = useSelector(state => state.trip);
-  const { travelers, groupDescription } = formData;
+const Page5 = forwardRef((props, ref) => {
+  const { travelers, groupDescription, step, transitionDirection } = useSelector(state => state.trip);
   const { loading } = useSelector(state => state.itinerary);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   /**
    * Handles the input change event.
@@ -50,48 +46,6 @@ const Page5 = () => {
   };
 
   /**
-   * Handles the click event and sends the form data to the back end server.
-   * Navigates to the itinerary page if the response is successful.
-   * 
-   * @async
-   * @param {Event} e - The event object.
-   */
-  const handleClick = async () => {
-    dispatch(updateLoading(true));
-    try {
-      console.log('data sent to back end server to make API request');
-      const response = await fetch('/api/trip/build', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('userToken')}`,
-        },
-        body: JSON.stringify(formData)
-      });
-      const parsedData = await response.json();
-      console.log('build tripId ===>', parsedData._id);
-      
-      const parsedTrip = JSON.parse(parsedData.trip);
-      
-      const payload = {
-        itinerary: parsedTrip.itinerary,
-        itineraryID: parsedData._id,
-      };
-
-      // console.log('parsed trip data from fetch ===>', payload.itinerary);
-      if (response.ok) {
-        dispatch(updateItinerary(payload));
-        navigate('/itinerary');
-        dispatch(updateLoading(false));
-      } else {
-        throw new Error('failed to retrieve data');
-      }
-    } catch (error) {
-      console.error('Error with request:', error);
-    }
-  }
-
-  /**
    * Handles the key down event.
    * If the Enter key is pressed, calls the handleClick function.
    * @async
@@ -99,12 +53,13 @@ const Page5 = () => {
    */ 
   const handleKeyDown = async (event) => {
     if (event.key === 'Enter') {
-      await handleClick();
+      if (transitionDirection === 'right') dispatch(updateTransitionDirection('left'));
+      dispatch(updateStep(step + 1));
     }
   };
 
   return (
-    <div className="bg-gray-300 rounded border-4 border-black">
+    <div ref={ref} className="bg-gray-300 rounded border-4 border-black">
       
       { loading ?
         
@@ -196,31 +151,10 @@ const Page5 = () => {
               </label>
             </li>
           </ul>
-          {/* Navigation buttons */}
-          <div>
-    
-            {/* Back button */}
-            <Link to="/form/page4">
-              <button
-                className="m-4 underline text-blue-600" type="button"
-              >
-                Back
-              </button>
-            </Link>
-    
-            {/* Submit button */}
-            <button
-              className='m-4 underline text-blue-600'
-              type='submit'
-              onClick={handleClick}
-            >
-              Submit
-            </button>
-          </div>
         </>
       }
     </div>
   );
-};
+});
 
 export default Page5;

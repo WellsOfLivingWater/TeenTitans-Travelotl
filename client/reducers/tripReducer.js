@@ -13,6 +13,7 @@ const initialState = {
   travelers: 1,
   groupDescription: 'Solo traveler',
   step: 0,
+  transitionDirection: 'left',
 };
 
 const tripSlice = createSlice({
@@ -42,10 +43,13 @@ const tripSlice = createSlice({
     },
     updateStep(state, action) {
       state.step = action.payload;
-    }
+    },
+    updateTransitionDirection(state, action) {
+      state.transitionDirection = action.payload;
+    },
   },
 });
 
 export const { actions, reducer } = tripSlice;
-export const { updateDestination, updateStartDate, updateEndDate, updateActivities, updateBudget, updateTravelers, updateGroupDescription } = actions;
+export const { updateDestination, updateStartDate, updateEndDate, updateActivities, updateBudget, updateTravelers, updateGroupDescription, updateStep, updateTransitionDirection } = actions;
 export default reducer;

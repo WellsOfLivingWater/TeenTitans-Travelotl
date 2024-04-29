@@ -1,23 +1,21 @@
 /**
  * @file Renders the second page of the form.
- * Allows the user to input the start date and end date of the trip
- * and navigate to the previous and next pages.
+ * Allows the user to input the start date and end date of the trip.
  * 
  * @module Page2
  * @returns {JSX.Element} The rendered second page of the form.
  */
 // Package dependencies
+import { forwardRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
 
 // Redux actions
-import { updateStartDate, updateEndDate } from '../../reducers/tripReducer';
+import { updateStartDate, updateEndDate, updateStep, updateTransitionDirection } from '../../../reducers/tripReducer';
 
-const Page2 = () => {
-  const { startDate, endDate } = useSelector(state => state.trip);
+const Page2 = forwardRef((props, ref) => {
+  const { startDate, endDate, step, transitionDirection } = useSelector(state => state.trip);
   
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   /**
    * Handles the input change event for the start date and end date inputs.
@@ -43,12 +41,13 @@ const Page2 = () => {
   const handleKeyDown = e => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      navigate('/form/page3');
+      if (transitionDirection === 'right') dispatch(updateTransitionDirection('left'));
+      dispatch(updateStep(step + 1));
     }
   };
 
   return (
-    <div className="bg-gray-300 rounded border-4 border-black">
+    <div ref={ref} className="bg-gray-300 rounded border-4 border-black">
       <div>
         <label className='text-2xl' htmlFor="startDate">
           Start Date:
@@ -73,22 +72,8 @@ const Page2 = () => {
           onKeyDown={handleKeyDown}
         />
       </div>
-
-      {/* Navigation buttons */}
-      <div>
-
-        {/* Back button */}
-        <Link to='/form'>
-          <button className='m-4 underline text-blue-600' type='button'>Back</button>
-        </Link>
-
-        {/* Next button */}
-        <Link to='/form/page3'>
-          <button className='m-4 underline text-blue-600' type='button'>Next</button>
-        </Link>
-      </div>
     </div>
   );
-};
+});
 
 export default Page2;

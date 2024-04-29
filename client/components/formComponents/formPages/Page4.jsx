@@ -1,22 +1,21 @@
 /**
  * @file Renders the fourth page of the form.
- * Allows the user to input their budget and navigate to the previous and next pages.
+ * Allows the user to input their budget.
  * 
  * @module Page4
  * @returns {JSX.Element} The rendered fourth page of the form.
  */
 // Package dependencies
+import { forwardRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
 
 // Redux actions
-import { updateBudget } from '../../reducers/tripReducer';
+import { updateBudget, updateStep, updateTransitionDirection } from '../../../reducers/tripReducer';
 
-const Page4 = () => {
-  const { budget } = useSelector(state => state.trip);
+const Page4 = forwardRef((props, ref) => {
+  const { budget, step, transitionDirection } = useSelector(state => state.trip);
   
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   /**
    * Handles the input change event and dispatches an action to update the budget.
@@ -36,12 +35,13 @@ const Page4 = () => {
   const handleKeyDown = e => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      navigate('/form/page5');
+      if (transitionDirection === 'right') dispatch(updateTransitionDirection('left'));
+      dispatch(updateStep(step + 1));
     }
   };
 
   return (
-    <div className="bg-gray-300 rounded border-4 border-black">
+    <div ref={ref} className="bg-gray-300 rounded border-4 border-black">
       <label className='text-2xl' htmlFor="budget">
         Budget:
       </label>
@@ -52,22 +52,8 @@ const Page4 = () => {
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
       />
-
-      {/* Navigation buttons */}
-      <div>
-
-        {/* Back button */}
-        <Link to='/form/page3'>
-          <button className='m-4 underline text-blue-600' type='button'>Back</button>
-        </Link>
-
-        {/* Next button */}
-        <Link to='/form/page5'>
-          <button className='m-4 underline text-blue-600' type='button'>Next</button>
-        </Link>
-      </div>
     </div>
   );
-};
+});
 
 export default Page4;

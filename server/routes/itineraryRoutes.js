@@ -14,6 +14,10 @@ router.post('/suggest', authController.protect, tripController.generateSuggestio
   res.status(201).send(res.locals.suggestions);
 });
 
+router.post('/update', authController.protect, tripController.updateTrip, (req, res) => {
+  res.status(200).send(res.locals.updatedTrip);
+});
+
 router.get('/retrieve', authController.protect, tripController.retrieveAll, (req, res) => {
   // console.log(res.locals.allTrips[0]._id);
   res.status(200).json(res.locals.allTrips);

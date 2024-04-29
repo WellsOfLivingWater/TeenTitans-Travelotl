@@ -204,3 +204,13 @@
 .card {
     margin-right: 10px;
 }
+
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.154);
+  }
+
+#suggestion-card-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}

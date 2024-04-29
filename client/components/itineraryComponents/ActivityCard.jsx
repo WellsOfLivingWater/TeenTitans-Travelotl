@@ -4,18 +4,27 @@ import Button from 'react-bootstrap/Button';
 import UpdateModal from './UpdateModal';
 import { useState } from 'react';
 import image from '../../assets/placeholder-image.jpg';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectOldActivity, updateLoading, updateSuggestions, setShowModal } from '../../reducers/suggestionsReducer';
 
-const ActivityCard = ({ itinerary, itineraryID, suggestion }) => {
+const ActivityCard = ({ itinerary, itineraryID, time, suggestion }) => {
+  // const { showModal } = useSelector(state => state.suggestions);
   const [modalShow, setModalShow] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   const [isFetched, setIsFetched] = useState(false);
+  const dispatch = useDispatch();
 
   const hideModal = async (e) => {
+    // dispatch(setShowModal(false));
     setModalShow(false);
     setIsFetched(false);
   }
 
   const openModal = async (e) => {
+    dispatch(updateLoading(true));
+    dispatch(selectOldActivity({suggestion, time }));
+    // dispatch(setShowModal(true));
+    setModalShow(true);
     const formData = {
       activity: suggestion.activity,
       itinerary: itinerary,
@@ -31,13 +40,13 @@ const ActivityCard = ({ itinerary, itineraryID, suggestion }) => {
     })
       .then(response => response.json())
       .then(response => {
-        setSuggestions(response.activities);
+        // setSuggestions(response.activities);
+        dispatch(updateSuggestions({ suggestions: response.activities }))
         // console.log('fetch suggestion response ===>',response);
         // console.log('response.activities ====>',response.activities);
-        setIsFetched(true);
-        setModalShow(true);
+        dispatch(updateLoading(false));
       });
-    
+      // setModalShow(true);
   }
   
   return (
@@ -62,13 +71,9 @@ const ActivityCard = ({ itinerary, itineraryID, suggestion }) => {
         </Button>
       </Card.Body>
       <>
-        {isFetched && <UpdateModal
+        { modalShow && <UpdateModal
           show={modalShow}
           onHide={hideModal}
-          // itinerary={itinerary}
-          // itineraryid={itineraryID}
-          activity={suggestion.activity}
-          suggestions={suggestions}
         />}
       </>
     </Card>

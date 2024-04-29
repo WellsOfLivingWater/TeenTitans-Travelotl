@@ -5,6 +5,7 @@ const initialState = {
   itineraryID: '',
   loading: false,
   itineraries: [],
+  itineraryID: '',
 };
 
 const itinerarySlice = createSlice({
@@ -26,5 +27,5 @@ const itinerarySlice = createSlice({
 });
 
 export const { actions, reducer } = itinerarySlice;
-export const { updateItinerary, updateLoading, updateItineraries } = actions;
+export const { updateItinerary, updateLoading, updateItineraries, sendToastMsg } = actions;
 export default reducer;

@@ -9,11 +9,14 @@
 import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
+import Register from './Register';
 import '../stylesheets/login.css';
 
 export default function Login(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [openRegister, setRegister] = useState(false);
+
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -32,9 +35,6 @@ export default function Login(props) {
         navigate('/');
         }
     };
-
-
-
 
   return (
     <Modal
@@ -74,72 +74,17 @@ export default function Login(props) {
                         <Link to='/manager'>Login</Link>
                     </button>
                 </div>
+                <button className='register-link'onClick={() => setRegister(true)}>
+                  <p>Not a member?</p>
+                  <Link to='/'>Register</Link>
+                </button>
             </form>
+            <Register
+              show={openRegister}
+              onHide={() => setRegister(false)}
+            />
         </div>
       </Modal.Body>
     </Modal>
   );
 }
-
-
-// const Login = () => {
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const navigate = useNavigate();
-
-//   /**
-//    * Handles the form submission event.
-//    * Sends a POST request to the server to log in the user.
-//    * If the request is successful, the user is redirected to the home page.
-//    *
-//    * @async
-//    * @param {Event} e - The form submission event object.
-//    */
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     const res = await fetch('/api/users/login', {
-//       method: 'post',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify({ email, password }),
-//     });
-
-//     if (res.ok) {
-//       const user = await res.json();
-//       localStorage.setItem('userToken', user.token);
-//       console.log(user);
-//       navigate('/');
-//     }
-//   };
-
-
-
-//   return (
-//     <div>
-//       <h2>Login</h2>
-//       <form onSubmit={handleSubmit}>
-//         <label>
-//           Email:
-//           <input
-//             type='text'
-//             value={email}
-//             onChange={(e) => setEmail(e.target.value)}
-//           />
-//         </label>
-//         <br />
-//         <label>
-//           Password:
-//           <input
-//             type='password'
-//             value={password}
-//             onChange={(e) => setPassword(e.target.value)}
-//           />
-//         </label>
-//         <br />
-//         <button type='submit'>Login</button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default Login;

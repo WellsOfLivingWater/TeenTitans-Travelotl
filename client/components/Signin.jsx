@@ -39,7 +39,7 @@ export default function Signin(props) {
         <div className='login-container'>
           <button className='img-login-text' onClick={() => setOpenLogin(true)}>
             <div className='img-email'>
-              <img src={email} alt="email" style={{width:'35px'}} />
+              <img src={email} alt="email" style={{width:'30px', marginLeft:'2px'}} />
             </div>
             <div className='text-email'>
               <Link to='/'>Continue with email</Link>

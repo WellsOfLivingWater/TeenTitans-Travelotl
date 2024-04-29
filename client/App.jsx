@@ -6,19 +6,13 @@
  */
 // Package dependencies
 import { Outlet } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
-import { GoogleLogin } from '@react-oauth/google';
-import { googleLogout, useGoogleLogin } from '@react-oauth/google';
+import React from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 // Application component
 export default function App() {
-  
-
-
-    
   return (
       <div>
           <Outlet />

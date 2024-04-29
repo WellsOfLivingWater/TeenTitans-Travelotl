@@ -9,12 +9,12 @@
  * @returns {JSX.Element} The rendered registration component.
  */
 // Package dependencies
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
-// Components
-import Header from './Header';
+import Modal from 'react-bootstrap/Modal';
+import '../stylesheets/login.css';
 
-const Register = () => {
+const Register = (props) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -43,56 +43,67 @@ const Register = () => {
       navigate('/login');
     }
   };
-
   return (
-    <div>
-      <Header />
-      <h2>Register</h2>
-      <form
-        onSubmit={handleSubmit}
-        method='post'
-        action='submit'
-        id='registerForm'
-      >
-        <label>
-          First Name:
-          <input
-            type='text'
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Last Name:
-          <input
-            type='text'
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Email:
-          <input
-            type='text'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Password:
-          <input
-            type='password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <br />
-        <button type='submit'>Register</button>
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Join to unlock the best of Travelotl.
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+      <div className='login-form-register'>
+       <form onSubmit={handleSubmit} method='post' action='submit' id='registerForm'>
+       <div className='input-form-login'>
+          <div className='input-login'>
+            <label> First Name:</label>
+              <input
+                type='text'
+                placeholder='Enter your first name'
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+            </div>
+          <div className='input-login'>
+          <label> Last Name:</label>
+              <input
+                type='text'
+                placeholder='Enter your last name'
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+          </div>
+          <div className='input-login'>
+          <label> Email:</label>
+              <input
+                type='text'
+                placeholder='Enter your email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+          </div>
+          <div className='input-login'>
+          <label> Password:</label>
+              <input
+                type='password'
+                placeholder='Enter your password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+          </div>
+          <button className='login-btn' type='submit'>
+            <Link to='/manager'>Sign up</Link>
+          </button>
+       </div>
+       
       </form>
     </div>
+      </Modal.Body>
+    </Modal>
   );
 };
 

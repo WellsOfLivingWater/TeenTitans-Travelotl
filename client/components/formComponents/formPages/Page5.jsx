@@ -59,7 +59,7 @@ const Page5 = forwardRef((props, ref) => {
   };
 
   return (
-    <div ref={ref} className="bg-gray-300 rounded border-4 border-black">
+    <div ref={ref} /* className="bg-gray-300 rounded border-4 border-black" */>
       
       { loading ?
         
@@ -71,7 +71,7 @@ const Page5 = forwardRef((props, ref) => {
         // Display the form page if the loading state is false
         <>
           <p>What best describes your travel group...</p>
-          <label className="text-2xl"/*  htmlFor="travelers" */>
+          <label className="text-2xl">
             No. of Travelers:
             <input
               className="typed-input"

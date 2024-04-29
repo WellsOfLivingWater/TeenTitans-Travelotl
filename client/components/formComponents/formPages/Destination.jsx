@@ -2,7 +2,7 @@
  * @file Renders the first page of the form.
  * Allows the user to input their destination.
  * 
- * @module Page1
+ * @module Destination
  * @returns {JSX.Element} The rendered first page of the form.
  */
 // Package dependencies
@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // Redux actions
 import { updateDestination, updateStep, updateTransitionDirection } from '../../../reducers/tripReducer';
 
-const Page1 = forwardRef((props, ref) => {
+const Destination = forwardRef((props, ref) => {
   const { destination, step, transitionDirection } = useSelector(state => state.trip);
   
   const dispatch = useDispatch();
@@ -41,19 +41,19 @@ const Page1 = forwardRef((props, ref) => {
   };
 
   return (
-    <div ref={ref} className="bg-gray-300 rounded border-4 border-black">
-      <label className='text-2xl' htmlFor="destination">
+    // <div className="bg-gray-300 rounded border-4 border-black">
+      <label ref={ref} className='text-2xl'>
         Destination:
+        <input className='typed-input'
+          type="text"
+          name="destination"
+          value={destination}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
+        />
       </label>
-      <input className='typed-input'
-        type="text"
-        name="destination"
-        value={destination}
-        onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
-      />
-    </div>
+    // </div>
   )
 });
 
-export default Page1;
+export default Destination;

@@ -41,18 +41,18 @@ const Page4 = forwardRef((props, ref) => {
   };
 
   return (
-    <div ref={ref} className="bg-gray-300 rounded border-4 border-black">
-      <label className='text-2xl' htmlFor="budget">
+    // <div className="bg-gray-300 rounded border-4 border-black">
+      <label ref={ref} className='text-2xl'>
         Budget:
+        <input className='typed-input'
+          type="number"
+          name="budget"
+          value={budget}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
+        />
       </label>
-      <input className='typed-input'
-        type="number"
-        name="budget"
-        value={budget}
-        onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
-      />
-    </div>
+    // </div>
   );
 });
 

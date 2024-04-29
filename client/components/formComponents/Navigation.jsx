@@ -73,11 +73,11 @@ export default function Navigation() {
   }, [step]);
 
   return (
-    <div style={{ width: '67%', display: 'flex', justifyContent: 'center', alignSelf: 'center' }}>
+    <div style={{ width: '67%', display: 'flex', justifyContent: 'center', alignSelf: 'center', alignItems: 'center' }}>
       <Button disabled={step === 0} onClick={handleBack} hidden={loading}>
         Back
       </Button>
-      <div style={{ width: '100%' }}>
+      <div style={{ width: '100%', display: 'flex' }}>
         <Pages />
       </div>
       <Button variant="contained" onClick={handleNext} hidden={loading}>

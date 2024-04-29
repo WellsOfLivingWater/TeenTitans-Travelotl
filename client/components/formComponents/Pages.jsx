@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 import { Slide } from '@mui/material';
 
 // Components
-import Page1 from './formPages/Page1';
-import Page2 from './formPages/Page2';
+import Destination from './formPages/Destination';
+import Dates from './formPages/Dates';
 import Page3 from './formPages/Page3';
 import Page4 from './formPages/Page4';
 import Page5 from './formPages/Page5';
@@ -18,9 +18,9 @@ const Pages = forwardRef((props, ref) => {
   let page;
   switch (step) {
     case 0:
-      page = <Page1 ref={ref} />; break;
+      page = <Destination ref={ref} />; break;
     case 1:
-      page = <Page2 ref={ref} />; break;
+      page = <Dates ref={ref} />; break;
     case 2:
       page = <Page3 ref={ref} />; break;
     case 3:
@@ -29,13 +29,15 @@ const Pages = forwardRef((props, ref) => {
     case 5:
       page = <Page5 ref={ref} />; break;
     default:
-      page = <Page1 ref={ref} />;
+      page = <Destination ref={ref} />;
   }
 
   return (
-    <Slide direction={transitionDirection} in={true} mountOnEnter unmountOnExit>
-      {page}
-    </Slide>
+    <div className="rounded border-4 border-black trip-bg-img trip-bg-dims">
+      <Slide direction={transitionDirection} in={true} mountOnEnter unmountOnExit>
+        {page}
+      </Slide>
+    </div>
   );
 });
 

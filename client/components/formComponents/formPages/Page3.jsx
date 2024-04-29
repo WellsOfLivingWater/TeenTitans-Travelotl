@@ -51,7 +51,7 @@ const Page3 = forwardRef((props, ref) => {
   };
 
   return (
-    <div ref={ref} className="bg-gray-300 rounded border-4 border-black ">
+    <div ref={ref} /* className="bg-gray-300 rounded border-4 border-black" */>
       <p className='text-2xl text-center'>Select activities you are interested in...</p>
 
       {/* Activities checkboxes */}

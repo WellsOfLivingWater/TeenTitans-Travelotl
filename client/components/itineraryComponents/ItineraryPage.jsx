@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // Redux reducer actions
-import { updateStep } from "../../reducers/tripReducer";
+import { resetTrip } from "../../reducers/tripReducer";
 import { updateLoading } from "../../reducers/itineraryReducer";
 
 // Components
@@ -24,7 +24,7 @@ const ItineraryPage = () => {
 
   // Scroll to the top of the page when the component mounts
   useEffect(() => {
-    dispatch(updateStep(0));
+    dispatch(resetTrip());
     dispatch(updateLoading(false));
     window.scrollTo(0, 0);
   }, []);

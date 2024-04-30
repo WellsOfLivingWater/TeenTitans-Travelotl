@@ -47,9 +47,10 @@ const tripSlice = createSlice({
     updateTransitionDirection(state, action) {
       state.transitionDirection = action.payload;
     },
+    resetTrip: () => initialState,
   },
 });
 
 export const { actions, reducer } = tripSlice;
-export const { updateDestination, updateStartDate, updateEndDate, updateActivities, updateBudget, updateTravelers, updateGroupDescription, updateStep, updateTransitionDirection } = actions;
+export const { updateDestination, updateStartDate, updateEndDate, updateActivities, updateBudget, updateTravelers, updateGroupDescription, updateStep, updateTransitionDirection, resetTrip } = actions;
 export default reducer;

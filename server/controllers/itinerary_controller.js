@@ -21,6 +21,7 @@ const tripController = {
       travelers,
       groupDescription,
     } = req.body;
+    res.locals.destination = destination;
     res.locals.tripName = `${destination} from ${startDate} to ${endDate}`;
     // Update prompt below to reflect req.body information - DONE (J.H.)
     const prompt = `Make an itinerary for a trip for ${travelers} to ${destination} from ${startDate} until ${endDate}. I have a budget of ${budget}. Include the following types of attractions: ${activities.join(
@@ -32,10 +33,7 @@ const tripController = {
     //       time of day: {
     //         activity: string,
     //         description: string,
-    //         address: string,
-    //         placeId: string,
-    //         rating: string,
-    //         hours: string,
+    //         address: string
     //       }
     //     }
     //   }
@@ -58,10 +56,10 @@ const tripController = {
         model: 'gpt-3.5-turbo',
         response_format: { type: 'json_object' },
       });
-      
+
       // console.log(completion.choices[0]);
       res.locals.itinerary = JSON.parse(completion.choices[0].message.content);
-      console.log(res.locals.itinerary);
+
       return next();
     } catch (err) {
       console.log(err);
@@ -78,12 +76,12 @@ const tripController = {
       destination: req.body.destination,
       startDate: req.body.startDate,
       endDate: req.body.endDate,
-      trip: JSON.stringify(res.locals.itinerary),
+      trip: JSON.stringify(res.locals.detailedTtinerary),
     })
-      .then (result => {
-        console.log("itinerary successfully saved in database");
-        res.locals.trip = result;
-        console.log('saveTrip results', res.locals.trip);
+      .then((result) => {
+        console.log('itinerary successfully saved in database');
+        res.locals.detailedTtinerary = result;
+        console.log('saveTrip results', res.locals.detailedTtinerary);
         return next();
       })
       .catch((err) => {
@@ -162,9 +160,9 @@ const tripController = {
 
   // generateSuggestions - generates alternative activities the user can use to update their itinerary
   async generateSuggestions(req, res, next) {
-    console.log("generateSuggestions invoked");
+    console.log('generateSuggestions invoked');
     const { activity, itinerary } = req.body;
-    
+
     // Update prompt below to reflect req.body information - DONE (J.H.)
     const prompt = `Can you provide only 3 alternative activity suggestions for this activity: ${activity}. Do not repeat anything in this itinerary: ${itinerary}. Please provide the output in json format following this schema:
     {
@@ -181,22 +179,29 @@ const tripController = {
     // console.log(prompt);
     try {
       const completion = await openai.chat.completions.create({
-        messages: [{"role": "system", "content": "You are a helpful travel planning assistant."},
-            {
-              "role": "user", 
-              "content": prompt,
-            }],
-        model: "gpt-3.5-turbo",
-        response_format: { type: "json_object" },
+        messages: [
+          {
+            role: 'system',
+            content: 'You are a helpful travel planning assistant.',
+          },
+          {
+            role: 'user',
+            content: prompt,
+          },
+        ],
+        model: 'gpt-3.5-turbo',
+        response_format: { type: 'json_object' },
       });
-      
-      // console.log(completion.choices[0]);
-      res.locals.suggestions = JSON.parse(completion.choices[0].message.content);
+
+      console.log(completion.choices[0]);
+      res.locals.suggestions = JSON.parse(
+        completion.choices[0].message.content
+      );
       return next();
     } catch (err) {
       console.log(err);
     }
   },
-}
+};
 
 module.exports = tripController;

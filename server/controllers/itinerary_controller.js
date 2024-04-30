@@ -26,7 +26,7 @@ const tripController = {
     // Update prompt below to reflect req.body information - DONE (J.H.)
     const prompt = `Make an itinerary for a trip for ${travelers} to ${destination} from ${startDate} until ${endDate}. I have a budget of ${budget}. Include the following types of attractions: ${activities.join(
       ', '
-    )} for a ${groupDescription}. Organize the itinerary by the following times of day: morning, afternoon, and evening. Recommend specific places of interest with their address. Limit cross-city commutes by grouping places of interest by geography for each day. Output the response in json format following this schema:
+    )} for a ${groupDescription}. Organize the itinerary by the following times of day: morning, afternoon, and evening. Recommend specific places of interest that should have exact address and activity name should have place name in it. Limit cross-city commutes by grouping places of interest by geography for each day. Output the response in json format following this schema:
     // {
     //   itinerary: {
     //     date: {
@@ -116,27 +116,30 @@ const tripController = {
   // To update the itinerary with new activity selected within the database
   updateTrip(req, res, next) {
     const { itineraryID, itinerary } = req.body;
-    Itinerary.findOneAndUpdate({ _id: itineraryID}, 
+    Itinerary.findOneAndUpdate(
+      { _id: itineraryID },
       {
-        trip: JSON.stringify({itinerary})
+        trip: JSON.stringify({ itinerary }),
       },
-      { new: true },
+      { new: true }
     )
-      .then(result => {
+      .then((result) => {
         if (result) {
           res.locals.updatedTrip = result;
-          console.log('Itinerary updated and saved with new activity in database - updateTrip');
+          console.log(
+            'Itinerary updated and saved with new activity in database - updateTrip'
+          );
         } else {
-          console.log('ItineraryID not found in database. Nothing updated.')
+          console.log('ItineraryID not found in database. Nothing updated.');
         }
         return next();
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(
           'could not locate itinerary based on itineraryID passed in - updateTrip middleware'
         );
         console.log('updateTrip ERROR =>', err);
-      })
+      });
   },
 
   // retrieveAll - To retrieve all trips saved for a specific user

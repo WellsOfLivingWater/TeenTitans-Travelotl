@@ -2,7 +2,7 @@
  * @file Renders the fourth page of the form.
  * Allows the user to input their budget.
  * 
- * @module Page4
+ * @module Budget
  * @returns {JSX.Element} The rendered fourth page of the form.
  */
 // Package dependencies
@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // Redux actions
 import { updateBudget, updateStep, updateTransitionDirection } from '../../../reducers/tripReducer';
 
-const Page4 = forwardRef((props, ref) => {
+const Budget = forwardRef((props, ref) => {
   const { budget, step, transitionDirection } = useSelector(state => state.trip);
   
   const dispatch = useDispatch();
@@ -56,4 +56,4 @@ const Page4 = forwardRef((props, ref) => {
   );
 });
 
-export default Page4;
+export default Budget;

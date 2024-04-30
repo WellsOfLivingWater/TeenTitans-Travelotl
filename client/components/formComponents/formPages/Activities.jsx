@@ -2,7 +2,7 @@
  * @file Renders the third page of the form.
  * Allows the user to select activities they are interested in.
  * 
- * @module Page3
+ * @module Activities
  * @returns {JSX.Element} The rendered third page of the form.
  */
 // Package dependencies
@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // Redux actions
 import { updateActivities, updateStep, updateTransitionDirection } from '../../../reducers/tripReducer';
 
-const Page3 = forwardRef((props, ref) => {
+const Activities = forwardRef((props, ref) => {
   const { activities, step, transitionDirection } = useSelector(state => state.trip);
 
   const selected = new Array(...activities);
@@ -133,4 +133,4 @@ const Page3 = forwardRef((props, ref) => {
   );
 });
 
-export default Page3;
+export default Activities;

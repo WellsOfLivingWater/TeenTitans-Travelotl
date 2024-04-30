@@ -3,7 +3,7 @@
  * Allows the user to input the number of travelers
  * and select a group description.
  * 
- * @module Page5
+ * @module Group
  * @returns {JSX.Element} The rendered fifth page of the form.
  */
 // Package dependencies
@@ -16,7 +16,7 @@ import { updateTravelers, updateGroupDescription, updateStep, updateTransitionDi
 // Components
 import Loader from "../../Loader";
 
-const Page5 = forwardRef((props, ref) => {
+const Group = forwardRef((props, ref) => {
   const { travelers, groupDescription, step, transitionDirection } = useSelector(state => state.trip);
   const { loading } = useSelector(state => state.itinerary);
 
@@ -157,4 +157,4 @@ const Page5 = forwardRef((props, ref) => {
   );
 });
 
-export default Page5;
+export default Group;

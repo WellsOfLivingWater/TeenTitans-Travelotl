@@ -6,9 +6,9 @@ import { Slide } from '@mui/material';
 // Components
 import Destination from './formPages/Destination';
 import Dates from './formPages/Dates';
-import Page3 from './formPages/Page3';
-import Page4 from './formPages/Page4';
-import Page5 from './formPages/Page5';
+import Activities from './formPages/Activities';
+import Budget from './formPages/Budget';
+import Group from './formPages/Group';
 
 
 
@@ -22,12 +22,12 @@ const Pages = forwardRef((props, ref) => {
     case 1:
       page = <Dates ref={ref} />; break;
     case 2:
-      page = <Page3 ref={ref} />; break;
+      page = <Activities ref={ref} />; break;
     case 3:
-      page = <Page4 ref={ref} />; break;
+      page = <Budget ref={ref} />; break;
     case 4:
     case 5:
-      page = <Page5 ref={ref} />; break;
+      page = <Group ref={ref} />; break;
     default:
       page = <Destination ref={ref} />;
   }

@@ -59,7 +59,6 @@ export default function Navigation() {
       if (response.ok) {
         dispatch(updateItinerary(payload));
         navigate('/itinerary');
-        dispatch(updateLoading(false));
       } else {
         throw new Error('failed to retrieve data');
       }

@@ -114,11 +114,20 @@ const tripController = {
   },
 
   // To update the itinerary with new activity selected within the database
-  updateTrip(req, res, next) {
-    const { itineraryID, itinerary } = req.body;
+  async updateTrip(req, res, next) {
+    const { newActivity, selectedDay, selectedTime, itineraryID } = req.body;
+
+    const oldItinerary = await Itinerary.findById(itineraryID);
+    const editedActivities = JSON.parse(oldItinerary.trip);
+    // console.log(editedActivities);
+    // console.log('updateTrip details ===>', 'newActivity:', newActivity, '| selectedDay:', selectedDay, '| selectedTime:', selectedTime);
+    editedActivities.itinerary[selectedDay][selectedTime]['activity'] = newActivity.activity;
+    editedActivities.itinerary[selectedDay][selectedTime]['description'] = newActivity.description;
+    editedActivities.itinerary[selectedDay][selectedTime]['address'] = newActivity.address;
+
     Itinerary.findOneAndUpdate({ _id: itineraryID}, 
       {
-        trip: JSON.stringify({itinerary})
+        trip: JSON.stringify(editedActivities)
       },
       { new: true },
     )

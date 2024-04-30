@@ -3,7 +3,7 @@
  * Allows the user to select the best description of their travel group,
  * navigate to the previous page, and submit the form to the back end server.
  * While waiting for a response from the server, a loader component is displayed.
- * 
+ *
  * @module Page6
  * @returns {JSX.Element} The rendered sixth page of the form.
  */
@@ -13,25 +13,28 @@ import { Link, useNavigate } from 'react-router-dom';
 
 // Redux actions
 import { updateGroupDescription } from '../../reducers/tripReducer';
-import { updateItinerary, updateLoading } from '../../reducers/itineraryReducer';
+import {
+  updateItinerary,
+  updateLoading,
+} from '../../reducers/itineraryReducer';
 
 // Components
 import Loader from '../Loader';
 
 const Page6 = () => {
-  const formData = useSelector(state => state.trip);
+  const formData = useSelector((state) => state.trip);
   const { groupDescription } = formData;
-  const { loading } = useSelector(state => state.itinerary);
+  const { loading } = useSelector((state) => state.itinerary);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   /**
    * Updates the group description value in the Redux store when the input changes.
-   * 
+   *
    * @param {Event} e - The event object.
    */
-  const handleDescriptionChange = e => {
+  const handleDescriptionChange = (e) => {
     const { value, checked } = e.target;
     if (checked) {
       dispatch(updateGroupDescription(value));
@@ -41,7 +44,7 @@ const Page6 = () => {
   /**
    * Handles the click event and sends the form data to the back end server.
    * Navigates to the itinerary page if the response is successful.
-   * 
+   *
    * @async
    * @param {Event} e - The event object.
    */
@@ -53,15 +56,16 @@ const Page6 = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('userToken')}`,
+          Authorization: `Bearer ${localStorage.getItem('userToken')}`,
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       });
       const parsedData = await response.json();
+      console.log('parsed data ->', parsedData);
       console.log('build tripId ===>', parsedData._id);
-      
+
       const parsedTrip = JSON.parse(parsedData.trip);
-      
+      console.log('after parsing ... ', parsedTrip);
       const payload = {
         destination: parsedData.destination,
         itinerary: parsedTrip.itinerary,
@@ -79,14 +83,14 @@ const Page6 = () => {
     } catch (error) {
       console.error('Error with request:', error);
     }
-  }
+  };
 
   /**
    * Handles the key down event.
    * If the Enter key is pressed, calls the handleClick function.
    * @async
    * @param {Event} event - The event object.
-   */ 
+   */
   const handleKeyDown = async (event) => {
     if (event.key === 'Enter') {
       await handleClick();
@@ -94,27 +98,26 @@ const Page6 = () => {
   };
 
   return (
-    <div className="bg-gray-300 rounded border-4 border-black ">
+    <div className='bg-gray-300 rounded border-4 border-black '>
       <div>
-        { loading ?
-          
+        {loading ? (
           // Display the loader component if the loading state is true
           <div id='loader'>
             <Loader />
-          </div> :
-
+          </div>
+        ) : (
           // Display the form page if the loading state is false
           <>
             <p>What best describes your travel group...</p>
 
             {/* Radio buttons for selecting the group description */}
-            <ul className="groups">
+            <ul className='groups'>
               <li>
                 <label className='group-card'>
                   <input
-                    type="radio"
-                    name="groupDescription"
-                    value="Solo traveler"
+                    type='radio'
+                    name='groupDescription'
+                    value='Solo traveler'
                     onChange={handleDescriptionChange}
                     checked={groupDescription === 'Solo traveler'}
                     onKeyDown={handleKeyDown}
@@ -125,9 +128,9 @@ const Page6 = () => {
               <li>
                 <label className='group-card'>
                   <input
-                    type="radio"
-                    name="groupDescription"
-                    value="Family with young kids"
+                    type='radio'
+                    name='groupDescription'
+                    value='Family with young kids'
                     onChange={handleDescriptionChange}
                     checked={groupDescription === 'Family with young kids'}
                     onKeyDown={handleKeyDown}
@@ -138,9 +141,9 @@ const Page6 = () => {
               <li>
                 <label className='group-card'>
                   <input
-                    type="radio"
-                    name="groupDescription"
-                    value="Family of all ages"
+                    type='radio'
+                    name='groupDescription'
+                    value='Family of all ages'
                     onChange={handleDescriptionChange}
                     checked={groupDescription === 'Family of all ages'}
                     onKeyDown={handleKeyDown}
@@ -151,9 +154,9 @@ const Page6 = () => {
               <li>
                 <label className='group-card'>
                   <input
-                    type="radio"
-                    name="groupDescription"
-                    value="Family of adults"
+                    type='radio'
+                    name='groupDescription'
+                    value='Family of adults'
                     onChange={handleDescriptionChange}
                     checked={groupDescription === 'Family of adults'}
                     onKeyDown={handleKeyDown}
@@ -164,9 +167,9 @@ const Page6 = () => {
               <li>
                 <label className='group-card'>
                   <input
-                    type="radio"
-                    name="groupDescription"
-                    value="Friends"
+                    type='radio'
+                    name='groupDescription'
+                    value='Friends'
                     onChange={handleDescriptionChange}
                     checked={groupDescription === 'Friends'}
                     onKeyDown={handleKeyDown}
@@ -175,20 +178,27 @@ const Page6 = () => {
                 </label>
               </li>
             </ul>
-              
+
             {/* Navigation buttons */}
             <div>
-
               {/* Back button */}
               <Link to='/form/page5'>
-                <button className='m-4 underline text-blue-600' type='button'>Back</button>
+                <button className='m-4 underline text-blue-600' type='button'>
+                  Back
+                </button>
               </Link>
 
               {/* Submit button */}
-              <button className='m-4 underline text-blue-600' type='submit' onClick={handleClick}>Submit</button>
+              <button
+                className='m-4 underline text-blue-600'
+                type='submit'
+                onClick={handleClick}
+              >
+                Submit
+              </button>
             </div>
           </>
-        }
+        )}
       </div>
     </div>
   );

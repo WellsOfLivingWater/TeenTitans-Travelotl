@@ -21,9 +21,20 @@ const ActivityCard = ({ itinerary, itineraryID, time, suggestion, toastify }) =>
     dispatch(updateLoading(true));
     dispatch(selectOldActivity({suggestion, time }));
     setModalShow(true);
+
+    const extractActivities = [];
+    Object.entries(itinerary).forEach(([date, timesOfDay]) => {
+      Object.entries(timesOfDay).forEach(([timeOfDay, suggestion]) => {
+        extractActivities.push({
+          activity: suggestion.activity,
+          address: suggestion.address,
+        })
+      })
+    });
+
     const formData = {
       activity: suggestion.activity,
-      itinerary: itinerary,
+      itinerary: extractActivities,
     }
 
     fetch('/api/trip/suggest', {

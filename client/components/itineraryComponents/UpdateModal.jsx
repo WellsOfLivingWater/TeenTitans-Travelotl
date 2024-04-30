@@ -20,10 +20,14 @@ const UpdateModal = (props) => {
     const copyItinerary = JSON.parse(JSON.stringify(itinerary));
     const copyActivity = JSON.parse(JSON.stringify(newActivity));
     copyItinerary[selectedTime.date][selectedTime.timeOfDay] = copyActivity;
-
+    // console.log(copyItinerary);
+          
     const formData = {
+      newActivity: copyActivity,
+      selectedDay: selectedTime.date,
+      selectedTime: selectedTime.timeOfDay,
       itineraryID,
-      itinerary: copyItinerary,
+      // itinerary: copyItinerary,
     };
 
     fetch('/api/trip/update', {

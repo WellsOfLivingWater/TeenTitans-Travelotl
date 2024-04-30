@@ -61,15 +61,19 @@ googleController.getPlaceDetailsByText = async (req, res, next) => {
         itern.itinerary[date][dayTime].address +
         ' ' +
         res.locals.destination;
-      const actDetails = await getPlaceInfo(act);
-      // console.log('----- - - - - - ------ --- - - - - -');
-      // console.log(`activity  --->>>> ${itern.itinerary[date][dayTime]}`);
-      // console.log('activity details --> ', actDetails);
-      itern.itinerary[date][dayTime].details = actDetails;
-      // console.log(
-      //   `activity with details --->>>> ${itern.itinerary[date][dayTime].details.nationalPhoneNumber}`
-      // );
-      // console.log('----- - - - - - ------ --- - - - - -');
+      
+      // const actDetails = await getPlaceInfo(act);
+
+      /* console.log('----- - - - - - ------ --- - - - - -');
+      console.log(`activity  --->>>> ${itern.itinerary[date][dayTime]}`);
+      console.log('activity details --> ', actDetails); */
+
+      // itern.itinerary[date][dayTime].details = actDetails;
+
+      /* console.log(
+        `activity with details --->>>> ${itern.itinerary[date][dayTime].details.nationalPhoneNumber}`
+      );
+      console.log('----- - - - - - ------ --- - - - - -'); */
     }
   }
   res.locals.detailedTtinerary = itern;

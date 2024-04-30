@@ -6,7 +6,6 @@ const initialState = {
   itineraryID: '',
   loading: false,
   itineraries: [],
-  itineraryID: '',
 };
 
 const itinerarySlice = createSlice({

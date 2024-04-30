@@ -261,3 +261,13 @@ button {
     align-items: center;
     justify-content: space-around;
 }
+
+.trip-bg-img {
+  background-image: url('/client/assets/placeholder-image.jpg');
+  background-size: cover;
+}
+
+.trip-bg-dims {
+  height: 500px;
+  width: 100%;
+}

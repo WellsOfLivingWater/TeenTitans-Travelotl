@@ -20,6 +20,7 @@ const Pages = forwardRef((props, ref) => {
     if (step !== prevStep) {
       setExitDirection(transitionDirection === 'left' ? 'right' : 'left');
     }
+    setPrevStep(step);
   }, [step, transitionDirection]);
 
   const renderPage = (pageStep, Component) => (

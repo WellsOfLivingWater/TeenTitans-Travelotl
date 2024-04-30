@@ -113,6 +113,32 @@ const tripController = {
       });
   },
 
+  // To update the itinerary with new activity selected within the database
+  updateTrip(req, res, next) {
+    const { itineraryID, itinerary } = req.body;
+    Itinerary.findOneAndUpdate({ _id: itineraryID}, 
+      {
+        trip: JSON.stringify({itinerary})
+      },
+      { new: true },
+    )
+      .then(result => {
+        if (result) {
+          res.locals.updatedTrip = result;
+          console.log('Itinerary updated and saved with new activity in database - updateTrip');
+        } else {
+          console.log('ItineraryID not found in database. Nothing updated.')
+        }
+        return next();
+      })
+      .catch(err => {
+        console.log(
+          'could not locate itinerary based on itineraryID passed in - updateTrip middleware'
+        );
+        console.log('updateTrip ERROR =>', err);
+      })
+  },
+
   // retrieveAll - To retrieve all trips saved for a specific user
   retrieveAll(req, res, next) {
     Itinerary.find({
@@ -138,7 +164,7 @@ const tripController = {
     const { activity, itinerary } = req.body;
 
     // Update prompt below to reflect req.body information - DONE (J.H.)
-    const prompt = `Can you provide only 3 alternative activity suggestions for this activity, ${activity}. Do not repeat anything in this itinerary: ${itinerary}. Please provide the output in json format following this schema:
+    const prompt = `Can you provide only 3 alternative activity suggestions for this activity: ${activity}. Do not repeat anything in this itinerary: ${itinerary}. Please provide the output in json format following this schema:
     {
       activities: [
         {

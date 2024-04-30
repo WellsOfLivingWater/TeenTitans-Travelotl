@@ -7,12 +7,11 @@
  */
 // Package dependencies
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 // Components
 import Header from "../Header";
 import Itinerary from "./Itinerary"
-
 
 const ItineraryPage = () => {
   const { itinerary, itineraryID } = useSelector(state => state.itinerary);

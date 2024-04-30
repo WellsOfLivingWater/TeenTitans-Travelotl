@@ -28,6 +28,7 @@ router.post(
   }
 );
 
+
 router.get(
   '/retrieve',
   authController.protect,
@@ -37,6 +38,11 @@ router.get(
     res.status(200).json(res.locals.allTrips);
   }
 );
+
+router.post('/update', authController.protect, tripController.updateTrip, (req, res) => {
+  res.status(200).send(res.locals.updatedTrip);
+});
+
 
 router.delete('/delete', authController.protect, tripController.deleteTrip, (req, res) => {
   res.status(200).send('Trip deleted successfully.');

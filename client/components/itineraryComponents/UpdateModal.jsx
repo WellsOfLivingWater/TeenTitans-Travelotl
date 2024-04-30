@@ -13,17 +13,21 @@ const UpdateModal = (props) => {
   const { itinerary, itineraryID } = useSelector(state => state.itinerary);
   const { newActivity, selectedTime } = useSelector(state => state.suggestions);
 
-  console.log("Update Modal Activity:", selectedTime);
+  // console.log("Update Modal Activity:", selectedTime);
   
   const saveUpdate = () => {
-    console.log("before:", itinerary);
+    // console.log("before:", itinerary);
     const copyItinerary = JSON.parse(JSON.stringify(itinerary));
     const copyActivity = JSON.parse(JSON.stringify(newActivity));
     copyItinerary[selectedTime.date][selectedTime.timeOfDay] = copyActivity;
-
+    // console.log(copyItinerary);
+          
     const formData = {
+      newActivity: copyActivity,
+      selectedDay: selectedTime.date,
+      selectedTime: selectedTime.timeOfDay,
       itineraryID,
-      itinerary: copyItinerary,
+      // itinerary: copyItinerary,
     };
 
     fetch('/api/trip/update', {
@@ -42,10 +46,11 @@ const UpdateModal = (props) => {
           itineraryID: response._id,
         }
         dispatch(updateItinerary(payload));
+        props.toastify();
         props.onHide();
+
       })
       .catch(err => {
-
         console.log('error updating itinerary details in database ===>', err);
       });
   }

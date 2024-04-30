@@ -14,7 +14,7 @@ import Header from "../Header";
 import Itinerary from "./Itinerary"
 
 const ItineraryPage = () => {
-  const { itinerary, itineraryID } = useSelector(state => state.itinerary);
+  const { destination, itinerary, itineraryID } = useSelector(state => state.itinerary);
   // console.log('itineraryPage itinerary ===>', itinerary);
   // console.log('state itineraryID ===>', itineraryID)
   // console.log('Itinerary Page state selector ===>', itinerary);
@@ -27,7 +27,7 @@ const ItineraryPage = () => {
   return (
     <div>
       <Header />
-      <h2>Your Itinerary</h2>
+      <p id="itinerary-title">Your trip to {destination}</p>
       <Itinerary itinerary={itinerary} itineraryID={itineraryID}/>
     </div>
   );

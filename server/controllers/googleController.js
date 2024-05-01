@@ -111,6 +111,8 @@ async function getPlaceInfo(text) {
 
 https: function photoUriBuilder(photoObj) {
   let photoList = [];
+
+  //get photos that are vertical only
   photoObj.forEach((photo) => {
     if (photo.heightPx > photo.widthPx) {
       photoList.push(photo);
@@ -119,6 +121,7 @@ https: function photoUriBuilder(photoObj) {
   if (photoList.length < 1) photoList = photoObj;
   // console.log(photoObj);
   let { name, widthPx, heightPx } = photoList[0];
+  //make sure that the photo has paramter passed for width and height
   widthPx = widthPx > 4800 || widthPx == null ? 400 : widthPx;
   heightPx = heightPx > 4800 || heightPx == null ? 400 : heightPx;
   const photoUri = `https://places.googleapis.com/v1/${name}/media?key=${apikey}&maxHeightPx=${heightPx}&maxWidthPx=${widthPx}`;

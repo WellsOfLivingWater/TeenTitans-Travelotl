@@ -23,11 +23,11 @@ router.post(
   '/suggest',
   authController.protect,
   tripController.generateSuggestions,
+  googleController.getSuggestionDetailsByText,
   (req, res) => {
-    res.status(201).send(res.locals.suggestions);
+    res.status(201).send(res.locals.detailedSuggestions);
   }
 );
-
 
 router.get(
   '/retrieve',
@@ -39,14 +39,22 @@ router.get(
   }
 );
 
-router.post('/update', authController.protect, tripController.updateTrip, (req, res) => {
-  res.status(200).send(res.locals.updatedTrip);
-});
+router.post(
+  '/update',
+  authController.protect,
+  tripController.updateTrip,
+  (req, res) => {
+    res.status(200).send(res.locals.updatedTrip);
+  }
+);
 
-
-router.delete('/delete', authController.protect, tripController.deleteTrip, (req, res) => {
-  res.status(200).send('Trip deleted successfully.');
-});
-
+router.delete(
+  '/delete',
+  authController.protect,
+  tripController.deleteTrip,
+  (req, res) => {
+    res.status(200).send('Trip deleted successfully.');
+  }
+);
 
 module.exports = router;

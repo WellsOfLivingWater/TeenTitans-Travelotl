@@ -12,6 +12,8 @@ const getPlaceIdheaders = {
 };
 
 googleController.getPlaceId = async (req, res, next) => {
+  console.log('Requesting Place ID for --->', req.body);
+
   const textQuery = JSON.stringify(req.body);
   const requestOptions = {
     method: 'POST',
@@ -25,8 +27,9 @@ googleController.getPlaceId = async (req, res, next) => {
       requestOptions
     );
     const data = await response.json();
-    // console.log('this is coming back --->', data.places[0].id);
+    console.log('Place ID captured --->', data.places[0].id);
     res.locals.placeId = data.places[0].id;
+
     return next();
   } catch (err) {
     throw new Error('Error fetching Place ID: ' + err.message);
@@ -57,11 +60,9 @@ googleController.getPlaceDetailsByText = async (req, res, next) => {
     for (const dayTime in itern.itinerary[date]) {
       // console.log(`Time Of The Day --->>>> ${dayTime}`);
       const act =
-        itern.itinerary[date][dayTime].activity +
+        // itern.itinerary[date][dayTime].activity +
         // ' ' +
-        // itern.itinerary[date][dayTime].address +
-        ' ' +
-        res.locals.destination;
+        itern.itinerary[date][dayTime].placeName + ' ' + res.locals.destination;
       // console.log('sending this to google to get PLACE ID ->', act);
       const actDetails = await getPlaceInfo(act);
       const photoInfo = actDetails.photos;
@@ -74,6 +75,31 @@ googleController.getPlaceDetailsByText = async (req, res, next) => {
   }
   res.locals.detailedTtinerary = itern;
   return next();
+};
+
+googleController.getSuggestionDetailsByText = async (req, res, next) => {
+  const suggestions = res.locals.suggestions;
+
+  console.log('this is suggesstions ->', suggestions);
+
+  for (let i = 0; i < suggestions.activities.length; i++) {
+    let country = '';
+    if (suggestions.activities[i].address.includes(',')) {
+      // Split the address string using commas as delimiters
+      const parts = suggestions.activities[i].address.split(',');
+      // Get the last part of the address (country)
+      country = parts[parts.length - 1].trim();
+    }
+    const textParam = suggestions.activities[i].placeName + ' ' + country;
+    const sugDetails = await getPlaceInfo(textParam);
+    const photoInfo = sugDetails.photos;
+    // console.log('photo name', actDetails.photos[0].name);
+    const photoUri = photoUriBuilder(photoInfo);
+    suggestions.activities[i].details = sugDetails;
+    suggestions.activities[i].photo = photoUri;
+  }
+  res.locals.detailedSuggestions = suggestions;
+  next();
 };
 
 async function getPlaceInfo(text) {
@@ -90,7 +116,7 @@ async function getPlaceInfo(text) {
     requestOptions
   );
   const data = await response.json();
-  if (response.ok || data != '') {
+  if (response.ok || data.places.length > 0 || !data.places) {
     // console.log('this is data coming back --> ', data);
     const { id } = data.places[0];
     // console.log(`${text} --> ${id}`);
@@ -107,14 +133,13 @@ async function getPlaceInfo(text) {
     return (placeDetailResponse = '');
   }
 }
-//lh3.googleusercontent.com/places/ANXAkqE63k0Z7VuST-ujt26bkJEgDPodYThKiCf6va-6tJ_1GJ-Ckxa836pzWlTJ7ARYkur8tamcZamVxL9BZO4heoVsbRrG-eJLkBA=s4800-w1058-h718
 
-https: function photoUriBuilder(photoObj) {
+function photoUriBuilder(photoObj) {
   let photoList = [];
 
   //get photos that are vertical only
   photoObj.forEach((photo) => {
-    if (photo.heightPx > photo.widthPx) {
+    if (photo.heightPx < photo.widthPx) {
       photoList.push(photo);
     }
   });

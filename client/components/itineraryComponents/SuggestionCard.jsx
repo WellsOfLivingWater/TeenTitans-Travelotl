@@ -9,46 +9,43 @@ import { selectNewActivity } from '../../reducers/suggestionsReducer';
 const SuggestionCard = ({ itineraryID, suggestion }) => {
   // console.log("suggestionCard rendered:", suggestion.activity);
   const [buttonVariant, setVariant] = useState('primary');
-  const { newActivity } = useSelector(state => state.suggestions)
+  const { newActivity } = useSelector((state) => state.suggestions);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (suggestion.activity === newActivity.activity) ? setVariant('success') : setVariant('primary');
+    suggestion.activity === newActivity.activity
+      ? setVariant('success')
+      : setVariant('primary');
   });
 
   const selectActivity = () => {
-    dispatch(selectNewActivity(suggestion));    
-
+    dispatch(selectNewActivity(suggestion));
   };
 
   //border={isSelected ? 'primary' : ''}
   return (
     <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src={image} />
+      <Card.Img variant='top' src={suggestion.photo} />
       <Card.Body>
         <Card.Title>{suggestion.activity}</Card.Title>
-        <Card.Text>
-          {suggestion.description}
-        </Card.Text>
+        <Card.Text>{suggestion.description}</Card.Text>
       </Card.Body>
       {/* <ListGroup className="list-group-flush">
         <ListGroup.Item>{suggestion.address}</ListGroup.Item> */}
-        {/* <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
+      {/* <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
         <ListGroup.Item>Vestibulum at eros</ListGroup.Item> */}
       {/* </ListGroup> */}
       <Card.Body>
-        {
-          buttonVariant === 'primary' ?
+        {buttonVariant === 'primary' ? (
           <Button variant='primary' onClick={selectActivity}>
             Select Activity
-          </Button> :
-          <Button variant='success'>
-            Selected
-         </Button>
-        }
+          </Button>
+        ) : (
+          <Button variant='success'>Selected</Button>
+        )}
       </Card.Body>
     </Card>
   );
-}
+};
 
 export default SuggestionCard;

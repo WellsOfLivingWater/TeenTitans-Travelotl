@@ -73,7 +73,7 @@ const ActivityCard = ({
       {/* <Card.Img variant="top" src={image} width="100%"/> */}
 
       <div id='card-img-container' className='card-img-top'>
-        <img src={image} className='card-img' width='100%' />
+        <img src={suggestion.photo} className='card-img' width='100%' />
         <div id='img-overlay' className='card-img-overlay text-white'>
           {/* <Card.Title>{suggestion.activity}</Card.Title> */}
           <Card.Text>{suggestion.activity}</Card.Text>

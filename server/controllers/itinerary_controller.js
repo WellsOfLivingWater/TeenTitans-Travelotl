@@ -32,6 +32,7 @@ const tripController = {
     //     date: {
     //       time of day: {
     //         activity: string,
+    //         placeName: string,
     //         description: string,
     //         address: string
     //       }
@@ -184,6 +185,7 @@ const tripController = {
       activities: [
         {
           activity: string,
+          placeName; string,
           description: string,
           address: string,
         }
@@ -212,6 +214,7 @@ const tripController = {
       res.locals.suggestions = JSON.parse(
         completion.choices[0].message.content
       );
+
       return next();
     } catch (err) {
       console.log(err);

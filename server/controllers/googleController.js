@@ -12,7 +12,7 @@ const getPlaceIdheaders = {
 };
 
 googleController.getPlaceId = async (req, res, next) => {
-  console.log('Requesting Place ID for --->', req.body);
+  // console.log('Requesting Place ID for --->', req.body);
 
   const textQuery = JSON.stringify(req.body);
   const requestOptions = {
@@ -27,7 +27,7 @@ googleController.getPlaceId = async (req, res, next) => {
       requestOptions
     );
     const data = await response.json();
-    console.log('Place ID captured --->', data.places[0].id);
+    // console.log('Place ID captured --->', data.places[0].id);
     res.locals.placeId = data.places[0].id;
 
     return next();
@@ -59,18 +59,38 @@ googleController.getPlaceDetailsByText = async (req, res, next) => {
     // console.log(`DATE --->>>> ${date}`);
     for (const dayTime in itern.itinerary[date]) {
       // console.log(`Time Of The Day --->>>> ${dayTime}`);
+      let actvity = itern.itinerary[date][dayTime].activity;
+      // console.log('the activity ->', actvity);
+      let words = actvity;
+      // Split the sentence into an array of words
+      if (actvity !== '') {
+        words = actvity.split(' ');
+      }
+      // Check if the sentence has more than one word
+      if (words.length > 1) {
+        // Remove the first word by slicing the array from index 1 onwards
+        actvity = words.slice(1).join(' ');
+      }
       const act =
-        // itern.itinerary[date][dayTime].activity +
-        // ' ' +
-        itern.itinerary[date][dayTime].placeName + ' ' + res.locals.destination;
+        actvity +
+        ',' +
+        itern.itinerary[date][dayTime].placeName +
+        ' ' +
+        res.locals.destination;
       // console.log('sending this to google to get PLACE ID ->', act);
       const actDetails = await getPlaceInfo(act);
-      const photoInfo = actDetails.photos;
-      // console.log('photo name', actDetails.photos[0].name);
-      const photoUri = photoUriBuilder(photoInfo);
-      itern.itinerary[date][dayTime].details = actDetails;
-      itern.itinerary[date][dayTime].photo = photoUri;
-      itern.itinerary[date][dayTime].placeId = actDetails.id;
+      if (actDetails != '') {
+        const photoInfo = actDetails.photos;
+        // console.log('photo name', actDetails.photos[0].name);
+        const photoUri = photoUriBuilder(photoInfo);
+        itern.itinerary[date][dayTime].details = actDetails;
+        itern.itinerary[date][dayTime].photo = photoUri;
+        itern.itinerary[date][dayTime].placeId = actDetails.id;
+      } else {
+        itern.itinerary[date][dayTime].details = '';
+        itern.itinerary[date][dayTime].photo = '';
+        itern.itinerary[date][dayTime].placeId = '';
+      }
     }
   }
   res.locals.detailedTtinerary = itern;
@@ -80,23 +100,40 @@ googleController.getPlaceDetailsByText = async (req, res, next) => {
 googleController.getSuggestionDetailsByText = async (req, res, next) => {
   const suggestions = res.locals.suggestions;
 
-  console.log('this is suggesstions ->', suggestions);
+  // console.log('this is suggesstions ->', suggestions);
 
   for (let i = 0; i < suggestions.activities.length; i++) {
     let country = '';
+    let actvity = suggestions.activities[i].activity;
+    let words = actvity;
+    // Split the sentence into an array of words
+    if (actvity !== '') {
+      words = actvity.split(' ');
+    }
+    // Check if the sentence has more than one word
+    if (words.length > 1) {
+      // Remove the first word by slicing the array from index 1 onwards
+      actvity = words.slice(1).join(' ');
+    }
     if (suggestions.activities[i].address.includes(',')) {
       // Split the address string using commas as delimiters
       const parts = suggestions.activities[i].address.split(',');
       // Get the last part of the address (country)
       country = parts[parts.length - 1].trim();
     }
-    const textParam = suggestions.activities[i].placeName + ' ' + country;
+    const textParam =
+      actvity + ',' + suggestions.activities[i].placeName + ' ' + country;
     const sugDetails = await getPlaceInfo(textParam);
-    const photoInfo = sugDetails.photos;
-    // console.log('photo name', actDetails.photos[0].name);
-    const photoUri = photoUriBuilder(photoInfo);
-    suggestions.activities[i].details = sugDetails;
-    suggestions.activities[i].photo = photoUri;
+    if (sugDetails != '') {
+      const photoInfo = sugDetails.photos;
+      // console.log('photo name', actDetails.photos[0].name);
+      const photoUri = photoUriBuilder(photoInfo);
+      suggestions.activities[i].details = sugDetails;
+      suggestions.activities[i].photo = photoUri;
+    } else {
+      suggestions.activities[i].details = '';
+      suggestions.activities[i].photo = '';
+    }
   }
   res.locals.detailedSuggestions = suggestions;
   next();
@@ -116,7 +153,12 @@ async function getPlaceInfo(text) {
     requestOptions
   );
   const data = await response.json();
-  if (response.ok || data.places.length > 0 || !data.places) {
+
+  if (
+    data.places &&
+    data.places.length > 0 &&
+    data.places[0].id !== undefined
+  ) {
     // console.log('this is data coming back --> ', data);
     const { id } = data.places[0];
     // console.log(`${text} --> ${id}`);
@@ -136,7 +178,7 @@ async function getPlaceInfo(text) {
 
 function photoUriBuilder(photoObj) {
   let photoList = [];
-
+  if (photoObj === undefined) return '';
   //get photos that are vertical only
   photoObj.forEach((photo) => {
     if (photo.heightPx < photo.widthPx) {

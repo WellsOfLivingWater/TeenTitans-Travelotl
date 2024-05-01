@@ -21,11 +21,11 @@ const SuggestionCard = ({ itineraryID, suggestion }) => {
   const selectActivity = () => {
     dispatch(selectNewActivity(suggestion));
   };
-
+  const photoSrc = suggestion.photo != '' ? suggestion.photo : image;
   //border={isSelected ? 'primary' : ''}
   return (
     <Card style={{ width: '18rem' }}>
-      <Card.Img variant='top' src={suggestion.photo} />
+      <Card.Img variant='top' src={photoSrc} />
       <Card.Body>
         <Card.Title>{suggestion.activity}</Card.Title>
         <Card.Text>{suggestion.description}</Card.Text>

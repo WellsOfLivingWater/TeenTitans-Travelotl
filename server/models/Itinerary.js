@@ -12,6 +12,8 @@ const ItinerarySchema = new mongoose.Schema({
   endDate: { type: String, required: true },
   // email: { type: String, required: true },
   trip: { type: String, required: true },
+  editors: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  readers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
 },{
   timestamps: true
 });

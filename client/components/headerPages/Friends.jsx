@@ -4,6 +4,8 @@ export default function Friends() {
   const [user, setUser] = useState(null);
   const [friends, setFriends] = useState([]);
 
+  let friendsList;
+
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -16,7 +18,6 @@ export default function Friends() {
         });
 
         setUser(res);
-        console.log(user);
       } catch (err) {
         console.error(err);
       }
@@ -24,10 +25,23 @@ export default function Friends() {
     getUser();
   }, []);
 
+  useEffect(() => {
+    if (user) setFriends(user.friends);
+  }, [user]);
+
+  useEffect(() => {
+    if (friends) friendsList = friends.map((friend) => (
+      <div key={friend._id}>
+        <h3>{friend.name}</h3>
+        <p>{friend.email}</p>
+      </div>
+    ));
+  });
+
   return (
     <div>
       <h2>Friends</h2>
-      <p>Friends page content...</p>
+      {friendsList}
     </div>
   );
 }

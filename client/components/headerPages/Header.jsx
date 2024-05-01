@@ -5,27 +5,42 @@
  * @module Header
  * @returns {JSX.Element} The rendered header component.
  */
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar, Nav } from 'react-bootstrap';
 
-const Header = ({ className }) => {
+import Signin from '../Signin';
+
+import logo from '../assets/logo.png'
+
+import '../stylesheets/header.css';
+
+const Header = () => {
+  const [openSignin, setOpenSignin] = useState(false);
 
   return (
-    <Navbar bg="light" expand="lg" className={className}>
-      <Navbar.Brand as={Link} to="/" className="text-blue-600 text-3xl font-bold font-serif text-center">Travelotl</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link as={Link} to="/about">About</Nav.Link>
-          <Nav.Link as={Link} to="/manager">Manager</Nav.Link>
-          <Nav.Link as={Link} to="/friends">Friends</Nav.Link>
-        </Nav>
-        <Nav>
-          <Nav.Link as={Link} to="/login">Login</Nav.Link>
-          <Nav.Link as={Link} to="/register">Register</Nav.Link>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
+    <div className="header-container">
+      <div className='logo'>
+        <Link to='/'> 
+          <img src={logo} style={{width:'100px'}}alt="logo" />
+        </Link>
+      </div>
+
+      <div className='text-right m-2'>
+        <Link to='/manager'>Manager</Link>
+      </div>
+      <div className='text-right m-2'>
+        <Link to='/about'>About</Link>
+      </div>
+      <div>
+      <button className='login-btn' onClick={() => setOpenSignin(true)}>
+        Sign in
+      </button>
+      <Signin
+        show={openSignin}
+        onHide={() => setOpenSignin(false)}
+      />
+      </div>
+    </div>
   );
 };
 

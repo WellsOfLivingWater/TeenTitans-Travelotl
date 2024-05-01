@@ -6,6 +6,7 @@
  */
 // Package dependencies
 import { Outlet } from 'react-router-dom';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Header from './components/headerPages/Header';

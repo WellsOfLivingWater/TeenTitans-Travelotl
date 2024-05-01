@@ -23,9 +23,6 @@ const Manager = () => {
       const getItineraries = async () => {
         dispatch(updateItineraries(await fetch('api/trip/retrieve', {
           method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('userToken')}`,
-          },
         }).then(res => res.json())));
       }
       getItineraries();

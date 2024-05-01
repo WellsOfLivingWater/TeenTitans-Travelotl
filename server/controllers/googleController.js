@@ -2,7 +2,7 @@ const googleController = {};
 const apikey = process.env.GOOGLE_API_KEY;
 
 const getDetailsFields =
-  'name,formattedAddress,location,nationalPhoneNumber,rating,googleMapsUri,websiteUri,regularOpeningHours,reviews,accessibilityOptions,photos';
+  'name,id,formattedAddress,location,nationalPhoneNumber,rating,googleMapsUri,websiteUri,regularOpeningHours,reviews,accessibilityOptions,photos';
 // 'name,formattedAddress,location';
 const getPlaceIdheaders = {
   'Content-Type': 'application/json',
@@ -64,7 +64,12 @@ googleController.getPlaceDetailsByText = async (req, res, next) => {
         res.locals.destination;
       // console.log('sending this to google to get PLACE ID ->', act);
       const actDetails = await getPlaceInfo(act);
+      const photoInfo = actDetails.photos;
+      // console.log('photo name', actDetails.photos[0].name);
+      const photoUri = photoUriBuilder(photoInfo);
       itern.itinerary[date][dayTime].details = actDetails;
+      itern.itinerary[date][dayTime].photo = photoUri;
+      itern.itinerary[date][dayTime].placeId = actDetails.id;
     }
   }
   res.locals.detailedTtinerary = itern;
@@ -86,9 +91,9 @@ async function getPlaceInfo(text) {
   );
   const data = await response.json();
   if (response.ok || data != '') {
-    console.log('this is data coming back --> ', data);
+    // console.log('this is data coming back --> ', data);
     const { id } = data.places[0];
-    console.log(`${text} --> ${id}`);
+    // console.log(`${text} --> ${id}`);
 
     // getting all place details
     const placeDetailURL = `https://places.googleapis.com/v1/places/${id}?languageCode=en&fields=${getDetailsFields}&key=${apikey}`;
@@ -101,6 +106,24 @@ async function getPlaceInfo(text) {
     console.log('No data found');
     return (placeDetailResponse = '');
   }
+}
+//lh3.googleusercontent.com/places/ANXAkqE63k0Z7VuST-ujt26bkJEgDPodYThKiCf6va-6tJ_1GJ-Ckxa836pzWlTJ7ARYkur8tamcZamVxL9BZO4heoVsbRrG-eJLkBA=s4800-w1058-h718
+
+https: function photoUriBuilder(photoObj) {
+  let photoList = [];
+  photoObj.forEach((photo) => {
+    if (photo.heightPx > photo.widthPx) {
+      photoList.push(photo);
+    }
+  });
+  if (photoList.length < 1) photoList = photoObj;
+  // console.log(photoObj);
+  let { name, widthPx, heightPx } = photoList[0];
+  widthPx = widthPx > 4800 || widthPx == null ? 400 : widthPx;
+  heightPx = heightPx > 4800 || heightPx == null ? 400 : heightPx;
+  const photoUri = `https://places.googleapis.com/v1/${name}/media?key=${apikey}&maxHeightPx=${heightPx}&maxWidthPx=${widthPx}`;
+  // console.log(photoUri);
+  return photoUri;
 }
 
 module.exports = googleController;

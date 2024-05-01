@@ -73,13 +73,16 @@ const Manager = () => {
       let foundTrip;
       for (const trip of itineraries) {
         if (trip._id === tripId) {
-          foundTrip = JSON.parse(trip.trip);
+          // foundTrip = JSON.parse(trip.trip);
+          foundTrip = trip;
           break;
         }
       }
-      
+
+      const parsedTrip = JSON.parse(foundTrip.trip);
       const payload = {
-        itinerary: foundTrip.itinerary,
+        destination: foundTrip.destination,
+        itinerary: parsedTrip.itinerary,
         itineraryID: tripId,
       };
       console.log('See details ===>', payload.itinerary);
@@ -94,8 +97,9 @@ const Manager = () => {
     }
   };
 
-  const renderList = itineraries.map((itinerary) => {
-    return (
+  const renderList = [];
+  itineraries.forEach((itinerary) => {
+    renderList.unshift(
       <div className='trip-tile' key={itinerary._id} id={itinerary._id}>
         <h3>{itinerary.destination}</h3>
         <p>From: <b>{itinerary.startDate}</b></p>
@@ -107,13 +111,10 @@ const Manager = () => {
         </div>
     </div>)
   })
-  // state: { itinerary: { itinerary: itinerary.trip }}
-  // to={{ pathname: '/other', state: dataToPass }}
-  
 
   return (<div>
     <Header />
-    <h2>Itinerary Manager</h2>
+    <p id="itinerary-title">Itinerary Manager</p>
     <div id='itinerary-grid'>{renderList}</div>
   </div>)
 }

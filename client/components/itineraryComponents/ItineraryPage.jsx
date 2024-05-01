@@ -7,28 +7,32 @@
  */
 // Package dependencies
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
+// Redux reducer actions
+import { resetTrip } from "../../reducers/tripReducer";
+import { updateLoading } from "../../reducers/itineraryReducer";
 
 // Components
 import Header from "../Header";
 import Itinerary from "./Itinerary"
 
-
 const ItineraryPage = () => {
-  const { itinerary, itineraryID } = useSelector(state => state.itinerary);
-  // console.log('itineraryPage itinerary ===>', itinerary);
-  // console.log('state itineraryID ===>', itineraryID)
-  // console.log('Itinerary Page state selector ===>', itinerary);
+  const { destination, itinerary, itineraryID } = useSelector(state => state.itinerary);
+
+  const dispatch = useDispatch();
 
   // Scroll to the top of the page when the component mounts
   useEffect(() => {
+    dispatch(resetTrip());
+    dispatch(updateLoading(false));
     window.scrollTo(0, 0);
   }, []);
 
   return (
     <div>
       <Header />
-      <h2>Your Itinerary</h2>
+      <p id="itinerary-title">Your trip to {destination}</p>
       <Itinerary itinerary={itinerary} itineraryID={itineraryID}/>
     </div>
   );

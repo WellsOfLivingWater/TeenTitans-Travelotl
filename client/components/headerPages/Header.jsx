@@ -10,9 +10,9 @@ import { Link } from 'react-router-dom';
 
 import Signin from '../Signin';
 
-import logo from '../assets/logo.png'
+import logo from '../../assets/logo.png'
 
-import '../stylesheets/header.css';
+import '../../stylesheets/header.css';
 
 const Header = () => {
   const [openSignin, setOpenSignin] = useState(false);

@@ -20,8 +20,7 @@ import Main from './components/Main';
 import About from './components/headerPages/About';
 import Manager from './components/headerPages/Manager';
 import Friends from './components/headerPages/Friends';
-import Register from './components/headerPages/Register';
-import Login from './components/headerPages/Login';
+// import Login from './components/headerPages/Login';
 import Form from './components/formComponents/Form';
 import ItineraryPage from './components/itineraryComponents/ItineraryPage';
 
@@ -64,7 +63,7 @@ createRoot(root).render(
               <Route path='/manager' element={<Manager />} />
               <Route path='/friends' element={<Friends />} />
               {/* <Route path='/login' element={<Login />} /> */}
-              <Route path='/register' element={<Register />} />
+              {/* <Route path='/register' element={<Register />} /> */}
 
             {/* Form route */}
             <Route path="/form" element={<Form />} />

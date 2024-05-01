@@ -4,7 +4,7 @@ const passport = require('passport');
 const express = require('express');
 
 const protect = async (req, res, next) => {
-  console.log('protect middleware req.cookies ===>', req.cookies);
+  // console.log('protect middleware req.cookies ===>', req.cookies);
   const jwtToken = req.cookies.SSID;
   // console.log(req.headers.authorization);
   
@@ -14,7 +14,7 @@ const protect = async (req, res, next) => {
 
     // Get user from the token, not including the hashed password
     req.user = await User.findById(decoded.id).select('-password')
-    console.log(req.user);
+    // console.log(req.user);
 
     return next()
   } catch (error) {

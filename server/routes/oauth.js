@@ -23,8 +23,8 @@ router.get('/google/failure', (req, res) => {
 })
 
 router.get('/protect', grantOauthJWT, setCookiesOAUTH, (req, res) => {
-    // res.redirect('/manager');
     console.log('cookies set');
+    return res.redirect('/manager');
 })
 
 module.exports = router;

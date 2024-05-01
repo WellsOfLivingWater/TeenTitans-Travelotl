@@ -50,12 +50,14 @@ const loginUser = async (req, res, next) => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ error: 'User not found' });
+      // return res.status(400).json({ error: 'User not found' });
+      console.log('User not found');
     }
 
     const isValid = await bcrypt.compare(password, user.password);
     if (!isValid) {
-      return res.status(400).json({ error: 'Invalid credentials' });
+      console.log('Invalid credentials');
+      // return res.status(400).json({ error: 'Invalid credentials' });
     }
 
     const jwtToken = generateToken(user._id);
@@ -78,7 +80,7 @@ const loginUser = async (req, res, next) => {
     return next();
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    // res.status(500).json({ error: 'Internal server error' });
   }
 };
 
@@ -94,7 +96,7 @@ const getUser = async (req, res) => {
 }
 
 const grantOauthJWT = (req, res, next) => {
-  console.log('grantOauthJWT middleware req.user._id ===>', req.user._id);
+  // console.log('grantOauthJWT middleware req.user._id ===>', req.user._id);
   const token = generateToken(req.user._id);
   
   res.locals.jwtToken = token;

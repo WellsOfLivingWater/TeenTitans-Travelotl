@@ -29,10 +29,10 @@ export default function Login(props) {
         });
     
         if (res.ok) {
-        const user = await res.json();
-        localStorage.setItem('userToken', user.token);
-        console.log(user);
-        navigate('/');
+        // const user = await res.json();
+        // localStorage.setItem('userToken', user.token);
+        // console.log(user);
+        navigate('/manager');
         }
     };
 

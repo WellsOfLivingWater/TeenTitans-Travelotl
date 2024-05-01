@@ -10,6 +10,11 @@ import Login from './Login.jsx';
 
 export default function Signin(props) {
   const [openLogin, setOpenLogin] = useState(false);
+  const googleLogin = async () => {
+    const res = await fetch('/api/auth/google');
+
+    console.log('response from google', res)
+  }
 
   return (
     <div className='modal'>

@@ -1,30 +1,20 @@
 const express = require('express');
 
 const router = express.Router();
-
+const { grantOauthJWT } = require('../controllers/userController');
+const { setCookiesOAUTH } = require('../controllers/cookie_controller');
 const session  = require('express-session');
 const passport = require('passport');
 require('../googleStrategy');
 require('dotenv').config();
 
 
-// router.use(session({
-//     secret: 'keyboard cat',
-//     // resave: false,
-//     // saveUninitialized: false,
-//     // cookie: { secure: true }
-//   }));
-// router.use(passport.initialize());
-// router.use(passport.session());
-
-
-router.get('/google',
-    passport.authenticate('google', {scope: ['email', 'profile']})
-);
+router.get('/google', passport.authenticate('google', {scope: ['email', 'profile']}));
+    
 
 router.get('/google/callback', 
     passport.authenticate('google', {
-        successRedirect: '/manager',
+        successRedirect: '/api/auth/protect',
         failureRedirect: '/google/failure'
     })
 )
@@ -32,8 +22,9 @@ router.get('/google/failure', (req, res) => {
     res.send('something went wrong!')
 })
 
-router.get('/protect', (req, res) => {
-    res.send('Hello')
+router.get('/protect', grantOauthJWT, setCookiesOAUTH, (req, res) => {
+    // res.redirect('/manager');
+    console.log('cookies set');
 })
 
 module.exports = router;

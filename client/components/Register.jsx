@@ -40,7 +40,6 @@ const Register = (props) => {
     if (res.ok) {
       const user = await res.json();
       console.log(user);
-      navigate('/login');
     }
   };
   return (
@@ -96,7 +95,7 @@ const Register = (props) => {
               />
           </div>
           <button className='login-btn' type='submit'>
-            <Link to='/manager'>Sign up</Link>
+            Sign up
           </button>
        </div>
        

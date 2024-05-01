@@ -5,6 +5,7 @@ const session  = require('express-session');
 const passport = require('passport');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const authRouter = require('./routes/oauth.js');
 //use environmental variables
 dotenv.config({ path: './config.env' });
@@ -31,6 +32,7 @@ app.use(session({ secret: 'keyboard cat'}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'client')));
 app.use(express.urlencoded({ extended: true })); //parse urlencoded bodies
 // app.use(bodyParser.urlencoded({ extended: true }));

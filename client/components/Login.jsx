@@ -71,7 +71,8 @@ export default function Login(props) {
                         />
                     </div>
                     <button className='login-btn' type='submit'>
-                        <Link to='/manager'>Login</Link>
+                        {/* <Link to='/manager'>Login</Link> */}
+                        Login
                     </button>
                 </div>
                 <button className='register-link'onClick={() => setRegister(true)}>

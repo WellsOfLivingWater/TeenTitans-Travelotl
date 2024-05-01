@@ -62,7 +62,7 @@ createRoot(root).render(
               {/* Header link routes */}
               <Route path='/manager' element={<Manager />} />
               <Route path='/about' element={<About />} />
-              <Route path='/login' element={<Login />} />
+              {/* <Route path='/login' element={<Login />} /> */}
               <Route path='/register' element={<Register />} />
 
               {/* Form route with nested routes for each page of the form */}
@@ -74,7 +74,6 @@ createRoot(root).render(
                 <Route path="/form/page5" element={<Page5 />} />
                 <Route path="/form/page6" element={<Page6 />} />
               </Route>
-
               {/* Itinerary route */}
               <Route path="/itinerary" element={<ItineraryPage />} />
             </Route>

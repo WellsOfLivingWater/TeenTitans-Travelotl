@@ -1,6 +1,7 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const User = require('../server/models/User.js')
+
 require('dotenv').config();
 
 //change for env variable
@@ -13,16 +14,18 @@ passport.use(new GoogleStrategy({
   
   //change code to be able to query from db
   async function(request, accessToken, refreshToken, profile, done) {
+    console.log('access Token', accessToken)
     const user = await User.findOne({email: profile.email});
-    console.log('testing', profile.given_name, "profile ====> ", profile);
+    // console.log('testing', profile.given_name, "profile ====> ", profile);
     if(user === null){
         await User.create({
             firstName: profile.given_name,
             lastName: profile.family_name,
             email: profile.email, 
-            password: 'test'        
+            password: 'oauth'        
             }
       );
+      return done(null, user, { profile: profile });
     } else {
         return done(null, user, { profile: profile });
     }

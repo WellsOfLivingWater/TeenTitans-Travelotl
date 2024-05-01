@@ -1,32 +1,28 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const passport = require('passport');
+const express = require('express');
 
 const protect = async (req, res, next) => {
-  let token
-  console.log(req.headers.authorization);
-  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
-    try {
-      // Get token from header
-      token = req.headers.authorization.split(' ')[1];
+  console.log('protect middleware req.cookies ===>', req.cookies);
+  const jwtToken = req.cookies.SSID;
+  // console.log(req.headers.authorization);
+  
+  try {
+    // Verify token
+    const decoded = jwt.verify(jwtToken, process.env.JWT_SECRET)
 
-      // Verify token
-      const decoded = jwt.verify(token, process.env.JWT_SECRET)
+    // Get user from the token, not including the hashed password
+    req.user = await User.findById(decoded.id).select('-password')
+    console.log(req.user);
 
+    return next()
+  } catch (error) {
+    console.log(error)
+    res.status(401).json({ error: 'Not authorized'})
 
-      // Get user from the token, not including the hashed password
-      req.user = await User.findById(decoded.id).select('-password')
-      console.log(req.user);
-
-      next()
-    } catch (error) {
-      console.log(error)
-      res.status(401).json({ error: 'Not authorized'})
-
-    }
-  }
-  else {
-    res.status(401).json({ error: 'Not authorized, no token'})
   }
 }
+
 
 module.exports = { protect }

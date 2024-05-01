@@ -8,10 +8,10 @@
 import { Link } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 
-const Header = () => {
+const Header = ({ className }) => {
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="lg" className={className}>
       <Navbar.Brand as={Link} to="/" className="text-blue-600 text-3xl font-bold font-serif text-center">Travelotl</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">

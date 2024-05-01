@@ -11,9 +11,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateItineraries, updateItinerary } from "../../components/itineraryComponents/itineraryReducer";
 import { useNavigate } from 'react-router-dom';
 
-// Components
-import Header from "./Header";
-
 const Manager = () => {
   const { itineraries } = useSelector(state => state.itinerary);
 
@@ -116,7 +113,6 @@ const Manager = () => {
   })
 
   return (<div>
-    <Header />
     <p id="itinerary-title">Itinerary Manager</p>
     <div id='itinerary-grid'>{renderList}</div>
   </div>)

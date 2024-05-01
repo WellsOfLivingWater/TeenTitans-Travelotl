@@ -12,9 +12,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
-// Components
-import Header from './Header';
-
 const Register = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -47,7 +44,6 @@ const Register = () => {
 
   return (
     <div>
-      <Header />
       <h2>Register</h2>
       <form
         onSubmit={handleSubmit}

@@ -14,7 +14,6 @@ import { resetTrip } from "../../components/formComponents/tripReducer";
 import { updateLoading } from "../../components/itineraryComponents/itineraryReducer";
 
 // Components
-import Header from "../headerPages/Header";
 import Itinerary from "./Itinerary"
 
 const ItineraryPage = () => {
@@ -31,7 +30,6 @@ const ItineraryPage = () => {
 
   return (
     <div>
-      <Header />
       <p id="itinerary-title">Your trip to {destination}</p>
       <Itinerary itinerary={itinerary} itineraryID={itineraryID}/>
     </div>

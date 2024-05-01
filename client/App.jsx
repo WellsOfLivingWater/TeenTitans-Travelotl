@@ -8,10 +8,15 @@
 import { Outlet } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import Header from './components/headerPages/Header';
+
+import '../styles.css';
+
 // Application component
 export default function App() {
   return (
     <div>
+      <Header className="fixed-header" />
       <Outlet />
     </div>
   );

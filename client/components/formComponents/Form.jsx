@@ -12,7 +12,6 @@
 import { useSelector } from 'react-redux';
 
 // Components
-import Header from '../headerPages/Header';
 import Stepper from './Stepper';
 import Navigation from './Navigation';
 
@@ -20,7 +19,6 @@ const Form = () => {
   const loading = useSelector((state) => state.itinerary.loading);
   return (
     <>
-      <Header />
       <div>
         <h2 className='text-2xl text-center font-bold' hidden={loading}>Enter your travel details...</h2>
         <div className="form-container" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>

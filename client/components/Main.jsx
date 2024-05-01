@@ -8,13 +8,9 @@
 // Package dependencies
 import { Link } from "react-router-dom";
 
-// Components
-import Header from "./headerPages/Header";
-
 const Main = () => {
   return (
     <div>
-      <Header />
       <p>Let us plan the trip of your dreams...</p>
       <Link to='/form' id='start'>Click here to get started... </Link>
     </div>

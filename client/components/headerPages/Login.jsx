@@ -8,8 +8,6 @@
 // Package dependencies
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-// Components
-import Header from './Header';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -43,7 +41,6 @@ const Login = () => {
 
   return (
     <div>
-      <Header />
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <label>

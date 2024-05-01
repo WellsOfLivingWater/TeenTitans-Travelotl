@@ -18,9 +18,10 @@ import suggestionsReducer from './components/itineraryComponents/suggestionsRedu
 import App from './App';
 import Main from './components/Main';
 import About from './components/headerPages/About';
+import Manager from './components/headerPages/Manager';
+import Friends from './components/headerPages/Friends';
 import Register from './components/headerPages/Register';
 import Login from './components/headerPages/Login';
-import Manager from './components/headerPages/Manager';
 import Form from './components/formComponents/Form';
 import ItineraryPage from './components/itineraryComponents/ItineraryPage';
 
@@ -59,8 +60,9 @@ createRoot(root).render(
             <Route index element={<Main />} />
 
             {/* Header link routes */}
-            <Route path='/manager' element={<Manager />} />
             <Route path='/about' element={<About />} />
+            <Route path='/manager' element={<Manager />} />
+            <Route path='/friends' element={<Friends />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
 

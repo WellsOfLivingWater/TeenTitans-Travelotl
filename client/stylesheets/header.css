@@ -1,0 +1,39 @@
+ .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+    padding: 10px;
+    color: #0B1320;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+
+}
+
+.wallpaper {
+    width: 70%;
+    margin: auto;
+}
+.text-container {
+    text-align: center;
+    margin: 20px;
+}
+.mainpage-text {
+    font-size: 28px;
+    font-weight: 800;
+    margin: 10px;
+}
+
+.login-btn {
+    background-color: #0B1320;
+    color: white;
+    border-radius: 20px;
+    width: 90px;
+    height: 40px;
+}
+
+.login-btn:hover {
+    background-color: #2d3646;
+
+}

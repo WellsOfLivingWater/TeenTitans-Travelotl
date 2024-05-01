@@ -1,0 +1,55 @@
+
+.login-form {
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* STYLES SIGN UP */
+.login-form input {
+    height: 40px;
+    width: 100%;
+    border: 1px solid #0B1320;
+    border-radius: 10px;
+    padding: 10px;
+}
+.login-form-register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 450px;
+}
+.login-form-register input {
+    height: 40px;
+    width: 100%;
+    border: 1px solid #0B1320;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.input-login {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 75px;
+    width: 280px;
+}
+
+.input-form-login {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.input-form-login button {
+    width: 70%;
+    margin: auto;
+    margin-top: 20px;
+    
+}
+.register-link {
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+}

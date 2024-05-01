@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+  destination: '',
   itinerary: {},
   itineraryID: '',
   loading: false,
   itineraries: [],
-  itineraryID: '',
 };
 
 const itinerarySlice = createSlice({
@@ -13,7 +13,8 @@ const itinerarySlice = createSlice({
   initialState,
   reducers: {
     updateItinerary(state, action) {
-      const { itinerary, itineraryID } = action.payload;
+      const { destination, itinerary, itineraryID } = action.payload;
+      state.destination = destination;
       state.itinerary = itinerary;
       state.itineraryID = itineraryID;
     },

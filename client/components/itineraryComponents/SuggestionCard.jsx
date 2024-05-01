@@ -7,7 +7,7 @@ import image from '../../assets/placeholder-image.jpg';
 import { selectNewActivity } from '../../reducers/suggestionsReducer';
 
 const SuggestionCard = ({ itineraryID, suggestion }) => {
-  console.log("suggestionCard rendered:", suggestion.activity);
+  // console.log("suggestionCard rendered:", suggestion.activity);
   const [buttonVariant, setVariant] = useState('primary');
   const { newActivity } = useSelector(state => state.suggestions)
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const SuggestionCard = ({ itineraryID, suggestion }) => {
 
   const selectActivity = () => {
     dispatch(selectNewActivity(suggestion));    
-    // console.log('New activity Selected:', suggestion.activity);
+
   };
 
   //border={isSelected ? 'primary' : ''}
@@ -31,11 +31,11 @@ const SuggestionCard = ({ itineraryID, suggestion }) => {
           {suggestion.description}
         </Card.Text>
       </Card.Body>
-      <ListGroup className="list-group-flush">
-        <ListGroup.Item>{suggestion.address}</ListGroup.Item>
+      {/* <ListGroup className="list-group-flush">
+        <ListGroup.Item>{suggestion.address}</ListGroup.Item> */}
         {/* <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
         <ListGroup.Item>Vestibulum at eros</ListGroup.Item> */}
-      </ListGroup>
+      {/* </ListGroup> */}
       <Card.Body>
         {
           buttonVariant === 'primary' ?

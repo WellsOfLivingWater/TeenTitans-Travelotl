@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 
-import { updateStep, updateTransitionDirection } from '../../reducers/tripReducer';
-import { updateItinerary, updateLoading } from '../../reducers/itineraryReducer';
+import { updateStep, updateTransitionDirection } from '../../components/formComponents/tripReducer';
+import { updateItinerary, updateLoading } from '../../components/itineraryComponents/itineraryReducer';
 
 import Pages from './Pages';
 

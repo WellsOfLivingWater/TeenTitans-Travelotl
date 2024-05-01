@@ -5,7 +5,7 @@ import UpdateModal from './UpdateModal';
 import { useState } from 'react';
 import image from '../../assets/placeholder-image.jpg';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectOldActivity, updateLoading, updateSuggestions, setShowModal } from '../../reducers/suggestionsReducer';
+import { selectOldActivity, updateLoading, updateSuggestions, setShowModal } from '../../components/itineraryComponents/suggestionsReducer';
 
 const ActivityCard = ({ itinerary, itineraryID, time, suggestion, toastify }) => {
   const [modalShow, setModalShow] = useState(false);

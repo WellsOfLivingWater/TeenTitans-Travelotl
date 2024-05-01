@@ -10,18 +10,18 @@ import { configureStore } from '@reduxjs/toolkit';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 // Reducers
-import tripReducer from './reducers/tripReducer';
-import itineraryReducer from './reducers/itineraryReducer';
-import suggestionsReducer from './reducers/suggestionsReducer';
+import tripReducer from './components/formComponents/tripReducer';
+import itineraryReducer from './components/itineraryComponents/itineraryReducer';
+import suggestionsReducer from './components/itineraryComponents/suggestionsReducer';
 
 // Components
 import App from './App';
 import Main from './components/Main';
-import About from './components/About';
-import Register from './components/Register';
-import Login from './components/Login';
-import Manager from './components/Manager';
-import Form from './components/Form';
+import About from './components/headerPages/About';
+import Register from './components/headerPages/Register';
+import Login from './components/headerPages/Login';
+import Manager from './components/headerPages/Manager';
+import Form from './components/formComponents/Form';
 import ItineraryPage from './components/itineraryComponents/ItineraryPage';
 
 // Styles

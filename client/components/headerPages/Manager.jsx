@@ -8,7 +8,7 @@
 // Package dependencies
 import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { updateItineraries, updateItinerary } from "../reducers/itineraryReducer";
+import { updateItineraries, updateItinerary } from "../../components/itineraryComponents/itineraryReducer";
 import { useNavigate } from 'react-router-dom';
 
 // Components

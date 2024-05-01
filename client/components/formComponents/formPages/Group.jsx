@@ -11,10 +11,10 @@ import { forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // Redux actions
-import { updateTravelers, updateGroupDescription, updateStep, updateTransitionDirection } from "../../../reducers/tripReducer";
+import { updateTravelers, updateGroupDescription, updateStep, updateTransitionDirection } from "../../../components/formComponents/tripReducer";
 
 // Components
-import Loader from "../../Loader";
+import Loader from "../Loader";
 
 const Group = forwardRef((props, ref) => {
   const { travelers, groupDescription, step, transitionDirection } = useSelector(state => state.trip);

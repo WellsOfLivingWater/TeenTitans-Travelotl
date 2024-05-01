@@ -10,11 +10,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // Redux reducer actions
-import { resetTrip } from "../../reducers/tripReducer";
-import { updateLoading } from "../../reducers/itineraryReducer";
+import { resetTrip } from "../../components/formComponents/tripReducer";
+import { updateLoading } from "../../components/itineraryComponents/itineraryReducer";
 
 // Components
-import Header from "../Header";
+import Header from "../headerPages/Header";
 import Itinerary from "./Itinerary"
 
 const ItineraryPage = () => {

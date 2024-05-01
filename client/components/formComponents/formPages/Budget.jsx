@@ -10,7 +10,7 @@ import { forwardRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Redux actions
-import { updateBudget, updateStep, updateTransitionDirection } from '../../../reducers/tripReducer';
+import { updateBudget, updateStep, updateTransitionDirection } from '../../../components/formComponents/tripReducer';
 
 const Budget = forwardRef((props, ref) => {
   const { budget, step, transitionDirection } = useSelector(state => state.trip);

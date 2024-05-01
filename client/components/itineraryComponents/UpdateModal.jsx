@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import SuggestionCard from './SuggestionCard'
-import Loader from '../Spinner';
+import Loader from './Spinner';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateItinerary } from '../../reducers/itineraryReducer';
+import { updateItinerary } from '../../components/itineraryComponents/itineraryReducer';
 
 const UpdateModal = (props) => {
   // console.log(props);

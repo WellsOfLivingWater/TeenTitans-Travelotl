@@ -9,7 +9,7 @@
 import { Link } from "react-router-dom";
 
 // Components
-import Header from "./Header";
+import Header from "./headerPages/Header";
 
 const Main = () => {
   return (

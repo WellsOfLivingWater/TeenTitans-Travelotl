@@ -10,7 +10,7 @@ import { forwardRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Redux actions
-import { updateStartDate, updateEndDate, updateStep, updateTransitionDirection } from '../../../reducers/tripReducer';
+import { updateStartDate, updateEndDate, updateStep, updateTransitionDirection } from '../../../components/formComponents/tripReducer';
 
 const Dates = forwardRef((props, ref) => {
   const { startDate, endDate, step, transitionDirection } = useSelector(state => state.trip);

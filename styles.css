@@ -69,6 +69,7 @@
     position: relative;
 }
 
+/*======= Manager Page Styling========*/
 #itinerary-grid {
     display: flex;
     flex-wrap: wrap;
@@ -97,6 +98,30 @@
         text-decoration: underline;
     }
 }
+
+#manager-header {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+#itinerary-title {
+    font-size: x-large;
+    font-weight: 300;
+    padding: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    /* margin-right: 20px; */
+}
+
+#manager-add-trip-button {
+    border:#5d5d5d 0.75px solid;
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
+}
+
+/*================End of Manager Styling===============*/
 
 #loader {
     display: flex;
@@ -130,12 +155,7 @@
 
 
 /* ========= Itinerary Page Styling ==========*/
-#itinerary-title {
-    font-size: x-large;
-    font-weight: 300;
-    padding-top: 10px;
-    padding-left: 20px;
-}
+
 
 .day-details {
     display: flex;

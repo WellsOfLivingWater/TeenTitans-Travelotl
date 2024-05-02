@@ -13,6 +13,7 @@ import {
   updateItinerary,
 } from '../reducers/itineraryReducer';
 import { useNavigate } from 'react-router-dom';
+import plusImage from '../assets/plus.png'
 
 // Components
 import Header from './Header';
@@ -102,32 +103,49 @@ const Manager = () => {
     }
   };
 
+  const newTrip = () => {
+    navigate('/form')
+  }
+
   const renderList = [];
-  itineraries.forEach((itinerary) => {
-    renderList.unshift(
-      <div className='trip-tile' key={itinerary._id} id={itinerary._id}>
-        <h3>{itinerary.destination}</h3>
-        <p>
-          From: <b>{itinerary.startDate}</b>
-        </p>
-        <p>
-          To: <b>{itinerary.endDate}</b>
-        </p>
-        <p>
-          Created on: <b>{new Date(itinerary.createdAt).toLocaleString()}</b>
-        </p>
-        <div className='tile-buttons'>
-          <button onClick={seeDetails}>See Details</button>
-          <button onClick={deleteItinerary}>Delete</button>
+  if (itineraries.length > 0) {
+    itineraries.forEach((itinerary) => {
+      renderList.unshift(
+        <div className='trip-tile' key={itinerary._id} id={itinerary._id}>
+          <h3>{itinerary.destination}</h3>
+          <p>
+            From: <b>{itinerary.startDate}</b>
+          </p>
+          <p>
+            To: <b>{itinerary.endDate}</b>
+          </p>
+          <p>
+            Created on: <b>{new Date(itinerary.createdAt).toLocaleString()}</b>
+          </p>
+          <div className='tile-buttons'>
+            <button onClick={seeDetails}>See Details</button>
+            <button onClick={deleteItinerary}>Delete</button>
+          </div>
         </div>
+      );
+    });
+  } else {
+    renderList.push(
+      <div className='trip-tile' onClick={newTrip}>
+          <h3>Create a new itinerary</h3>
       </div>
-    );
-  });
+    )
+  }
+  
 
   return (
     <div>
       <Header />
-      <p id='itinerary-title'>Itinerary Manager</p>
+      <div id='manager-header'>
+        <p id='itinerary-title'>Itinerary Manager</p>
+        <button id='manager-add-trip-button' onClick={newTrip}><img src={plusImage} width={20}/></button>
+      </div>
+      
       <div id='itinerary-grid'>{renderList}</div>
     </div>
   );

@@ -19,32 +19,6 @@ const Header = ({ className }) => {
   const [openSignin, setOpenSignin] = useState(false);
 
   return (
-    // <div className="header-container">
-    //   <div className='logo'>
-    //     <Link to='/'>
-    //       <img src={logo} style={{width:'100px'}}alt="logo" />
-    //     </Link>
-    //   </div>
-
-    //   <div className='text-right m-2'>
-    //     <Link to='/manager'>Manager</Link>
-    //   </div>
-    //   <div className='text-right m-2'>
-    //     <Link to='/about'>About</Link>
-    //   </div>
-    //   <div>
-    //     <Link to='/friends'>Friends</Link>
-    //   </div>
-    //   <div>
-    //   <button className='login-btn' onClick={() => setOpenSignin(true)}>
-    //     Sign in
-    //   </button>
-    //   <Signin
-    //     show={openSignin}
-    //     onHide={() => setOpenSignin(false)}
-    //   />
-    //   </div>
-    // </div>
     <Navbar bg="light" expand="lg" className={className}>
       <Navbar.Brand as={Link} to="/" className="text-blue-600 text-3xl font-bold font-serif text-center"><img src={logo} style={{width:'100px'}}alt="logo" /></Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />

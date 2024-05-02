@@ -43,7 +43,7 @@ const registerUser = async (req, res) => {
 }
 
 const loginUser = async (req, res, next) => {
-  console.log('request to login user', req.body);
+  // console.log('request to login user', req.body);
   const { email, password } = req.body;
   res.locals.email = email;
 
@@ -55,6 +55,8 @@ const loginUser = async (req, res, next) => {
     }
 
     const isValid = await bcrypt.compare(password, user.password);
+    console.log('current user', user, isValid)
+
     if (!isValid) {
       console.log('Invalid credentials');
       // return res.status(400).json({ error: 'Invalid credentials' });

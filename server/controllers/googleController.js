@@ -35,9 +35,9 @@ googleController.getPlaceId = async (req, res, next) => {
 googleController.getPlaceDetails = async (req, res, next) => {
   //   const { placeId } = req.params;
   const placeId = res.locals.placeId;
-  const placeDetialURL = `https://places.googleapis.com/v1/places/${placeId}?languageCode=en&fields=${getDetailsFields}&key=${apikey}`;
+  const placeDetailURL = `https://places.googleapis.com/v1/places/${placeId}?languageCode=en&fields=${getDetailsFields}&key=${apikey}`;
   try {
-    const response = await fetch(placeDetialURL);
+    const response = await fetch(placeDetailURL);
     const placeDetailResponse = await response.json();
     console.log(placeDetailResponse);
     res.locals.details = placeDetailResponse;
@@ -61,7 +61,7 @@ googleController.getPlaceDetailsByText = async (req, res, next) => {
         itern.itinerary[date][dayTime].address +
         ' ' +
         res.locals.destination;
-      
+
       // const actDetails = await getPlaceInfo(act);
 
       /* console.log('----- - - - - - ------ --- - - - - -');
@@ -76,7 +76,7 @@ googleController.getPlaceDetailsByText = async (req, res, next) => {
       console.log('----- - - - - - ------ --- - - - - -'); */
     }
   }
-  res.locals.detailedTtinerary = itern;
+  res.locals.detailedItinerary = itern;
   return next();
 };
 
@@ -97,8 +97,8 @@ async function getPlaceInfo(text) {
     const placeId = data.places[0].id;
 
     //getting all place details
-    const placeDetialURL = `https://places.googleapis.com/v1/places/${placeId}?languageCode=en&fields=${getDetailsFields}&key=${apikey}`;
-    const responseDetails = await fetch(placeDetialURL);
+    const placeDetailURL = `https://places.googleapis.com/v1/places/${placeId}?languageCode=en&fields=${getDetailsFields}&key=${apikey}`;
+    const responseDetails = await fetch(placeDetailURL);
     const placeDetailResponse = await responseDetails.json();
     // console.log(placeDetailResponse);
     return placeDetailResponse;

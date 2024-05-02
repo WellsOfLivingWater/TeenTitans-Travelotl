@@ -76,12 +76,12 @@ const tripController = {
       destination: req.body.destination,
       startDate: req.body.startDate,
       endDate: req.body.endDate,
-      trip: JSON.stringify(res.locals.detailedTtinerary),
+      trip: JSON.stringify(res.locals.detailedItinerary),
     })
       .then((result) => {
         console.log('itinerary successfully saved in database');
-        res.locals.detailedTtinerary = result;
-        console.log('saveTrip results', res.locals.detailedTtinerary);
+        res.locals.detailedItinerary = result;
+        console.log('saveTrip results', res.locals.detailedItinerary);
         return next();
       })
       .catch((err) => {
@@ -125,7 +125,7 @@ const tripController = {
     editedActivities.itinerary[selectedDay][selectedTime]['description'] = newActivity.description;
     editedActivities.itinerary[selectedDay][selectedTime]['address'] = newActivity.address;
 
-    Itinerary.findOneAndUpdate({ _id: itineraryID}, 
+    Itinerary.findOneAndUpdate({ _id: itineraryID },
       {
         trip: JSON.stringify(editedActivities)
       },

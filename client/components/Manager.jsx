@@ -1,21 +1,24 @@
 /**
  * @file Renders the itinerary manager component.
  * Allows the user to view, delete, and navigate to the details of their itineraries.
- * 
+ *
  * @module Manager
  * @returns {JSX.Element} The rendered itinerary manager component.
  */
 // Package dependencies
-import { useEffect } from "react";
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateItineraries, updateItinerary } from "../reducers/itineraryReducer";
+import {
+  updateItineraries,
+  updateItinerary,
+} from '../reducers/itineraryReducer';
 import { useNavigate } from 'react-router-dom';
 
 // Components
-import Header from "./Header";
+import Header from './Header';
 
 const Manager = () => {
-  const { itineraries } = useSelector(state => state.itinerary);
+  const { itineraries } = useSelector((state) => state.itinerary);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,48 +27,51 @@ const Manager = () => {
   useEffect(() => {
     try {
       const getItineraries = async () => {
-        dispatch(updateItineraries(await fetch('api/trip/retrieve', {
-          method: 'GET',
-        }).then(res => res.json())));
-      }
+        dispatch(
+          updateItineraries(
+            await fetch('api/trip/retrieve', {
+              method: 'GET',
+            }).then((res) => res.json())
+          )
+        );
+      };
       getItineraries();
     } catch (error) {
       console.error('Error with request:', error);
     }
-    
   }, []);
 
   /**
    * Deletes the selected itinerary from the database.
-   * 
+   *
    * @async
    * @param {Event} e The event object.
    */
-  const deleteItinerary = async e => {
+  const deleteItinerary = async (e) => {
     const tripId = e.target.parentNode.parentNode.id;
-    
+
     try {
       await fetch('api/trip/delete', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('userToken')}`,
+          Authorization: `Bearer ${localStorage.getItem('userToken')}`,
         },
         body: JSON.stringify({ tripId: tripId }),
       });
-      let remainingTrips = itineraries.filter(trip => trip._id !== tripId);
+      let remainingTrips = itineraries.filter((trip) => trip._id !== tripId);
       dispatch(updateItineraries(remainingTrips));
     } catch (err) {
       console.error('Error with request:', err);
     }
-  }
+  };
 
   /**
    * Navigates to the details of the selected itinerary.
-   * 
+   *
    * @param {Event} e The event object.
    */
-  const seeDetails = e => {
+  const seeDetails = (e) => {
     const tripId = e.target.parentNode.parentNode.id;
     console.log(tripId);
 
@@ -91,7 +97,6 @@ const Manager = () => {
         dispatch(updateItinerary(payload));
         navigate('/itinerary');
       }
-      
     } catch (error) {
       console.error('Error with request:', error);
     }
@@ -102,21 +107,30 @@ const Manager = () => {
     renderList.unshift(
       <div className='trip-tile' key={itinerary._id} id={itinerary._id}>
         <h3>{itinerary.destination}</h3>
-        <p>From: <b>{itinerary.startDate}</b></p>
-        <p>To: <b>{itinerary.endDate}</b></p>
-        <p>Created on: <b>{new Date(itinerary.createdAt).toLocaleString()}</b></p>
-        <div className="tile-buttons">
+        <p>
+          From: <b>{itinerary.startDate}</b>
+        </p>
+        <p>
+          To: <b>{itinerary.endDate}</b>
+        </p>
+        <p>
+          Created on: <b>{new Date(itinerary.createdAt).toLocaleString()}</b>
+        </p>
+        <div className='tile-buttons'>
           <button onClick={seeDetails}>See Details</button>
           <button onClick={deleteItinerary}>Delete</button>
         </div>
-    </div>)
-  })
+      </div>
+    );
+  });
 
-  return (<div>
-    <Header />
-    <p id="itinerary-title">Itinerary Manager</p>
-    <div id='itinerary-grid'>{renderList}</div>
-  </div>)
-}
+  return (
+    <div>
+      <Header />
+      <p id='itinerary-title'>Itinerary Manager</p>
+      <div id='itinerary-grid'>{renderList}</div>
+    </div>
+  );
+};
 
 export default Manager;

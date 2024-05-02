@@ -5,8 +5,8 @@ const cookieController = {};
 // To handle setting cookies for OAUTH users
 cookieController.setCookiesOAUTH = (req, res, next) => {
   res.cookie('logCode', 1);
-  res.cookie('user', { httpOnly: true });
-  res.cookie('SSID', { httpOnly: true });
+  res.cookie('user', req.user.email, { httpOnly: true });
+  res.cookie('SSID', res.locals.jwtToken, { httpOnly: true });
   return next();
 }
 
@@ -20,7 +20,6 @@ cookieController.setCookiesBasic = (req, res, next) => {
 
 cookieController.clearCookies = (req, res, next) => {
   res.clearCookie('logCode');
-  console.log('cleared cookies');
   return next();
 }
 

@@ -68,13 +68,6 @@ const loginUser = async (req, res, next) => {
       email: user.email,
     };
 
-    // res.status(200).json({
-    //   _id: user._id,
-    //   firstName: user.firstName,
-    //   lastName: user.lastName,
-    //   email: user.email,
-    //   token: jwtToken,
-    // });
     return next();
   } catch (error) {
     console.error(error);
@@ -95,6 +88,7 @@ const getUser = async (req, res) => {
 const grantOauthJWT = (req, res, next) => {
   // console.log('grantOauthJWT middleware req.user._id ===>', req.user._id);
   const token = generateToken(req.user._id);
+  console.log("OAUTH user details",req.user);
   
   res.locals.jwtToken = token;
 

@@ -44,7 +44,9 @@ const Header = () => {
           <img src={logo} style={{width:'100px'}}alt="logo" />
         </Link>
       </div>
-
+      <div className='text-right m-2'>
+      <Link to='/'>Home</Link>
+      </div>
       <div className='text-right m-2'>
         <Link to='/manager'>Manager</Link>
       </div>

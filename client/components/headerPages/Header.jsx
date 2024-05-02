@@ -15,7 +15,7 @@ import logo from '../../assets/logo.png'
 
 import '../../stylesheets/header.css';
 
-const Header = () => {
+const Header = ({ className }) => {
   const [openSignin, setOpenSignin] = useState(false);
 
   return (
@@ -45,7 +45,7 @@ const Header = () => {
     //   />
     //   </div>
     // </div>
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="lg" className={className}>
       <Navbar.Brand as={Link} to="/" className="text-blue-600 text-3xl font-bold font-serif text-center"><img src={logo} style={{width:'100px'}}alt="logo" /></Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">

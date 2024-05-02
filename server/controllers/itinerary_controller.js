@@ -120,7 +120,9 @@ const tripController = {
 
     const oldItinerary = await Itinerary.findById(itineraryID);
     const editedActivities = JSON.parse(oldItinerary.trip);
-    // console.log(editedActivities);
+    console.log(editedActivities.itinerary[selectedDay][selectedTime]);
+    console.log('this is new activity', newActivity);
+
     // console.log('updateTrip details ===>', 'newActivity:', newActivity, '| selectedDay:', selectedDay, '| selectedTime:', selectedTime);
     editedActivities.itinerary[selectedDay][selectedTime]['activity'] =
       newActivity.activity;
@@ -128,6 +130,12 @@ const tripController = {
       newActivity.description;
     editedActivities.itinerary[selectedDay][selectedTime]['address'] =
       newActivity.address;
+    editedActivities.itinerary[selectedDay][selectedTime]['details'] =
+      newActivity.details;
+    editedActivities.itinerary[selectedDay][selectedTime]['photo'] =
+      newActivity.photo;
+    // editedActivities.itinerary[selectedDay][selectedTime]['address'] =
+    //   newActivity.address;
 
     Itinerary.findOneAndUpdate(
       { _id: itineraryID },

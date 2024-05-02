@@ -6,25 +6,39 @@
  * @returns {JSX.Element} The rendered header component.
  */
 import { Link } from 'react-router-dom';
+import { useState } from 'react'
+import Button from 'react-bootstrap/Button';
+import Signin from './Signin';
+import logo from '../assets/logo.png'
+import '../stylesheets/header.css';
 
 const Header = () => {
+  const [openSignin, setOpenSignin] = useState(false);
+
+
 
   return (
     <div className="header-container">
-      <div>
-        <Link to='/' className='text-blue-600 text-3xl font-bold font-serif text-center'>Travelotl</Link>
+      <div className='logo'>
+        <Link to='/'> 
+          <img src={logo} style={{width:'100px'}}alt="logo" />
+        </Link>
       </div>
+
       <div className='text-right m-2'>
         <Link to='/manager'>Manager</Link>
       </div>
       <div className='text-right m-2'>
         <Link to='/about'>About</Link>
       </div>
-      <div className='text-center m-2'>
-        <Link to='/register'>Register</Link>
-      </div>
-      <div className='text-center m-2'>
-        <Link to='/login'>Login</Link>
+      <div>
+      <button className='login-btn' onClick={() => setOpenSignin(true)}>
+        Sign in
+      </button>
+      <Signin
+        show={openSignin}
+        onHide={() => setOpenSignin(false)}
+      />
       </div>
     </div>
   );

@@ -58,11 +58,11 @@ createRoot(root).render(
             {/* The main page */}
             <Route index element={<Main />} />
 
-            {/* Header link routes */}
-            <Route path='/manager' element={<Manager />} />
-            <Route path='/about' element={<About />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
+              {/* Header link routes */}
+              <Route path='/manager' element={<Manager />} />
+              <Route path='/about' element={<About />} />
+              {/* <Route path='/login' element={<Login />} /> */}
+              <Route path='/register' element={<Register />} />
 
             {/* Form route */}
             <Route path="/form" element={<Form />} />

@@ -1,3 +1,4 @@
+import React from 'react';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
@@ -11,6 +12,7 @@ import {
   updateSuggestions,
   setShowModal,
 } from '../../reducers/suggestionsReducer';
+import ActivityDetailsModal from './ActivityDetailsModal';
 
 const ActivityCard = ({
   itinerary,
@@ -22,7 +24,7 @@ const ActivityCard = ({
   const [modalShow, setModalShow] = useState(false);
   const [isFetched, setIsFetched] = useState(false);
   const dispatch = useDispatch();
-
+  const [detailsModalShow, setDetailModalShow] = React.useState(false);
   const hideModal = async (e) => {
     setModalShow(false);
     setIsFetched(false);
@@ -91,7 +93,15 @@ const ActivityCard = ({
       </ListGroup> */}
       <Card.Body id='card-buttons'>
         <div>
-          <Button variant='primary'>Details</Button>
+          <Button variant='primary' onClick={() => setDetailModalShow(true)}>
+            Details
+          </Button>
+
+          <ActivityDetailsModal
+            details={suggestion}
+            show={detailsModalShow}
+            onHide={() => setDetailModalShow(false)}
+          />
           <Button
             variant='primary'
             onClick={openModal}

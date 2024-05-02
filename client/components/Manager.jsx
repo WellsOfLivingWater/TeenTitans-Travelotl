@@ -13,7 +13,9 @@ import {
   updateItinerary,
 } from '../reducers/itineraryReducer';
 import { useNavigate } from 'react-router-dom';
+import React from 'react';
 
+import Container from 'react-bootstrap/Container';
 // Components
 import Header from './Header';
 
@@ -126,9 +128,11 @@ const Manager = () => {
 
   return (
     <div>
-      <Header />
-      <p id='itinerary-title'>Itinerary Manager</p>
-      <div id='itinerary-grid'>{renderList}</div>
+      <Container>
+        <Header />
+        <p id='itinerary-title'>Itinerary Manager</p>
+        <div id='itinerary-grid'>{renderList}</div>
+      </Container>
     </div>
   );
 };

@@ -24,6 +24,7 @@ router.get('/google/failure', (req, res) => {
 
 router.get('/protect', grantOauthJWT, setCookiesOAUTH, (req, res) => {
     console.log('cookies set');
+    res.status(200).json();
     return res.redirect('/manager');
 })
 

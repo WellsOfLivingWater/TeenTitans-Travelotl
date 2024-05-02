@@ -8,11 +8,14 @@
 // Package dependencies
 import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
 import Register from './Register';
 import '../stylesheets/login.css';
+import { loginUser } from '../reducers/userReducer';
 
 export default function Login(props) {
+    const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [openRegister, setRegister] = useState(false);
@@ -25,14 +28,14 @@ export default function Login(props) {
         const res = await fetch('/api/users/login', {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ email, password }),
         });
     
         if (res.ok) {
-        // const user = await res.json();
-        // localStorage.setItem('userToken', user.token);
-        // console.log(user);
-        navigate('/manager');
+          const user = await res.json();
+          console.log('LOGIN SUCCESS user==>', user);
+          dispatch(loginUser(user))
+          navigate('/manager');
         }
     };
 

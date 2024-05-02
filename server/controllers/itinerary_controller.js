@@ -150,8 +150,9 @@ const tripController = {
 
   // retrieveAll - To retrieve all trips saved for a specific user
   retrieveAll(req, res, next) {
+    console.log('retrieveAll user ===>', req.user.email);
     Itinerary.find({
-      email: req.body.email,
+      user: req.user._id,
     })
       .then((result) => {
         // console.log(result);

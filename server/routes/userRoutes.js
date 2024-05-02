@@ -11,5 +11,9 @@ router.post('/login', loginUser, setCookiesBasic, (req, res) => {
   return res.redirect('/manager');
 });
 router.get('/user', protect, getUser);
+router.post('/user', protect, (req, res) => {
+  console.log('add friend');
+  res.status(200).json({ message: 'add friend' });
+});
 
 module.exports = router;

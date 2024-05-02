@@ -102,6 +102,15 @@ const getUser = async (req, res) => {
   
 }
 
+const addFriend = async (req, res, next) => {
+  try {
+    User.findByIdAndUpdate(req.user.id, { friends: req.body.friends });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
 const grantOauthJWT = (req, res, next) => {
   // console.log('grantOauthJWT middleware req.user._id ===>', req.user._id);
   const token = generateToken(req.user._id);

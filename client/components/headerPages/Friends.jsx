@@ -38,9 +38,25 @@ export default function Friends() {
     ));
   });
 
+  const addFriend = async (friend) => {
+    friendsList.push(friend);
+    setUser({
+      ...user,
+      friends: friendsList,
+    });
+    const token = localStorage.getItem('userToken');
+    const res = await fetch('/api/users/user', {
+      method: 'patch',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(user),
+    });
+  };
+
   return (
     <div>
-      <h2>Friends</h2>
+      <p id="itinerary-title">Friends</p>
       {friendsList}
     </div>
   );

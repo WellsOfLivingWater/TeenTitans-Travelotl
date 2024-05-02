@@ -26,12 +26,13 @@ const tripController = {
     // Update prompt below to reflect req.body information - DONE (J.H.)
     const prompt = `Make an itinerary for a trip for ${travelers} to ${destination} from ${startDate} until ${endDate}. I have a budget of ${budget}. Include the following types of attractions: ${activities.join(
       ', '
-    )} for a ${groupDescription}. Organize the itinerary by the following times of day: morning, afternoon, and evening. Recommend specific places of interest with their address. Limit cross-city commutes by grouping places of interest by geography for each day. Output the response in json format following this schema:
+    )} for a ${groupDescription}. Organize the itinerary by the following times of day: morning, afternoon, and evening. Recommend specific places of interest that should have exact address and activity name should have place name in it. Limit cross-city commutes by grouping places of interest by geography for each day. Output the response in json format following this schema:
     // {
     //   itinerary: {
     //     date: {
     //       time of day: {
     //         activity: string,
+    //         placeName: string,
     //         description: string,
     //         address: string
     //       }
@@ -119,33 +120,47 @@ const tripController = {
 
     const oldItinerary = await Itinerary.findById(itineraryID);
     const editedActivities = JSON.parse(oldItinerary.trip);
-    // console.log(editedActivities);
-    // console.log('updateTrip details ===>', 'newActivity:', newActivity, '| selectedDay:', selectedDay, '| selectedTime:', selectedTime);
-    editedActivities.itinerary[selectedDay][selectedTime]['activity'] = newActivity.activity;
-    editedActivities.itinerary[selectedDay][selectedTime]['description'] = newActivity.description;
-    editedActivities.itinerary[selectedDay][selectedTime]['address'] = newActivity.address;
+    console.log(editedActivities.itinerary[selectedDay][selectedTime]);
+    console.log('this is new activity', newActivity);
 
-    Itinerary.findOneAndUpdate({ _id: itineraryID}, 
+    // console.log('updateTrip details ===>', 'newActivity:', newActivity, '| selectedDay:', selectedDay, '| selectedTime:', selectedTime);
+    editedActivities.itinerary[selectedDay][selectedTime]['activity'] =
+      newActivity.activity;
+    editedActivities.itinerary[selectedDay][selectedTime]['description'] =
+      newActivity.description;
+    editedActivities.itinerary[selectedDay][selectedTime]['address'] =
+      newActivity.address;
+    editedActivities.itinerary[selectedDay][selectedTime]['details'] =
+      newActivity.details;
+    editedActivities.itinerary[selectedDay][selectedTime]['photo'] =
+      newActivity.photo;
+    // editedActivities.itinerary[selectedDay][selectedTime]['address'] =
+    //   newActivity.address;
+
+    Itinerary.findOneAndUpdate(
+      { _id: itineraryID },
       {
-        trip: JSON.stringify(editedActivities)
+        trip: JSON.stringify(editedActivities),
       },
-      { new: true },
+      { new: true }
     )
-      .then(result => {
+      .then((result) => {
         if (result) {
           res.locals.updatedTrip = result;
-          console.log('Itinerary updated and saved with new activity in database - updateTrip');
+          console.log(
+            'Itinerary updated and saved with new activity in database - updateTrip'
+          );
         } else {
-          console.log('ItineraryID not found in database. Nothing updated.')
+          console.log('ItineraryID not found in database. Nothing updated.');
         }
         return next();
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(
           'could not locate itinerary based on itineraryID passed in - updateTrip middleware'
         );
         console.log('updateTrip ERROR =>', err);
-      })
+      });
   },
 
   // retrieveAll - To retrieve all trips saved for a specific user
@@ -179,6 +194,7 @@ const tripController = {
       activities: [
         {
           activity: string,
+          placeName; string,
           description: string,
           address: string,
         }
@@ -207,6 +223,7 @@ const tripController = {
       res.locals.suggestions = JSON.parse(
         completion.choices[0].message.content
       );
+
       return next();
     } catch (err) {
       console.log(err);

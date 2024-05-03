@@ -272,6 +272,12 @@ button {
 }
 
 .largeFont {
-  font-size: 58px;
+  font-size: 88px;
   text-align: center;
+}
+.sub {
+  font-size: 12px;
+
+  overflow: hidden;
+  font-weight: light;
 }

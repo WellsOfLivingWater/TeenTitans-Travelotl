@@ -15,8 +15,8 @@ import { Navbar, Nav } from 'react-bootstrap';
 import Signin from '../Signin';
 
 // Reducers
-import { updateItineraries } from "../../itineraryReducer";
-import { logoutUser } from "../../userReducer";
+import { updateItineraries } from '../itineraryComponents/itineraryReducer';
+import { logoutUser } from '../itineraryComponents/userReducer';
 
 // Assets
 import logo from '../../assets/logo.png'

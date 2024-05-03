@@ -15,7 +15,7 @@ import { Modal } from 'react-bootstrap';
 import Register from './Register';
 
 // Reducers
-import { loginUser } from '../reducers/userReducer';
+import { loginUser } from './itineraryComponents/userReducer';
 
 // Stylesheets
 import '../stylesheets/login.css';

@@ -63,6 +63,7 @@ const loginUser = async (req, res, next) => {
     const jwtToken = generateToken(user._id);
     res.locals.jwtToken = jwtToken;
     res.locals.userDetails = {
+      _id: user._id,
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,

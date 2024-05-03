@@ -12,6 +12,9 @@ router.post('/login', loginUser, setCookiesBasic, (req, res) => {
 router.post('/logout', clearCookies, (req, res) => {
   res.status(200).json('Logged Out');
 });
+router.get('/isAuthenticated', protect, (req, res) => {
+  res.status(200).json(req.user);
+})
 router.get('/user', protect, getUser);
 
 module.exports = router;

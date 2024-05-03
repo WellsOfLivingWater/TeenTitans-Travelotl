@@ -18,7 +18,7 @@ import { logoutUser } from "../reducers/userReducer";
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isLoggedIn = useSelector(state => state.user.loggedIn);
+  const { loggedIn, user } = useSelector(state => state.user);
   const [openSignin, setOpenSignin] = useState(false);
 
   const logOut = async() => {
@@ -55,14 +55,15 @@ const Header = () => {
       </div>
       <div>
         {
-          !isLoggedIn ? <button className='login-btn' onClick={() => setOpenSignin(true)}>
-            Sign In
-          </button> :
-          <button className='login-btn' onClick={logOut}>
-            Sign Out
-          </button>
+          !loggedIn ?
+            <button className='login-btn' onClick={() => setOpenSignin(true)}>
+              Sign In
+            </button>:
+            <button className='login-btn' onClick={logOut}>
+              Sign Out
+            </button>
         }
-      
+        
       <Signin
         show={openSignin}
         onHide={() => setOpenSignin(false)}

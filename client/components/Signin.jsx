@@ -10,11 +10,12 @@ import Login from './Login.jsx';
 
 export default function Signin(props) {
   const [openLogin, setOpenLogin] = useState(false);
-  const googleLogin = async () => {
-    const res = await fetch('/api/auth/google');
+  // const googleLogin = async () => {
+  //   const res = await fetch('/api/auth/google');
 
-    console.log('response from google', res)
-  }
+  //   console.log('response from google', res)
+  // }
+
 
   return (
     <div className='modal'>
@@ -36,7 +37,7 @@ export default function Signin(props) {
             <div className='img-email'>
               <img src={google} alt="google-logo" style={{width:'35px'}} />
             </div>
-            <div className='text-email'>
+            <div className='text-email'>Continue with Google
               <Link to="http://localhost:3000/api/auth/google" className="auth-link google">Continue with Google</Link>
             </div>
           </button>

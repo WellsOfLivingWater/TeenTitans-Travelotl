@@ -19,14 +19,14 @@ const protect = async (req, res, next) => {
       return next()
     } catch (error) {
       console.log(error)
-      res.status(401).json({ error: 'Not authorized'})
-  
+      return res.redirect('/api/users/redirect');
+      // return res.status(401);
     }
   } else {
     console.log('Authorization not granted');
-    return res.redirect('/');
+    return res.redirect('/api/users/redirect');
+    // return res.status(401);
   }
-
 }
 
 

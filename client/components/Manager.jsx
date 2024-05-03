@@ -14,6 +14,7 @@ import {
 } from '../reducers/itineraryReducer';
 import { useNavigate } from 'react-router-dom';
 import plusImage from '../assets/plus.png'
+import { loginUser, logoutUser } from '../reducers/userReducer';
 
 // Components
 import Header from './Header';
@@ -30,13 +31,26 @@ const Manager = () => {
       const getItineraries = async () => {
         dispatch(
           updateItineraries(
-            await fetch('api/trip/retrieve', {
+            await fetch('/api/trip/retrieve', {
               method: 'GET',
             }).then((res) => res.json())
           )
         );
       };
       getItineraries();
+      const fetchUser = async () => {
+        const res = await fetch('/api/users/isAuthenticated');
+        
+        if(res.status === 200) {
+          const user = await res.json();
+          dispatch(loginUser(user));
+        } else {
+          // console.log(res);
+          dispatch(logoutUser(false));
+          navigate('/');
+        }
+      };
+      fetchUser();
     } catch (error) {
       console.error('Error with request:', error);
     }
@@ -131,7 +145,7 @@ const Manager = () => {
     });
   } else {
     renderList.push(
-      <div className='trip-tile' onClick={newTrip}>
+      <div key='empty' className='trip-tile' onClick={newTrip}>
           <h3>Create a new itinerary</h3>
       </div>
     )

@@ -32,7 +32,8 @@ router.post('/logout', clearCookies, (req, res) => {
  * Checks if a user is authenticated.
  */
 router.get('/isAuthenticated', protect, (req, res) => {
-  res.status(200).json(req.user);
+  const response = req.user ? { user: req.user } : { user: null };
+  res.status(200).json(response);
 })
 
 /**

@@ -8,22 +8,15 @@ const protect = async (req, res, next) => {
   if (isLoggedIn == '1') {
     try {
       // Verify token
-      const decoded = jwt.verify(jwtToken, process.env.JWT_SECRET)
+      const decoded = jwt.verify(jwtToken, process.env.JWT_SECRET);
   
       // Get user from the token, not including the hashed password
-      req.user = await User.findById(decoded.id).select('-password')
-  
-      return next()
-    } catch (error) {
-      console.log(error)
-      return res.redirect('/api/users/redirect');
-      // return res.status(401);
+      req.user = await User.findById(decoded.id).select('-password');
+    } catch (err) {
+      return next(err);
     }
-  } else {
-    console.log('Authorization not granted');
-    return res.redirect('/api/users/redirect');
-    // return res.status(401);
   }
+  return next();
 };
 
 module.exports = { protect };

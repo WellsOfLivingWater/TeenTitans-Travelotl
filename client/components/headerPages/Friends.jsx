@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 
 export default function Friends() {
-  // const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
   const [friends, setFriends] = useState([]);
   const [users, setUsers] = useState(null);
   const [friendsList, setFriendsList] = useState(null);
@@ -14,36 +14,37 @@ export default function Friends() {
    * Fetches user data from the server and sets the user state
    * to the user data.
    */
-  // useEffect(() => {
-  //   const getUser = async () => {
-  //     try {
-  //       const res = await fetch('/api/users/user');
-  //       const data = await res.json();
-  //       setUser(data.user);
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   }
-  //   getUser();
-  // }, []);
-
-  /**
-   * Get friends on render
-   * 
-   * Fetches friends data from the server and sets the friends state
-   * to the friends data.
-   */
   useEffect(() => {
-    const getFriends = async () => {
+    const getUser = async () => {
       try {
-        const res = await fetch('/api/users/user/friends');
+        const res = await fetch('/api/users/user');
         const data = await res.json();
-        console.log(data.friends);
-        setFriends(data.friends);
+        setUser(data.user._id);
       } catch (err) {
         console.error(err);
       }
     }
+    getUser();
+  }, []);
+
+  /**
+   * Get friends
+   * 
+   * Fetches friends data from the server and sets the friends state
+   * to the friends data.
+   */
+  const getFriends = async () => {
+    try {
+      const res = await fetch('/api/users/user/friends');
+      const data = await res.json();
+      console.log(data.friends);
+      setFriends(data.friends);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  useEffect(() => {
     getFriends();
   }, []);
 
@@ -56,8 +57,9 @@ export default function Friends() {
     if (friends) setFriendsList(friends.sort((a, b) => {
       return a.firstName.localeCompare(b.firstName);
     }).map((friend) => (
-      <div key={friend._id}>
-        <h3>{friend.firstName} {friend.lastName}</h3>
+      <div key={friend._id} style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <p className='userlist-name'>{friend.firstName} {friend.lastName}</p>
+        <Button onClick={() => deleteFriend(friend._id)} size='sm'>Delete Friend</Button>
       </div>
     )));
   }, [friends]);
@@ -79,7 +81,7 @@ export default function Friends() {
       }
     }
     getUsers();
-  }, []);
+  }, [user, friends]);
 
   /**
    * Populate all users list component
@@ -90,19 +92,18 @@ export default function Friends() {
    */
   useEffect(() => {
     if (users) {
-      console.log(users);
       setAllUsers(users.sort((a, b) => {
         return a.firstName.localeCompare(b.firstName);
       }).map((person) => {
-        if (!friends.includes(person)) return (
-          <div className='flex-container' key={person._id}>
-            <div className='userlist-name'>{person.firstName} {person.lastName}</div>
+        if (!friends.some(friend => friend._id === person._id) && person._id !== user) return (
+          <div className='flex-container' key={person._id} style={{ display: 'flex', justifyContent: 'space-between'}}>
+            <p className='userlist-name'>{person.firstName} {person.lastName}</p>
             <Button onClick={() => addFriend(person._id)} size='sm'>Add Friend</Button>
           </div>
         );
       }));
     }
-  }, [users, friends]);
+  }, [user, users, friends]);
 
   /**
    * Add friend
@@ -114,7 +115,7 @@ export default function Friends() {
   const addFriend = async (friendID) => {
     try {
       const res = await fetch('/api/users/user/friends', {
-        method: 'post',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -122,6 +123,31 @@ export default function Friends() {
       });
       const data = await res.json();
       console.log(data);
+      getFriends();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  /**
+   * Delete friend
+   * 
+   * Sends a delete request to the server to delete a friend.
+   * 
+   * @param {string} friendID - the id of the friend to delete
+   */
+  const deleteFriend = async (friendID) => {
+    try {
+      const res = await fetch('/api/users/user/friends', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ friend: friendID }),
+      });
+      const data = await res.json();
+      console.log(data);
+      getFriends();
     } catch (err) {
       console.error(err);
     }

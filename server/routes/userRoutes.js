@@ -3,7 +3,7 @@ const express = require('express');
 const { registerUser, loginUser, getUsers } = require('../controllers/userController');
 const { setCookiesBasic, clearCookies } = require('../controllers/cookie_controller');
 const { protect } = require('../controllers/auth_controller');
-const { getFriends, addFriend } = require('../controllers/friendsController');
+const { getFriends, addFriend, deleteFriend } = require('../controllers/friendsController');
 
 const router = express.Router();
 
@@ -51,6 +51,15 @@ router.get('/user/friends', protect, getFriends, (req, res) => {
  */
 router.post('/user/friends', protect, addFriend, (req, res) => {
   res.status(200).json('Friend added');
+});
+
+/**
+ * @route DELETE /api/users/user/friends
+ * 
+ * Deletes a friend from the user's friends list.
+ */
+router.delete('/user/friends', protect, deleteFriend, (req, res) => {
+  res.status(200).json('Friend deleted');
 });
 
 /**

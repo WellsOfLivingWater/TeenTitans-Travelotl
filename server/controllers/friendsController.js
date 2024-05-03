@@ -33,7 +33,22 @@ const friendsController = {
         err
       }));
     }
-  }
+  },
+
+  // delete a friend
+  deleteFriend: async (req, res, next) => {
+    try {
+      const friend = req.body.friend;
+      await User.findByIdAndUpdate(req.user.id, { $pull: { friends: friend } });
+      return next();
+    } catch (err) {
+      return next(createErr({
+        method: 'friendsController.deleteFriend',
+        type: 'database',
+        err
+      }));
+    }
+  },
 }
 
 module.exports = friendsController;

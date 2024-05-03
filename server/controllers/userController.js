@@ -98,22 +98,22 @@ const userController = {
     }
   },
 
-  // getUser: async (req, res) => {
-  //   const user = await User.findById(req.user.id);
-  //   try {
-  //     res.status(200)
-  //       .json({
-  //         id: user.id,
-  //         firstName: user.firstName,
-  //         lastName: user.lastName,
-  //         email: user.email,
-  //         friends: user.friends
-  //       })
-  //   } catch (error) {
-  //     console.error(error);
-  //     res.status(500).json({ error: 'Internal server error'});
-  //   }
-  // },
+  getUser: async (req, res) => {
+    const user = await User.findById(req.user.id);
+    try {
+      res.status(200)
+        .json({
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          friends: user.friends
+        })
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error'});
+    }
+  },
 
   grantOauthJWT: (req, res, next) => {
     try {

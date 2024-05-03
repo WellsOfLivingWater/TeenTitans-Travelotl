@@ -14,7 +14,7 @@ passport.use(new GoogleStrategy({
   
   //change code to be able to query from db
   async function(request, accessToken, refreshToken, profile, done) {
-    console.log('access Token', accessToken)
+    // console.log('access Token', accessToken)
     const user = await User.findOne({email: profile.email});
     // console.log('testing', profile.given_name, "profile ====> ", profile);
     if(user === null){

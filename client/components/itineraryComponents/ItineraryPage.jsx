@@ -6,19 +6,23 @@
  * @returns {JSX.Element} The rendered itinerary page component.
  */
 // Package dependencies
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 
+import Container from 'react-bootstrap/Container';
 // Redux reducer actions
-import { resetTrip } from "../../reducers/tripReducer";
-import { updateLoading } from "../../reducers/itineraryReducer";
+import { resetTrip } from '../../reducers/tripReducer';
+import { updateLoading } from '../../reducers/itineraryReducer';
 
 // Components
-import Header from "../Header";
-import Itinerary from "./Itinerary"
+import Header from '../Header';
+import Itinerary from './Itinerary';
 
 const ItineraryPage = () => {
-  const { destination, itinerary, itineraryID } = useSelector(state => state.itinerary);
+  const { destination, itinerary, itineraryID } = useSelector(
+    (state) => state.itinerary
+  );
 
   const dispatch = useDispatch();
 
@@ -31,9 +35,11 @@ const ItineraryPage = () => {
 
   return (
     <div>
-      <Header />
-      <p id="itinerary-title">Your trip to {destination}</p>
-      <Itinerary itinerary={itinerary} itineraryID={itineraryID}/>
+      <Container>
+        <Header />
+        <p id='itinerary-title'>Your trip to {destination}</p>
+        <Itinerary itinerary={itinerary} itineraryID={itineraryID} />
+      </Container>
     </div>
   );
 };

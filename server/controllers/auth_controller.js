@@ -27,7 +27,6 @@ const protect = async (req, res, next) => {
     return res.redirect('/api/users/redirect');
     // return res.status(401);
   }
-}
+};
 
-
-module.exports = { protect }
+module.exports = { protect };

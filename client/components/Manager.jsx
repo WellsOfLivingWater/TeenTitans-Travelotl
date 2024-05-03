@@ -13,9 +13,11 @@ import {
   updateItinerary,
 } from '../reducers/itineraryReducer';
 import { useNavigate } from 'react-router-dom';
+import React from 'react';
 import plusImage from '../assets/plus.png'
 import { loginUser, logoutUser } from '../reducers/userReducer';
 
+import Container from 'react-bootstrap/Container';
 // Components
 import Header from './Header';
 

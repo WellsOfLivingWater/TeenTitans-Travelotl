@@ -50,12 +50,28 @@ function ActivityDetailsModal(props) {
                         </a>
                       </p>
                     </ListGroup.Item>
-                    <ListGroup.Item>
-                      Phone Number:{' '}
-                      <p className='sub'>
-                        {props.details.details.nationalPhoneNumber}
-                      </p>
-                    </ListGroup.Item>
+                    {props.details.details.nationalPhoneNumber && (
+                      <ListGroup.Item>
+                        Phone Number:{' '}
+                        <p className='sub'>
+                          {props.details.details.nationalPhoneNumber}
+                        </p>
+                      </ListGroup.Item>
+                    )}
+                    {props.details.details.websiteUri && (
+                      <ListGroup.Item>
+                        website:{' '}
+                        <a
+                          href={props.details.details.websiteUri}
+                          className='link-primary'
+                          target='_blank'
+                        >
+                          <p className='sub'>
+                            {props.details.details.websiteUri}
+                          </p>
+                        </a>
+                      </ListGroup.Item>
+                    )}
                   </ListGroup>
 
                   {props.details.details.regularOpeningHours && (

@@ -6,7 +6,7 @@
  * @returns {JSX.Element} The rendered header component.
  */
 // Package dependencies
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navbar, Nav } from 'react-bootstrap';
@@ -16,7 +16,7 @@ import Signin from '../Signin';
 
 // Reducers
 import { updateItineraries } from '../itineraryComponents/itineraryReducer';
-import { logoutUser } from '../itineraryComponents/userReducer';
+import { loginUser, logoutUser } from '../itineraryComponents/userReducer';
 
 // Assets
 import logo from '../../assets/logo.png'
@@ -25,11 +25,27 @@ import logo from '../../assets/logo.png'
 import '../../stylesheets/header.css';
 
 const Header = ({ className }) => {
-  const { loggedIn, user } = useSelector(state => state.user);
+  const { loggedIn } = useSelector(state => state.user);
   const [openSignin, setOpenSignin] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkLogin = async () => {
+      try {
+        const res = await fetch('/api/users/isAuthenticated');
+        const data = await res.json();
+        const user = data.user;
+        if (res.ok) {
+          dispatch(loginUser(user));
+        }
+      } catch (err) {
+        console.log('Error checking login:', err);
+      }
+    }
+    checkLogin();
+  }, []);
 
   const logOut = async() => {
     try {

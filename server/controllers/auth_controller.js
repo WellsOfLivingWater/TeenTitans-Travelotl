@@ -1,14 +1,11 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const passport = require('passport');
-const express = require('express');
 
 const protect = async (req, res, next) => {
-  // console.log('protect middleware req.cookies ===>', req.cookies);
   const jwtToken = req.cookies.SSID;
   const isLoggedIn = req.cookies.logCode;
   
-  if(isLoggedIn == '1') {
+  if (isLoggedIn == '1') {
     try {
       // Verify token
       const decoded = jwt.verify(jwtToken, process.env.JWT_SECRET)

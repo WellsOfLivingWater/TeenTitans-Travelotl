@@ -54,7 +54,11 @@ const tripController = {
             content: prompt,
           },
         ],
-        model: 'gpt-3.5-turbo',
+        /**
+         * gpt-3.5-turbo-0125 is a lot cheaper than gpt-3.5-turbo
+         * and doesn't have unnecessary features
+        */
+        model: 'gpt-3.5-turbo-0125',
         response_format: { type: 'json_object' },
       });
 
@@ -215,7 +219,11 @@ const tripController = {
             content: prompt,
           },
         ],
-        model: 'gpt-3.5-turbo',
+        /**
+         * gpt-3.5-turbo-0125 is a lot cheaper than gpt-3.5-turbo
+         * and doesn't have unnecessary features
+        */
+        model: 'gpt-3.5-turbo-0125',
         response_format: { type: 'json_object' },
       });
 

@@ -3,16 +3,16 @@
 @tailwind components;
 @tailwind utilities;
 
-.header-container {
-  /* text-decoration: underline;
+/* .header-container {
+    text-decoration: underline;
     text-decoration-color: blue;
     column-count: 3;
     background: rgb(145,206,224);
     background: radial-gradient(circle, rgba(145,206,224,1) 0%, rgba(167,166,166,1) 100%);
     border-radius: 10px;
     border-width: 4px;
-    border-color: rgb(4, 153, 153); */
-}
+    border-color: rgb(4, 153, 153);
+} */
 
 .activities {
   column-count: 3;
@@ -296,21 +296,26 @@ button {
   width: 100%;
 }
 
+/* ========= Header/Navbar Styling ==========*/
 .fixed-header {
   position: sticky;
   top: 0;
   width: 100%;
   z-index: 100; /* This ensures the header stays on top of other content */
 }
+/*================End of Header/Navbar Styling===============*/
 
+/* ========= Friends Page Styling ==========*/
 .flex-container {
   display: flex;
+  justify-content:space-evenly
 }
 
 .userlist-name {
   font-size: 1.5rem;
   font-weight: bold;
 }
+/*================End of Friends Page Styling===============*/
 
 .largeFont {
   font-size: 88px;

@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 .header-container {
-    /* text-decoration: underline;
+  /* text-decoration: underline;
     text-decoration-color: blue;
     column-count: 3;
     background: rgb(145,206,224);
@@ -14,252 +14,251 @@
     border-color: rgb(4, 153, 153); */
 }
 
-.activities{
-    column-count:3;
+.activities {
+  column-count: 3;
 }
 
-.groups{
-    column-count: 2;
+.groups {
+  column-count: 2;
 }
 
-.activity-card{
-    border-radius: 25px;
-    background: rgba(37, 99, 235);
-    box-shadow: 10px 5px 5px black;
-    color: white;
-    padding: 24px;
-    width: 200px;
-    height: 85px;
-    text-align: center;
-    text-justify: center;
-    font-weight: bold;
-    font-size: 150%;
-    margin: 5px;
+.activity-card {
+  border-radius: 25px;
+  background: rgba(37, 99, 235);
+  box-shadow: 10px 5px 5px black;
+  color: white;
+  padding: 24px;
+  width: 200px;
+  height: 85px;
+  text-align: center;
+  text-justify: center;
+  font-weight: bold;
+  font-size: 150%;
+  margin: 5px;
 }
 
-.group-card{
-    display: flex;
-    border-radius: 25px;
-    background: rgba(37, 99, 235);
-    box-shadow: 10px 5px 5px black;
-    color: white;
-    padding: 24px;
-    width: 200px;
-    height: 85px;
-    text-align: center;
-    text-justify: center;
-    font-weight: bold;
-    font-size: 125%;
-    margin: 5px;
+.group-card {
+  display: flex;
+  border-radius: 25px;
+  background: rgba(37, 99, 235);
+  box-shadow: 10px 5px 5px black;
+  color: white;
+  padding: 24px;
+  width: 200px;
+  height: 85px;
+  text-align: center;
+  text-justify: center;
+  font-weight: bold;
+  font-size: 125%;
+  margin: 5px;
 }
 
 .typed-input {
-    background-color: white;
-    width: 100%;
-    border-radius: 10px;
-    height: 2.5rem;
-    padding: 0 15px;
-    box-shadow: 0px 0px 8px #ddd;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 500px;
-    box-shadow: 0px 0px 8px;
-    margin: 5px;
-    position: relative;
+  background-color: white;
+  width: 100%;
+  border-radius: 10px;
+  height: 2.5rem;
+  padding: 0 15px;
+  box-shadow: 0px 0px 8px #ddd;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 500px;
+  box-shadow: 0px 0px 8px;
+  margin: 5px;
+  position: relative;
 }
 
 #itinerary-grid {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .trip-tile {
-    border: 0.75px solid black;
-    border-radius: 5px;
-    padding: 20px;
-    /* padding-left: 20px;
+  border: 0.75px solid black;
+  border-radius: 5px;
+  padding: 20px;
+  /* padding-left: 20px;
     padding-bottom: 20px; */
-    min-width: 400px;
-    margin: 10px;
+  min-width: 400px;
+  margin: 10px;
 
-    /* display: flex;
+  /* display: flex;
     flex-direction: column; */
 }
 
 .tile-buttons {
-    color: blue;
-    min-width: 50px;
-    display: flex;
-    /* justify-content: space-between; */
+  color: blue;
+  min-width: 50px;
+  display: flex;
+  /* justify-content: space-between; */
 
-    :hover {
-        text-decoration: underline;
-    }
+  :hover {
+    text-decoration: underline;
+  }
 }
 
 #loader {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 #start {
-    color: blue;
-    text-decoration: underline;
+  color: blue;
+  text-decoration: underline;
 }
 
 #itinerary-details {
-    margin-left: 20px;
+  margin-left: 20px;
 }
 
 .date {
-    font-weight: bold;
-    /* text-decoration: underline; */
-    margin-bottom: 10px;
+  font-weight: bold;
+  /* text-decoration: underline; */
+  margin-bottom: 10px;
 }
 
 .day-entry {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .time-of-day {
-    font-weight: bold;
+  font-weight: bold;
 }
-
 
 /* ========= Itinerary Page Styling ==========*/
 #itinerary-title {
-    font-size: x-large;
-    font-weight: 300;
-    padding-top: 10px;
-    padding-left: 20px;
+  font-size: x-large;
+  font-weight: 300;
+  padding-top: 10px;
+  padding-left: 20px;
 }
 
 .day-details {
-    display: flex;
+  display: flex;
 }
 
 .date {
-    font-size: larger;
-    font-weight: 300;
-    color: #5d5d5d;
+  font-size: larger;
+  font-weight: 300;
+  color: #5d5d5d;
 }
 
 .activity-details {
-    border: solid 0.8px black;
-    border-radius: 5px;
-    padding: 15px;
-    margin-right: 10px;
-    margin-bottom: 30px;
-    max-width: 300px;
-    min-width: 300px;
+  border: solid 0.8px black;
+  border-radius: 5px;
+  padding: 15px;
+  margin-right: 10px;
+  margin-bottom: 30px;
+  max-width: 300px;
+  min-width: 300px;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
 #activity-image {
-    border-radius: 3px;
-    padding-bottom: 5px;
+  border-radius: 3px;
+  padding-bottom: 5px;
 }
 
 .time-of-day {
-    color: rgb(136, 136, 136);
+  color: rgb(136, 136, 136);
 }
 
 .activity-buttons {
-    background-color: rgb(215, 215, 215);
-    border-radius: 3px;
-    padding: 8px 23px 8px 23px;
-    /* margin-right: 15px; */
-    font-size: 14px;
-    /* min-width: 120px; */
+  background-color: rgb(215, 215, 215);
+  border-radius: 3px;
+  padding: 8px 23px 8px 23px;
+  /* margin-right: 15px; */
+  font-size: 14px;
+  /* min-width: 120px; */
 }
 
 .activity-button-container {
-    display: flex;
-    align-content: center;
-    justify-content: space-between;
-    min-width: 100%;
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  min-width: 100%;
 
-    /* background-color: rgb(215, 215, 215); */
-    border-radius: 3px;
-    /* padding: 3px 8px 3px 8px; */
-    /* margin-right: 15px; */
-    /* font-size: 14px; */
+  /* background-color: rgb(215, 215, 215); */
+  border-radius: 3px;
+  /* padding: 3px 8px 3px 8px; */
+  /* margin-right: 15px; */
+  /* font-size: 14px; */
 }
 
 .activity-img-container {
-    position: relative;
-    text-align: left;
-    color: white;
+  position: relative;
+  text-align: left;
+  color: white;
 }
 
 .image-header {
-    position: absolute;
-    top: 8px;
-    left: 16px;
+  position: absolute;
+  top: 8px;
+  left: 16px;
 }
 
 .modal-content {
-    min-width: 70vw;
+  min-width: 70vw;
 }
 
 .card {
-    margin-right: 10px;
-    box-shadow: 3px 3px 3px rgb(224, 224, 224);
+  margin-right: 10px;
+  box-shadow: 3px 3px 3px rgb(224, 224, 224);
 }
 
 #card-img-container {
-    position: relative;
-    width: 100%;
-    /* max-width: 300px; */
+  position: relative;
+  width: 100%;
+  /* max-width: 300px; */
 }
 
 #img-overlay {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.363);
-    border-radius: 5px 5px 0px 0px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.363);
+  border-radius: 5px 5px 0px 0px;
 }
 
 #card-addr-label {
-    font-size: smaller;
-    font-weight: bold;
-    color: rgb(138, 138, 138);
-    padding-top: 10px;
-    padding-bottom: 10px;
+  font-size: smaller;
+  font-weight: bold;
+  color: rgb(138, 138, 138);
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 #card-description-container {
-    max-height: 140px;
+  max-height: 140px;
 }
 
 #card-buttons {
-    display: flex;
-    align-items: end;
-    padding-bottom: 30px;
+  display: flex;
+  align-items: end;
+  padding-bottom: 30px;
 }
 
 button {
-    margin-right: 15px;
+  margin-right: 15px;
 }
 
 .modal-backdrop {
-    background-color: rgba(0, 0, 0, 0.154);
+  background-color: rgba(0, 0, 0, 0.154);
 }
 
 #suggestion-card-spinner {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .trip-bg-img {
@@ -270,4 +269,15 @@ button {
 .trip-bg-dims {
   height: 500px;
   width: 100%;
+}
+
+.largeFont {
+  font-size: 88px;
+  text-align: center;
+}
+.sub {
+  font-size: 12px;
+
+  overflow: hidden;
+  font-weight: light;
 }

@@ -17,13 +17,7 @@ export default function Friends() {
   // useEffect(() => {
   //   const getUser = async () => {
   //     try {
-  //       const token = localStorage.getItem('userToken');
-  //       const res = await fetch('/api/users/user', {
-  //         method: 'get',
-  //         headers: {
-  //           'Authorization': `Bearer ${token}`,
-  //         },
-  //       });
+  //       const res = await fetch('/api/users/user');
   //       const data = await res.json();
   //       setUser(data.user);
   //     } catch (err) {
@@ -42,13 +36,7 @@ export default function Friends() {
   useEffect(() => {
     const getFriends = async () => {
       try {
-        const token = localStorage.getItem('userToken');
-        const res = await fetch('/api/users/user/friends', {
-          method: 'get',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
+        const res = await fetch('/api/users/user/friends');
         const data = await res.json();
         console.log(data.friends);
         setFriends(data.friends);
@@ -83,14 +71,7 @@ export default function Friends() {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const token = localStorage.getItem('userToken');
-        const res = await fetch('/api/users', {
-          method: 'get',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-
+        const res = await fetch('/api/users');
         const data = await res.json();
         setUsers(data.users);
       } catch (err) {
@@ -132,11 +113,9 @@ export default function Friends() {
    */
   const addFriend = async (friendID) => {
     try {
-      const token = localStorage.getItem('userToken');
       const res = await fetch('/api/users/user/friends', {
         method: 'post',
         headers: {
-          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ friend: friendID }),

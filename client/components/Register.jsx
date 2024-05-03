@@ -2,16 +2,14 @@
  * @file Renders a registration component, which displays a form for users to enter their
  * first name, last name, email, and password to register for the application.
  *
- * @todo Add form validation.
- * @todo Redirect to the home page (logged in) after registration.
- *
  * @module Register
  * @returns {JSX.Element} The rendered registration component.
  */
 // Package dependencies
-import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
-import Modal from 'react-bootstrap/Modal';
+import { Modal } from 'react-bootstrap';
+
+// Stylesheets
 import '../stylesheets/login.css';
 
 const Register = (props) => {
@@ -19,8 +17,7 @@ const Register = (props) => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const navigate = useNavigate();
+  const [validInput, setValidInput] = useState(true);
 
   /**
    * Handles the form submission event.
@@ -31,21 +28,29 @@ const Register = (props) => {
    */
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch('/api/users/', {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ firstName, lastName, email, password }),
-    });
 
-    if (res.ok) {
-      const user = await res.json();
-      console.log(user);
+    if (firstName && lastName && email && password) {
+      if (!validInput) setValidInput(true);
+      const res = await fetch('/api/users/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName, lastName, email, password }),
+      });
+      
+      if (res.ok) {
+        const user = await res.json();
+        console.log(user);
+        props.onHide(); // Close the modal
+      }
+    } else {
+      if (validInput) setValidInput(false);
     }
   };
+  
   return (
     <Modal
       {...props}
-      size="lg"
+      fullscreen
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
@@ -55,52 +60,56 @@ const Register = (props) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-      <div className='login-form-register'>
-       <form onSubmit={handleSubmit} method='post' action='submit' id='registerForm'>
-       <div className='input-form-login'>
-          <div className='input-login'>
-            <label> First Name:</label>
-              <input
-                type='text'
-                placeholder='Enter your first name'
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-              />
+        <div className='login-form-register'>
+          <form onSubmit={handleSubmit} method='post' action='submit' id='registerForm'>
+            <div className='input-form-login'>
+              <div className='input-login'>
+                <label> First Name:
+                  <input
+                    type='text'
+                    placeholder='Enter your first name'
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
+                </label>
+              </div>
+            <div className='input-login'>
+              <label> Last Name:
+                <input
+                  type='text'
+                  placeholder='Enter your last name'
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  />
+                </label>
+              </div>
+              <div className='input-login'>
+                <label> Email:
+                  <input
+                    type='text'
+                    placeholder='Enter your email'
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </label>
+              </div>
+              <div className='input-login'>
+                <label> Password:
+                  <input
+                    type='password'
+                    placeholder='Enter your password'
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </label>
+              </div>
+              <p hidden={validInput} className='fields-required'>All fields required.</p>
+              <button className='login-btn' type='submit'>
+                Sign up
+              </button>
             </div>
-          <div className='input-login'>
-          <label> Last Name:</label>
-              <input
-                type='text'
-                placeholder='Enter your last name'
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-              />
-          </div>
-          <div className='input-login'>
-          <label> Email:</label>
-              <input
-                type='text'
-                placeholder='Enter your email'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-          </div>
-          <div className='input-login'>
-          <label> Password:</label>
-              <input
-                type='password'
-                placeholder='Enter your password'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-          </div>
-          <button className='login-btn' type='submit'>
-            Sign up
-          </button>
-       </div>
-       
-      </form>
-    </div>
+          </form>
+        </div>
       </Modal.Body>
     </Modal>
   );

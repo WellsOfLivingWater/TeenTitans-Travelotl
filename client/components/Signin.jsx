@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 // Components
 import Login from './Login.jsx';
+import Register from './Register.jsx';
 
 // Assets
 import email from '../assets/email.png';
@@ -16,6 +17,7 @@ import '../stylesheets/signin.css';
 
 export default function Signin(props) {
   const [openLogin, setOpenLogin] = useState(false);
+  const [openRegister, setOpenRegister] = useState(false);
   const { loggedIn } = useSelector(state => state.user);
   // const googleLogin = async () => {
   //   const res = await fetch('/api/auth/google');
@@ -33,7 +35,7 @@ export default function Signin(props) {
     <div className='modal'>
       <Modal
         {...props}
-        size="lg"
+        fullscreen
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
@@ -61,12 +63,26 @@ export default function Signin(props) {
                 <img src={email} alt="email" style={{width:'30px', marginLeft:'2px'}} />
               </div>
               <div className='text-email'>
-                <Link to='/'>Continue with email</Link>
+                <Link to='/'>Sign in with Email</Link>
               </div>
             </button>
             <Login
-              show={openLogin && !loggedIn}
+              show={openLogin}
               onHide={() => setOpenLogin(false)}
+            />
+          </div>
+          <div className='login-container'>
+            <button className='img-login-text' onClick={() => setOpenRegister(true)}>
+              <div className='img-email'>
+                <img src={email} alt="email" style={{width:'30px', marginLeft:'2px'}} />
+              </div>
+              <div className='text-email'>
+                <Link to='/'>Register with Email</Link>
+              </div>
+            </button>
+            <Register
+              show={openRegister}
+              onHide={() => setOpenRegister(false)}
             />
           </div>
         </Modal.Body>

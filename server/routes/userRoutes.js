@@ -14,7 +14,7 @@ const router = express.Router();
  */
 router.post('/login', loginUser, setCookiesBasic, (req, res) => {
   console.log('login success');
-  res.json(res.locals.userDetails);
+  res.status(200).json(res.locals.userDetails);
 });
 
 /**
@@ -25,6 +25,12 @@ router.post('/login', loginUser, setCookiesBasic, (req, res) => {
 router.post('/logout', clearCookies, (req, res) => {
   res.status(200).json('Logged Out');
 });
+
+/**
+ * @route GET /api/users/isAuthenticated
+ * 
+ * Checks if a user is authenticated.
+ */
 router.get('/isAuthenticated', protect, (req, res) => {
   res.status(200).json(req.user);
 })
@@ -70,6 +76,9 @@ router.get('/', protect, getUsers, (req, res) => {
  * 
  * Registers a user.
  */
-router.post('/', registerUser);
+router.post('/', registerUser, setCookiesBasic, (req, res) => {
+  console.log('register success');
+  res.status(201).json(res.locals.userDetails);
+});
 
 module.exports = router;

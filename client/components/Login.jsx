@@ -24,21 +24,36 @@ export default function Login(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [openRegister, setRegister] = useState(false);
+  const [validInput, setValidInput] = useState(true);
+  const [invalidLogin, setInvalidLogin] = useState(false);
   const { loggedIn } = useSelector(state => state.user);
   
   const dispatch = useDispatch();
   
   const navigate = useNavigate();
 
+  // Close the modal if the user is logged in
   useEffect(() => {
     if (loggedIn) {
       props.onHide();
     }
-}, [loggedIn]);
+  }, [loggedIn]);
 
+  /**
+   * Handles the form submission for the login form.
+   * 
+   * @async
+   * @param {Event} e The event object.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!email || !password) {
+      setValidInput(false);
+      return;
+    }
+
+    setValidInput(true);
     const res = await fetch('/api/users/login', {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
@@ -46,17 +61,20 @@ export default function Login(props) {
     });
 
     if (res.ok) {
+      if (invalidLogin) setInvalidLogin(false);
       const user = await res.json();
       console.log('LOGIN SUCCESS user==>', user);
       dispatch(loginUser(user));
       navigate('/manager');
+    } else {
+      setInvalidLogin(true);
     }
   };
 
   return (
     <Modal
       {...props}
-      size="lg"
+      fullscreen
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
@@ -89,6 +107,8 @@ export default function Login(props) {
                   />
                 </label>
               </div>
+              <p hidden={!invalidLogin} className='fields-required'>Invalid email or password</p>
+              <p hidden={validInput} className='fields-required'>Please fill out all fields</p>
               <button className='login-btn' type='submit'>
                 {/* <Link to='/manager'>Login</Link> */}
                 Login

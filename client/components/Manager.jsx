@@ -13,7 +13,11 @@ import {
   updateItinerary,
 } from '../reducers/itineraryReducer';
 import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import plusImage from '../assets/plus.png'
+import { loginUser, logoutUser } from '../reducers/userReducer';
 
+import Container from 'react-bootstrap/Container';
 // Components
 import Header from './Header';
 
@@ -29,13 +33,26 @@ const Manager = () => {
       const getItineraries = async () => {
         dispatch(
           updateItineraries(
-            await fetch('api/trip/retrieve', {
+            await fetch('/api/trip/retrieve', {
               method: 'GET',
             }).then((res) => res.json())
           )
         );
       };
       getItineraries();
+      const fetchUser = async () => {
+        const res = await fetch('/api/users/isAuthenticated');
+        
+        if(res.status === 200) {
+          const user = await res.json();
+          dispatch(loginUser(user));
+        } else {
+          // console.log(res);
+          dispatch(logoutUser(false));
+          navigate('/');
+        }
+      };
+      fetchUser();
     } catch (error) {
       console.error('Error with request:', error);
     }
@@ -102,32 +119,49 @@ const Manager = () => {
     }
   };
 
+  const newTrip = () => {
+    navigate('/form')
+  }
+
   const renderList = [];
-  itineraries.forEach((itinerary) => {
-    renderList.unshift(
-      <div className='trip-tile' key={itinerary._id} id={itinerary._id}>
-        <h3>{itinerary.destination}</h3>
-        <p>
-          From: <b>{itinerary.startDate}</b>
-        </p>
-        <p>
-          To: <b>{itinerary.endDate}</b>
-        </p>
-        <p>
-          Created on: <b>{new Date(itinerary.createdAt).toLocaleString()}</b>
-        </p>
-        <div className='tile-buttons'>
-          <button onClick={seeDetails}>See Details</button>
-          <button onClick={deleteItinerary}>Delete</button>
+  if (itineraries.length > 0) {
+    itineraries.forEach((itinerary) => {
+      renderList.unshift(
+        <div className='trip-tile' key={itinerary._id} id={itinerary._id}>
+          <h3>{itinerary.destination}</h3>
+          <p>
+            From: <b>{itinerary.startDate}</b>
+          </p>
+          <p>
+            To: <b>{itinerary.endDate}</b>
+          </p>
+          <p>
+            Created on: <b>{new Date(itinerary.createdAt).toLocaleString()}</b>
+          </p>
+          <div className='tile-buttons'>
+            <button onClick={seeDetails}>See Details</button>
+            <button onClick={deleteItinerary}>Delete</button>
+          </div>
         </div>
+      );
+    });
+  } else {
+    renderList.push(
+      <div key='empty' className='trip-tile' onClick={newTrip}>
+          <h3>Create a new itinerary</h3>
       </div>
-    );
-  });
+    )
+  }
+  
 
   return (
     <div>
       <Header />
-      <p id='itinerary-title'>Itinerary Manager</p>
+      <div id='manager-header'>
+        <p id='itinerary-title'>Itinerary Manager</p>
+        <button id='manager-add-trip-button' onClick={newTrip}><img src={plusImage} width={20}/></button>
+      </div>
+      
       <div id='itinerary-grid'>{renderList}</div>
     </div>
   );

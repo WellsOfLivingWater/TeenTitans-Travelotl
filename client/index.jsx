@@ -13,6 +13,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import tripReducer from './reducers/tripReducer';
 import itineraryReducer from './reducers/itineraryReducer';
 import suggestionsReducer from './reducers/suggestionsReducer';
+import userReducer from "./reducers/userReducer";
 
 // Components
 import App from './App';
@@ -23,6 +24,7 @@ import Login from './components/Login';
 import Manager from './components/Manager';
 import Form from './components/Form';
 import ItineraryPage from './components/itineraryComponents/ItineraryPage';
+
 
 // Styles
 import '../styles.css';
@@ -35,6 +37,7 @@ export const store = configureStore({
     trip: tripReducer,
     itinerary: itineraryReducer,
     suggestions: suggestionsReducer,
+    user: userReducer,
   }
 });
 

@@ -6,7 +6,7 @@ const passport = require('passport');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const authRouter = require('./routes/oauth.js');
+
 //use environmental variables
 dotenv.config({ path: './config.env' });
 
@@ -41,10 +41,25 @@ app.use(express.urlencoded({ extended: true })); //parse urlencoded bodies
 app.use('/api/google-api', require('./routes/googleMapApiRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/trip', require('./routes/itineraryRoutes'));
-app.use('/api/auth', authRouter)
+app.use('/api/auth', require('./routes/oauth'));
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, '../index.html'));
+});
+
+app.use('*', (req, res) => {
+  res.status(404).send('Page not found');
+});
+
+app.use((err, req, res, next) => {
+  const defaultErr = {
+    log: 'Express error handler caught unknown middleware error',
+    status: 500,
+    message: { err: 'An error occurred' },
+  };
+  const errorObj = Object.assign({}, defaultErr, err);
+  console.log(errorObj.log);
+  return res.status(errorObj.status).json(errorObj.message);
 });
 
 app.listen(port, () => console.log(`Server is running on ${port}`));

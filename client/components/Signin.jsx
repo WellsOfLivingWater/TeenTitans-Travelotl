@@ -1,12 +1,14 @@
-
-
 import { useState } from 'react';
-import Modal from 'react-bootstrap/Modal';
+import { Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import  email from '../assets/email.png';
-import google from '../assets/google.png';
-import '../stylesheets/signin.css';
+
 import Login from './Login.jsx';
+
+import email from '../assets/email.png';
+import google from '../assets/google.png';
+
+import '../stylesheets/signin.css';
+
 
 export default function Signin(props) {
   const [openLogin, setOpenLogin] = useState(false);
@@ -34,7 +36,7 @@ export default function Signin(props) {
           <div className='login-container'>
             <button className='img-login-text'>
               <div className='img-email'>
-                <img src={google} alt="google-logo" style={{width:'35px'}} />
+                <img src={google} alt="google-logo" style={{ width:'35px' }} />
               </div>
               <div className='text-email'>
                 <Link to="http://localhost:3000/api/auth/google" className="auth-link google">

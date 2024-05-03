@@ -8,11 +8,15 @@
 // Package dependencies
 import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { updateItineraries, updateItinerary } from "../../components/itineraryComponents/itineraryReducer";
 import { useNavigate } from 'react-router-dom';
+
+// Reducers
+import { updateItineraries, updateItinerary } from "../../components/itineraryComponents/itineraryReducer";
+import { loginUser } from "../../components/itineraryComponents/userReducer";
 
 const Manager = () => {
   const { itineraries } = useSelector(state => state.itinerary);
+  const { loggedIn } = useSelector(state => state.user);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,15 +25,18 @@ const Manager = () => {
   useEffect(() => {
     try {
       const getItineraries = async () => {
-        dispatch(updateItineraries(await fetch('api/trip/retrieve', {
-          method: 'GET',
-        }).then(res => res.json())));
+        const res = await fetch('api/trip/retrieve');
+        const data = await res.json();
+        dispatch(updateItineraries(data));
+        if (res.ok && !loggedIn) {
+          dispatch(loginUser(true));
+          console.log('Google OAuth successful');
+        }
       }
       getItineraries();
     } catch (error) {
       console.error('Error with request:', error);
     }
-    
   }, []);
 
   /**

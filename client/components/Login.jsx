@@ -41,7 +41,7 @@ export default function Login(props) {
     if (res.ok) {
       const user = await res.json();
       console.log('LOGIN SUCCESS user==>', user);
-      dispatch(loginUser(user))
+      dispatch(loginUser(user));
       navigate('/manager');
     }
   };

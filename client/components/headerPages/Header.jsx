@@ -48,14 +48,14 @@ const Header = ({ className }) => {
   }
 
   return (
-    <Navbar bg="light" expand="lg" className={className}>
-      <Navbar.Brand as={Link} to="/" className="text-blue-600 text-3xl font-bold font-serif text-center"><img src={logo} style={{width:'100px'}}alt="logo" /></Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link as={Link} to="/about">About</Nav.Link>
-          <Nav.Link as={Link} to="/manager">Manager</Nav.Link>
-          <Nav.Link as={Link} to="/friends">Friends</Nav.Link>
+    <Navbar bg='light' expand='lg' className={className}>
+      <Navbar.Brand as={Link} to='/' className='text-blue-600 text-3xl font-bold font-serif text-center'><img src={logo} style={{width:'100px'}} alt='logo' /></Navbar.Brand>
+      <Navbar.Toggle aria-controls='basic-navbar-nav' />
+      <Navbar.Collapse id='basic-navbar-nav'>
+        <Nav className='mr-auto'>
+          <Nav.Link as={Link} to='/about'>About</Nav.Link>
+          <Nav.Link as={Link} to='/manager' hidden={!loggedIn}>Manager</Nav.Link>
+          <Nav.Link as={Link} to='/friends' hidden={!loggedIn}>Friends</Nav.Link>
         </Nav>
         <Nav>
           <div>

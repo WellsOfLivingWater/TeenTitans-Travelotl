@@ -13,6 +13,7 @@ import {
   setShowModal,
 } from '../../reducers/suggestionsReducer';
 import ActivityDetailsModal from './ActivityDetailsModal';
+import { CardText } from 'react-bootstrap';
 
 const ActivityCard = ({
   itinerary,
@@ -70,6 +71,11 @@ const ActivityCard = ({
     // setModalShow(true);
   };
 
+  const getTimeOfDay = (string) => {
+    const result = string[0].toUpperCase().concat(string.slice(1,string.length));
+    return result;
+  }
+
   const photoSrc = suggestion.photo != '' ? suggestion.photo : image;
 
   return (
@@ -84,6 +90,7 @@ const ActivityCard = ({
         </div>
       </div>
       <Card.Body id='card-description-container'>
+        <CardText className='time-of-day'>{getTimeOfDay(time.timeOfDay)}</CardText>
         {/* <Card.Title>{suggestion.activity}</Card.Title> */}
         <Card.Text id='card-addr-label'>ADDRESS</Card.Text>
         <Card.Text>{suggestion.address}</Card.Text>

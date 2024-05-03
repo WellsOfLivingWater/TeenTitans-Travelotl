@@ -34,10 +34,11 @@ const ItineraryPage = () => {
   }, []);
 
   return (
-    <div>
-      <Container>
-        <Header />
-        <p id='itinerary-title'>Your trip to {destination}</p>
+    <div id='itinerary-page'>
+      <Header />
+      <Container className="justify-content-md-center">
+        <div id='itinerary-title-container'><p id='itinerary-title'>Your trip to {destination}</p></div>
+        
         <Itinerary itinerary={itinerary} itineraryID={itineraryID} />
       </Container>
     </div>

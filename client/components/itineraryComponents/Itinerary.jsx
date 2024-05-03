@@ -51,7 +51,7 @@ const Itinerary = ({ itinerary, itineraryID }) => {
     <div id='itinerary-details'>
       {Object.entries(itinerary).map(([date, timesOfDay]) => (
         <div className="day-entry" key={date}>
-          <div>
+          <div className='date-container'>
             <p className='date'>{convertDate(date)}</p>
           </div>
           <div className="day-details">

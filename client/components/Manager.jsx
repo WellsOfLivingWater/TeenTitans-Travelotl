@@ -16,6 +16,9 @@ import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import plusImage from '../assets/plus.png'
 import { loginUser, logoutUser } from '../reducers/userReducer';
+// import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import Container from 'react-bootstrap/Container';
 // Components
@@ -128,7 +131,7 @@ const Manager = () => {
     itineraries.forEach((itinerary) => {
       renderList.unshift(
         <div className='trip-tile' key={itinerary._id} id={itinerary._id}>
-          <h3>{itinerary.destination}</h3>
+          <h3 className='trip-tile-header'>{itinerary.destination}</h3>
           <p>
             From: <b>{itinerary.startDate}</b>
           </p>
@@ -155,14 +158,17 @@ const Manager = () => {
   
 
   return (
-    <div>
+    <div id='manager-page'>
       <Header />
-      <div id='manager-header'>
-        <p id='itinerary-title'>Itinerary Manager</p>
-        <button id='manager-add-trip-button' onClick={newTrip}><img src={plusImage} width={20}/></button>
+      <div id='manager-container'>
+        <div id='manager-header'>
+            <p id='itinerary-title'>Itinerary Manager</p>
+            <button id='manager-add-trip-button' onClick={newTrip}><img src={plusImage} width={20}/></button>
+        </div>
+        <div >
+          <div id='itinerary-grid'>{renderList}</div>
+        </div>
       </div>
-      
-      <div id='itinerary-grid'>{renderList}</div>
     </div>
   );
 };

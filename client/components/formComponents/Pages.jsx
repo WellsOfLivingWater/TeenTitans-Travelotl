@@ -11,7 +11,7 @@ import Activities from './formPages/Activities';
 import Budget from './formPages/Budget';
 import Group from './formPages/Group';
 import placeholderImg from '../../assets/placeholder-img.jpg';
-
+import '../../stylesheets/formPages.css'
 const Pages = forwardRef((props, ref) => {
   const { step, transitionDirection } = useSelector((state) => state.trip);
   const [prevStep, setPrevStep] = useState(step);
@@ -33,23 +33,25 @@ const Pages = forwardRef((props, ref) => {
         unmountOnExit
         onExited={() => setExitDirection(transitionDirection === 'left' ? 'right' : 'left')}
       >
-        <Component ref={ref} />
+        <Component ref={ref}  />       
       </Slide>
     </Box>
   );
 
   return (
-    <Box className="placeholder-destination-img" position="relative">
-     <div className='form-container'>
-      {renderPage(0, Destination)}
-      {renderPage(1, Dates)}
-      {renderPage(2, Activities)}
-      {renderPage(3, Budget)}
-      {renderPage(4, Group)}
-      {renderPage(5, Group)}
-     </div>
-     <img src={placeholderImg} alt="" />
+    <div className='pages'>
+      <Box className="placeholder-destination-img" position="relative">
+      <div className='form-container'>
+        {renderPage(0, Destination)}
+        {renderPage(1, Dates)}
+        {renderPage(2, Activities)}
+        {renderPage(3, Budget)}
+        {renderPage(4, Group)}
+        {renderPage(5, Group)}
+      </div>
+      <img src={placeholderImg} alt="placeholder-img" />
     </Box>
+  </div>
   );
 });
 

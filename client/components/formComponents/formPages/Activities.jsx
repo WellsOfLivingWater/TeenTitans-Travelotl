@@ -10,6 +10,20 @@ import { forwardRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import '../../../stylesheets/formPages.css';
 
+// ACTIVITIES ICON
+import hiking from '../../../assets/Activities/hiking.png';
+import restaurant from '../../../assets/Activities/restaurant.png';
+import danger from '../../../assets/Activities/danger.png';
+import museum from '../../../assets/Activities/museum.png';
+import safety from '../../../assets/Activities/safety.png';
+import events from '../../../assets/Activities/events.png';
+
+
+
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+
+
 // Redux actions
 import { updateActivities, updateStep, updateTransitionDirection } from '../../../reducers/tripReducer';
 
@@ -52,86 +66,121 @@ const Activities = forwardRef((props, ref) => {
   };
 
   return (
+  
     <div ref={ref} /* className="bg-gray-300 rounded border-4 border-black" */>
-      <p className='activities-title'>Select activities you are interested in...</p>
+      <p className='text-2xl text-center'>Select activities you are interested in...</p>
 
-      {/* Activities checkboxes */}
-      <ul className="activities">
-        <li className='activity-card'>
-          <label>
-            <input
-              type="checkbox"
-              value="Hiking"
-              onChange={handleActivitiesChange}
-              checked={activities.includes('Hiking')}
-              onKeyDown={handleKeyDown}
-            />
-            Hiking
-          </label>
-        </li>
-        <li className='activity-card'>
-          <label>
-            <input
-              type="checkbox"
-              value="local events"
-              onChange={handleActivitiesChange}
-              checked={activities.includes('local events')}
-              onKeyDown={handleKeyDown}
-            />
-            Local Events
-          </label>
-        </li>
-        <li className='activity-card'>
-          <label>
-            <input
-              type="checkbox"
-              value="restaurants"
-              onChange={handleActivitiesChange}
-              checked={activities.includes('restaurants')}
-              onKeyDown={handleKeyDown}
-            />
-            Restaurants
-          </label>
-        </li>
-        <li className='activity-card'>
-          <label>
-            <input
-              type="checkbox"
-              value="danger"
-              onChange={handleActivitiesChange}
-              checked={activities.includes('danger')}
-              onKeyDown={handleKeyDown}
-            />
-            Danger
-          </label>
-        </li>
-        <li className='activity-card'>
-          <label>
-            <input
-              type="checkbox"
-              value="safety"
-              onChange={handleActivitiesChange}
-              checked={activities.includes('safety')}
-              onKeyDown={handleKeyDown}
-            />
-            Safety
-          </label>
-        </li>
-        <li className='activity-card'>
-          <label>
-            <input
-              type="checkbox"
-              value="museums"
-              onChange={handleActivitiesChange}
-              checked={activities.includes('museums')}
-              onKeyDown={handleKeyDown}
-            />
-            Museums
-          </label>
-        </li>
-      </ul>
+      <div className='activity-checkboxes'>
+        <ul className="activities">
+          <li className='activity'>
+            <label>
+              <input
+                type="checkbox"
+                value="Hiking"
+                onChange={handleActivitiesChange}
+                checked={activities.includes('Hiking')}
+                onKeyDown={handleKeyDown}
+              />
+              <img src={hiking} alt="hiking-icon" />
+              <p>Hiking</p>
+            </label>
+          </li>
+          <li className='activity'>
+            <label>
+              <input
+                type="checkbox"
+                value="local events"
+                onChange={handleActivitiesChange}
+                checked={activities.includes('local events')}
+                onKeyDown={handleKeyDown}
+              />
+              <img src={events} alt="events-icon" />
+              <p>Local Events</p>
+            </label>
+          </li>
+          <li className='activity'>
+            <label>
+              <input
+                type="checkbox"
+                value="restaurants"
+                onChange={handleActivitiesChange}
+                checked={activities.includes('restaurants')}
+                onKeyDown={handleKeyDown}
+              />
+              <img src={restaurant} alt="restaurant-icon" />
+              <p>Restaurants</p>
+            </label>
+          </li>
+          <li className='activity'>
+            <label>
+              <input
+                type="checkbox"
+                value="danger"
+                onChange={handleActivitiesChange}
+                checked={activities.includes('danger')}
+                onKeyDown={handleKeyDown}
+              />
+              <img src={danger} alt="danger-icon" />
+              <p>Danger</p>
+            </label>
+          </li>
+          <li className='activity'>
+            <label>
+              <input
+                type="checkbox"
+                value="safety"
+                onChange={handleActivitiesChange}
+                checked={activities.includes('safety')}
+                onKeyDown={handleKeyDown}
+              />
+              <img src={safety} alt="safety-icon" />
+              <p>Safety</p>
+            </label>
+          </li>
+          <li className='activity'>
+            <label>
+              <input
+                type="checkbox"
+                value="museums"
+                onChange={handleActivitiesChange}
+                checked={activities.includes('museums')}
+                onKeyDown={handleKeyDown}
+              />
+              <img src={museum} alt="museum-icon" />
+              <p>Museums</p>
+            </label>
+          </li>
+        </ul>
+        </div>
     </div>
   );
 });
 
 export default Activities;
+
+
+// <div className="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+
+// <div className='btn-hiking'>
+// <input type="checkbox" className="btn-check" id="btncheck1" autocomplete="off"/>
+//    <label className="btn btn-outline-primary" for="btncheck1">
+//    <img src={hiking} alt="" />
+//    Hiking
+//    </label>
+// </div>
+// <div>
+//  <input type="checkbox" className="btn-check" id="btncheck2" autocomplete="off"/>
+//  <label class="btn btn-outline-primary" for="btncheck2">
+//    <img src={restaurant} alt="" />
+//    Restaurant
+//  </label>
+// </div>
+
+ 
+// {/* 
+//  <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off"/>
+//  <label class="btn btn-outline-primary" for="btncheck2">Checkbox 2</label>
+
+//  <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off"/>
+//  <label class="btn btn-outline-primary" for="btncheck3">Checkbox 3</label> */}
+// </div>

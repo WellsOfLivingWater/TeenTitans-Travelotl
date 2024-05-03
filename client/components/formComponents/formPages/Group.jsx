@@ -9,6 +9,7 @@
 // Package dependencies
 import { forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import '../../../stylesheets/formPages.css';
 
 // Redux actions
 import { updateTravelers, updateGroupDescription, updateStep, updateTransitionDirection } from "../../../reducers/tripReducer";
@@ -84,9 +85,10 @@ const Group = forwardRef((props, ref) => {
           </label>
 
           {/* Radio buttons for selecting the group description */}
+          <div className="grupos-container">
           <ul className="groups">
-            <li>
-              <label className='group-card'>
+            <li className="group-box">
+              <label>
                 <input
                   type="radio"
                   name="groupDescription"
@@ -95,11 +97,11 @@ const Group = forwardRef((props, ref) => {
                   checked={groupDescription === 'Solo traveler'}
                   onKeyDown={handleKeyDown}
                 />
-                Solo traveler
+                <span>Solo traveler</span>
               </label>
             </li>
-            <li>
-              <label className='group-card'>
+            <li className="group-box">
+              <label>
                 <input
                   type="radio"
                   name="groupDescription"
@@ -108,11 +110,11 @@ const Group = forwardRef((props, ref) => {
                   checked={groupDescription === 'Family with young kids'}
                   onKeyDown={handleKeyDown}
                 />
-                Family (young kids)
+                <span>Family (young kids)</span>
               </label>
             </li>
-            <li>
-              <label className='group-card'>
+            <li className="group-box">
+              <label>
                 <input
                   type="radio"
                   name="groupDescription"
@@ -121,11 +123,11 @@ const Group = forwardRef((props, ref) => {
                   checked={groupDescription === 'Family of all ages'}
                   onKeyDown={handleKeyDown}
                 />
-                Family (all ages)
+               <span>Family (all ages)</span>
               </label>
             </li>
-            <li>
-              <label className='group-card'>
+            <li className="group-box">
+              <label>
                 <input
                   type="radio"
                   name="groupDescription"
@@ -134,11 +136,11 @@ const Group = forwardRef((props, ref) => {
                   checked={groupDescription === 'Family of adults'}
                   onKeyDown={handleKeyDown}
                 />
-                Family (adults)
+                <span>Family (adults)</span>
               </label>
             </li>
-            <li>
-              <label className='group-card'>
+            <li className="group-box">
+              <label>
                 <input
                   type="radio"
                   name="groupDescription"
@@ -147,10 +149,11 @@ const Group = forwardRef((props, ref) => {
                   checked={groupDescription === 'Friends'}
                   onKeyDown={handleKeyDown}
                 />
-                Friends
+                <span>Friends</span>
               </label>
             </li>
           </ul>
+          </div>
         </>
       }
     </div>

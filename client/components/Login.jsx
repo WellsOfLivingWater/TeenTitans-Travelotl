@@ -16,11 +16,16 @@ export default function Login(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [openRegister, setRegister] = useState(false);
+    const [fieldsMessage, setFieldsMessage] = useState('');
+
 
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!email || !password) {
+          setFieldsMessage('Please complete all required fields')
+        }
     
         const res = await fetch('/api/users/login', {
         method: 'post',
@@ -31,9 +36,11 @@ export default function Login(props) {
         if (res.ok) {
         // const user = await res.json();
         // localStorage.setItem('userToken', user.token);
-        // console.log(user);
+        // console.log(user, 'res');
         navigate('/manager');
         }
+        
+
     };
 
   return (
@@ -69,6 +76,9 @@ export default function Login(props) {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
+                    </div>
+                    <div style={{color:'red', textAlign:'center', fontSize:'14px'}}>
+                      {fieldsMessage}
                     </div>
                     <button className='login-btn' type='submit'>
                         {/* <Link to='/manager'>Login</Link> */}

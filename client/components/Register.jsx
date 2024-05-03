@@ -19,6 +19,7 @@ const Register = (props) => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [fieldsMessage, setFieldsMessage] = useState('');
 
   const navigate = useNavigate();
 
@@ -36,12 +37,18 @@ const Register = (props) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ firstName, lastName, email, password }),
     });
+    if (!firstName || !lastName || !email || !password) {
+      setFieldsMessage('Please complete all required fields')
+    }
+    console.log('user from frontend', firstName, lastName, email, password);
+
 
     if (res.ok) {
       const user = await res.json();
-      console.log(user);
     }
   };
+
+
   return (
     <Modal
       {...props}
@@ -94,6 +101,10 @@ const Register = (props) => {
                 onChange={(e) => setPassword(e.target.value)}
               />
           </div>
+          <div style={{color:'red', textAlign:'center', fontSize:'14px'}}>
+            {fieldsMessage}
+          </div>
+          
           <button className='login-btn' type='submit'>
             Sign up
           </button>

@@ -7,6 +7,8 @@ import { updateStep, updateTransitionDirection } from '../../reducers/tripReduce
 import { updateItinerary, updateLoading } from '../../reducers/itineraryReducer';
 
 import Pages from './Pages';
+import '../../stylesheets/navigation.css';
+import arrow from '../../assets/arrow.png'
 
 export default function Navigation() {
   const { step, transitionDirection } = useSelector((state) => state.trip);
@@ -74,15 +76,16 @@ export default function Navigation() {
 
   return (
     <div style={{ width: '67%', display: 'flex', justifyContent: 'center', alignSelf: 'center', alignItems: 'center' }}>
-      <Button disabled={step === 0} onClick={handleBack} hidden={loading}>
-        Back
-      </Button>
+      <button className='stepper-btn-left' disabled={step === 0} onClick={handleBack} hidden={loading}>
+        <img src={arrow} alt="arrowLeft"  />
+      </button>
       <div style={{ width: '100%', display: 'flex' }}>
         <Pages />
       </div>
-      <Button variant="contained" onClick={handleNext} hidden={loading}>
-        {step === 4 ? 'Finish' : 'Next'}
-      </Button>
+      <button className='stepper-btn-right' onClick={handleNext} hidden={loading}>
+        <img src={arrow} alt="arrowRight"  />
+        {/* {step === 4 ? 'Finish' : 'next'} */}
+      </button>
     </div>
   )
 };

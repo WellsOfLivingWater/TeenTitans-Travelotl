@@ -42,8 +42,8 @@ const Destination = forwardRef((props, ref) => {
 
   return (
     // <div className="bg-gray-300 rounded border-4 border-black">
-      <label ref={ref} className='text-2xl'>
-        Destination:
+      <label ref={ref} className='text-2xl' >
+        Destination: 
         <input className='typed-input'
           type="text"
           name="destination"

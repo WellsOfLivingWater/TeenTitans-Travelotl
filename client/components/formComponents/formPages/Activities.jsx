@@ -8,6 +8,7 @@
 // Package dependencies
 import { forwardRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import '../../../stylesheets/formPages.css';
 
 // Redux actions
 import { updateActivities, updateStep, updateTransitionDirection } from '../../../reducers/tripReducer';
@@ -52,7 +53,7 @@ const Activities = forwardRef((props, ref) => {
 
   return (
     <div ref={ref} /* className="bg-gray-300 rounded border-4 border-black" */>
-      <p className='text-2xl text-center'>Select activities you are interested in...</p>
+      <p className='activities-title'>Select activities you are interested in...</p>
 
       {/* Activities checkboxes */}
       <ul className="activities">

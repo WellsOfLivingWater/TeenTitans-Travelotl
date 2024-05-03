@@ -10,6 +10,7 @@ import Dates from './formPages/Dates';
 import Activities from './formPages/Activities';
 import Budget from './formPages/Budget';
 import Group from './formPages/Group';
+import placeholderImg from '../../assets/placeholder-img.jpg';
 
 const Pages = forwardRef((props, ref) => {
   const { step, transitionDirection } = useSelector((state) => state.trip);
@@ -38,13 +39,16 @@ const Pages = forwardRef((props, ref) => {
   );
 
   return (
-    <Box className="rounded border-4 border-black trip-bg-img trip-bg-dims" position="relative">
+    <Box className="placeholder-destination-img" position="relative">
+     <div className='form-container'>
       {renderPage(0, Destination)}
       {renderPage(1, Dates)}
       {renderPage(2, Activities)}
       {renderPage(3, Budget)}
       {renderPage(4, Group)}
       {renderPage(5, Group)}
+     </div>
+     <img src={placeholderImg} alt="" />
     </Box>
   );
 });

@@ -1,0 +1,10 @@
+.stepper-btn-right {
+    width: 50px;
+    margin: 10px;
+}
+.stepper-btn-left {
+    width: 50px;
+    margin: 10px;
+    transform: rotate(180deg);
+
+}

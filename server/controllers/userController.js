@@ -77,7 +77,6 @@ const loginUser = async (req, res, next) => {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
-      token: jwtToken,
     };
     return next();
   } catch (err) {
@@ -109,11 +108,12 @@ const loginUser = async (req, res, next) => {
 const grantOauthJWT = (req, res, next) => {
   // console.log('grantOauthJWT middleware req.user._id ===>', req.user._id);
   const token = generateToken(req.user._id);
+  console.log("OAUTH user details",req.user);
   
   res.locals.jwtToken = token;
 
   return next();
-}
+};
 
 // generate json web token
 const generateToken = (id) => {

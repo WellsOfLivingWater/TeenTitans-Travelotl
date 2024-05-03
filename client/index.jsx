@@ -13,6 +13,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import tripReducer from './components/formComponents/tripReducer';
 import itineraryReducer from './components/itineraryComponents/itineraryReducer';
 import suggestionsReducer from './components/itineraryComponents/suggestionsReducer';
+import userReducer from "./components/itineraryComponents/userReducer";
 
 // Components
 import App from './App';
@@ -35,6 +36,7 @@ export const store = configureStore({
     trip: tripReducer,
     itinerary: itineraryReducer,
     suggestions: suggestionsReducer,
+    user: userReducer,
   }
 });
 

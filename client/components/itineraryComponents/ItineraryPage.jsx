@@ -6,9 +6,10 @@
  * @returns {JSX.Element} The rendered itinerary page component.
  */
 // Package dependencies
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import Container from 'react-bootstrap/Container';
 // Redux reducer actions
 import { resetTrip } from "../../components/formComponents/tripReducer";
 import { updateLoading } from "../../components/itineraryComponents/itineraryReducer";

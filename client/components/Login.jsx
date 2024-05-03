@@ -6,9 +6,9 @@
  * @returns {JSX.Element} The rendered login component.
  */
 // Package dependencies
+import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from 'react-bootstrap';
 
 // Components
@@ -24,10 +24,17 @@ export default function Login(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [openRegister, setRegister] = useState(false);
+  const { loggedIn } = useSelector(state => state.user);
   
   const dispatch = useDispatch();
   
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loggedIn) {
+      props.onHide();
+    }
+}, [loggedIn]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

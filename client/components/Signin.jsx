@@ -1,23 +1,33 @@
-import { useState } from 'react';
+// Package dependencies
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
+// Components
 import Login from './Login.jsx';
 
+// Assets
 import email from '../assets/email.png';
 import google from '../assets/google.png';
 
+// Stylesheets
 import '../stylesheets/signin.css';
-
 
 export default function Signin(props) {
   const [openLogin, setOpenLogin] = useState(false);
+  const { loggedIn } = useSelector(state => state.user);
   // const googleLogin = async () => {
   //   const res = await fetch('/api/auth/google');
 
   //   console.log('response from google', res)
   // }
 
+  useEffect(() => {
+    if (loggedIn) {
+      props.onHide();
+    }
+  }, [loggedIn]);
 
   return (
     <div className='modal'>
@@ -55,7 +65,7 @@ export default function Signin(props) {
               </div>
             </button>
             <Login
-              show={openLogin}
+              show={openLogin && !loggedIn}
               onHide={() => setOpenLogin(false)}
             />
           </div>

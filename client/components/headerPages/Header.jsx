@@ -70,7 +70,7 @@ const Header = ({ className }) => {
                 </button>
             }
             <Signin
-              show={openSignin}
+              show={openSignin && !loggedIn}
               onHide={() => setOpenSignin(false)}
             />
           </div>

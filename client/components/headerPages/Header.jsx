@@ -81,13 +81,13 @@ const Header = () => {
       <Navbar.Collapse id='basic-navbar-nav'>
         <Nav>
           <Nav.Link as={Link} to='/form'>Create</Nav.Link>
-          <Nav.Link as={Link} to='/about'>About</Nav.Link>
           <Nav.Link as={Link} to='/manager' hidden={!loggedIn}>Manager</Nav.Link>
           <Nav.Link as={Link} to='/friends' hidden={!loggedIn}>Friends</Nav.Link>
         </Nav>
       </Navbar.Collapse>
       <Nav>
         <Nav>
+          <Nav.Link as={Link} to='/about'>About</Nav.Link>
           <div>
             {
               !loggedIn ?

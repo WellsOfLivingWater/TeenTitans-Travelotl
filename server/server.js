@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const session  = require('express-session');
 const passport = require('passport');
 const dotenv = require('dotenv');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 //use environmental variables
@@ -25,6 +25,7 @@ connectDB();
 
 const app = express();
 const port = 3000;
+
 app.use(session({ secret: 'keyboard cat'}));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -39,6 +40,8 @@ app.use('/api/google-api', require('./routes/googleMapApiRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/trip', require('./routes/itineraryRoutes'));
 app.use('/api/auth', require('./routes/oauth'));
+
+app.use('/activities', require('./routes/activities'));
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, '../index.html'));

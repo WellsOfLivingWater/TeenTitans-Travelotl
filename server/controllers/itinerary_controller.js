@@ -1,10 +1,7 @@
 //Controller to call the Open AI API for information on destinations for the itinerary
 // import { Configuration, OpenAI } from "openai";
 const OpenAI = require('openai');
-const express = require('express');
-const app = express();
 const Itinerary = require('../models/Itinerary');
-const { recompileSchema } = require('../models/User');
 
 const openai = new OpenAI({ apiKey: process.env.OPEN_AI_API_KEY });
 
@@ -23,7 +20,7 @@ const tripController = {
     } = req.body;
     res.locals.destination = destination;
     res.locals.tripName = `${destination} from ${startDate} to ${endDate}`;
-    // Update prompt below to reflect req.body information - DONE (J.H.)
+    
     const prompt = `Make an itinerary for a trip for ${travelers} to ${destination} from ${startDate} until ${endDate}. I have a budget of ${budget}. Include the following types of attractions: ${activities.join(
       ', '
     )} for a ${groupDescription}. Organize the itinerary by the following times of day: morning, afternoon, and evening. Recommend specific places of interest that should have exact address and activity name should have place name in it. Limit cross-city commutes by grouping places of interest by geography for each day. Output the response in json format following this schema:
@@ -41,7 +38,6 @@ const tripController = {
     // }
     // Thank you.`;
 
-    // console.log(prompt);
     try {
       const completion = await openai.chat.completions.create({
         messages: [
@@ -54,10 +50,6 @@ const tripController = {
             content: prompt,
           },
         ],
-        /**
-         * gpt-3.5-turbo-0125 is a lot cheaper than gpt-3.5-turbo
-         * and doesn't have unnecessary features
-        */
         model: 'gpt-3.5-turbo-0125',
         response_format: { type: 'json_object' },
       });
@@ -219,10 +211,6 @@ const tripController = {
             content: prompt,
           },
         ],
-        /**
-         * gpt-3.5-turbo-0125 is a lot cheaper than gpt-3.5-turbo
-         * and doesn't have unnecessary features
-        */
         model: 'gpt-3.5-turbo-0125',
         response_format: { type: 'json_object' },
       });

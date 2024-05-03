@@ -16,7 +16,7 @@
 }
 
 .activities {
-  column-count: auto;
+  column-count: 4;
 }
   
 .activity-card {
@@ -25,10 +25,10 @@
   box-shadow: 10px 5px 5px black;
   color: white;
   padding: 5px;
-  width: 135px;
+  width: auto;
   height: auto;
   text-align: start;
-  font-size: 100%;
+  font-size: 1rem;
   margin: 5px;
 }
   

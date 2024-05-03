@@ -74,13 +74,13 @@ export default function Navigation() {
 
   return (
     <div style={{ width: '67%', display: 'flex', justifyContent: 'center', alignSelf: 'center', alignItems: 'center' }}>
-      <Button disabled={step === 0} onClick={handleBack} hidden={loading}>
+      <Button className='invert' disabled={step === 0} onClick={handleBack} hidden={loading}>
         Back
       </Button>
       <div style={{ width: '100%', display: 'flex' }}>
         <Pages />
       </div>
-      <Button variant="contained" onClick={handleNext} hidden={loading}>
+      <Button className='invert' variant="contained" onClick={handleNext} hidden={loading}>
         {step === 4 ? 'Finish' : 'Next'}
       </Button>
     </div>

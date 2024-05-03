@@ -57,8 +57,8 @@ export default function Friends() {
     if (friends) setFriendsList(friends.sort((a, b) => {
       return a.firstName.localeCompare(b.firstName);
     }).map((friend) => (
-      <div key={friend._id} style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <p className='userlist-name'>{friend.firstName} {friend.lastName}</p>
+      <div key={friend._id} className='userlist'>
+        <p>{friend.firstName} {friend.lastName}</p>
         <Button onClick={() => deleteFriend(friend._id)} size='sm'>Delete Friend</Button>
       </div>
     )));
@@ -96,8 +96,8 @@ export default function Friends() {
         return a.firstName.localeCompare(b.firstName);
       }).map((person) => {
         if (!friends.some(friend => friend._id === person._id) && person._id !== user) return (
-          <div className='flex-container' key={person._id} style={{ display: 'flex', justifyContent: 'space-between'}}>
-            <p className='userlist-name'>{person.firstName} {person.lastName}</p>
+          <div key={person._id} className='userlist'>
+            <p>{person.firstName} {person.lastName}</p>
             <Button onClick={() => addFriend(person._id)} size='sm'>Add Friend</Button>
           </div>
         );
@@ -155,11 +155,11 @@ export default function Friends() {
 
   return (
     <div className='flex-container'>
-      <div>
+      <div className='userlist-container'>
         <p id="itinerary-title">Friends</p>
         {friendsList}
       </div>
-      <div>
+      <div className='userlist-container'>
         <p id="itinerary-title">All Users</p>
         {allUsers}
       </div>

@@ -8,7 +8,7 @@ export default function FormStepper() {
   const loading = useSelector((state) => state.itinerary.loading);
 
   return (
-    <div style={{ width: '67%' }} hidden={loading}>
+    <div className='invert' style={{ width: '67%' }} hidden={loading}>
       <Stepper activeStep={step} alternativeLabel>
         {steps.map((label) => (
           <Step key={label}>

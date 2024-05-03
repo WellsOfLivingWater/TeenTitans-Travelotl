@@ -7,13 +7,12 @@
  */
 // Package dependencies
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import wallpaper from '../assets/wallpaper.jpg'
 
-const Main = ({}) => {
+const Main = () => {
 
   return (
-    <div>
+    <div id='main'>
       <div className="text-container">
         <h1 className="mainpage-text">Let us plan the trip of your dreams...</h1>
         <Link to='/form' id='start'>Click here to get started... </Link>

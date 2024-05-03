@@ -17,7 +17,7 @@ import '../styles.css';
 export default function App() {
   return (
     <div>
-      <Header className="fixed-header" />
+      <Header />
       <Outlet />
     </div>
   );

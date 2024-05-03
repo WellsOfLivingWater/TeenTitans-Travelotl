@@ -16,6 +16,8 @@ const Activities = forwardRef((props, ref) => {
   const { activities, step, transitionDirection } = useSelector(state => state.trip);
 
   const selected = new Array(...activities);
+
+  const activitiesList = [];
   
   const dispatch = useDispatch();
 
@@ -50,84 +52,38 @@ const Activities = forwardRef((props, ref) => {
     }
   };
 
+  const ActivityCard = ({ activity }) => {
+    return (
+      <li className='activity-card'>
+        <label>
+          <input
+            type="checkbox"
+            value={activity}
+            onChange={handleActivitiesChange}
+            checked={activities.includes(activity)}
+            onKeyDown={handleKeyDown}
+          />
+          <span> {activity}</span>
+        </label>
+      </li>
+    );
+  };
+
+  const activityCards = (list) => {
+    return list.map((activity, index) => {
+      return (
+        <ActivityCard key={index} activity={activity} />
+      );
+    });
+  }
+
   return (
     <div ref={ref} /* className="bg-gray-300 rounded border-4 border-black" */>
       <p className='text-2xl text-center'>Select activities you are interested in...</p>
 
       {/* Activities checkboxes */}
       <ul className="activities">
-        <li className='activity-card'>
-          <label>
-            <input
-              type="checkbox"
-              value="Hiking"
-              onChange={handleActivitiesChange}
-              checked={activities.includes('Hiking')}
-              onKeyDown={handleKeyDown}
-            />
-            Hiking
-          </label>
-        </li>
-        <li className='activity-card'>
-          <label>
-            <input
-              type="checkbox"
-              value="local events"
-              onChange={handleActivitiesChange}
-              checked={activities.includes('local events')}
-              onKeyDown={handleKeyDown}
-            />
-            Local Events
-          </label>
-        </li>
-        <li className='activity-card'>
-          <label>
-            <input
-              type="checkbox"
-              value="restaurants"
-              onChange={handleActivitiesChange}
-              checked={activities.includes('restaurants')}
-              onKeyDown={handleKeyDown}
-            />
-            Restaurants
-          </label>
-        </li>
-        <li className='activity-card'>
-          <label>
-            <input
-              type="checkbox"
-              value="danger"
-              onChange={handleActivitiesChange}
-              checked={activities.includes('danger')}
-              onKeyDown={handleKeyDown}
-            />
-            Danger
-          </label>
-        </li>
-        <li className='activity-card'>
-          <label>
-            <input
-              type="checkbox"
-              value="safety"
-              onChange={handleActivitiesChange}
-              checked={activities.includes('safety')}
-              onKeyDown={handleKeyDown}
-            />
-            Safety
-          </label>
-        </li>
-        <li className='activity-card'>
-          <label>
-            <input
-              type="checkbox"
-              value="museums"
-              onChange={handleActivitiesChange}
-              checked={activities.includes('museums')}
-              onKeyDown={handleKeyDown}
-            />
-            Museums
-          </label>
-        </li>
+        {activityCards(activitiesList)}
       </ul>
     </div>
   );

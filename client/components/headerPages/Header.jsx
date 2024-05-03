@@ -24,12 +24,19 @@ import logo from '../../assets/logo.png'
 // Stylesheets
 import '../../stylesheets/header.css';
 
-const Header = ({ className }) => {
+const Header = () => {
   const { loggedIn } = useSelector(state => state.user);
   const [openSignin, setOpenSignin] = useState(false);
+  const [colorScheme, setColorScheme] = useState('light');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setColorScheme('dark');
+    }
+  }, []);
 
   useEffect(() => {
     const checkLogin = async () => {
@@ -37,8 +44,11 @@ const Header = ({ className }) => {
         const res = await fetch('/api/users/isAuthenticated');
         const data = await res.json();
         const user = data.user;
-        if (res.ok) {
+        console.log('user:', user);
+        if (user) {
           dispatch(loginUser(user));
+        } else {
+          dispatch(logoutUser());
         }
       } catch (err) {
         console.log('Error checking login:', err);
@@ -55,7 +65,7 @@ const Header = ({ className }) => {
   
       if (res.ok) {
         dispatch(updateItineraries([]));
-        dispatch(logoutUser(false));
+        dispatch(logoutUser());
         navigate('/');
       }
     } catch (err){
@@ -64,15 +74,19 @@ const Header = ({ className }) => {
   }
 
   return (
-    <Navbar bg='light' expand='lg' className={className}>
-      <Navbar.Brand as={Link} to='/' className='text-blue-600 text-3xl font-bold font-serif text-center'><img src={logo} style={{width:'100px'}} alt='logo' /></Navbar.Brand>
-      <Navbar.Toggle aria-controls='basic-navbar-nav' />
+    <Navbar data-bs-theme={colorScheme} bg={colorScheme} expand='sm' sticky='top'>
+      <Navbar.Brand as={Link} to='/' className='navbar-brand'>
+        <img src={logo} style={{ width: '100px' }} alt='logo' />
+      </Navbar.Brand>
       <Navbar.Collapse id='basic-navbar-nav'>
-        <Nav className='mr-auto'>
+        <Nav>
+          <Nav.Link as={Link} to='/form'>Create</Nav.Link>
           <Nav.Link as={Link} to='/about'>About</Nav.Link>
           <Nav.Link as={Link} to='/manager' hidden={!loggedIn}>Manager</Nav.Link>
           <Nav.Link as={Link} to='/friends' hidden={!loggedIn}>Friends</Nav.Link>
         </Nav>
+      </Navbar.Collapse>
+      <Nav>
         <Nav>
           <div>
             {
@@ -91,7 +105,8 @@ const Header = ({ className }) => {
             />
           </div>
         </Nav>
-      </Navbar.Collapse>
+        <Navbar.Toggle aria-controls='basic-navbar-nav' />
+      </Nav>
     </Navbar>
   );
 };

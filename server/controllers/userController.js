@@ -1,7 +1,19 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
-const LocalStorage = require('node-localstorage').LocalStorage;
+
+const createErr = require('../utils/createErr');
+// const LocalStorage = require('node-localstorage').LocalStorage;
+
+const getUsers = async (req, res, next) => {
+  try {
+    const users = await User.find({}, '_id firstName lastName');
+    res.locals.users = users;
+    return next();
+  } catch (err) {
+    return next(err);
+  }
+}
 
 const registerUser = async (req, res) => {
   console.log('request to register user', req.body);
@@ -50,14 +62,12 @@ const loginUser = async (req, res, next) => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      // return res.status(400).json({ error: 'User not found' });
-      console.log('User not found');
+      throw new Error('User not found');
     }
 
     const isValid = await bcrypt.compare(password, user.password);
     if (!isValid) {
-      console.log('Invalid credentials');
-      // return res.status(400).json({ error: 'Invalid credentials' });
+      throw new Error('Invalid password');
     }
 
     const jwtToken = generateToken(user._id);
@@ -69,47 +79,32 @@ const loginUser = async (req, res, next) => {
       email: user.email,
       token: jwtToken,
     };
-
-    // res.status(200).json({
-    //   _id: user._id,
-    //   firstName: user.firstName,
-    //   lastName: user.lastName,
-    //   email: user.email,
-    //   token: jwtToken,
-    // });
     return next();
-  } catch (error) {
-    console.error(error);
-    // res.status(500).json({ error: 'Internal server error' });
+  } catch (err) {
+    return next(createErr({
+      method: 'userController.loginUser',
+      type: 'authentication',
+      err
+    }))
   }
 };
 
-const getUser = async (req, res) => {
-  const user = await User.findById(req.user.id);
-  try {
-    res.status(200)
-      .json({
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        friends: user.friends
-      })
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal server error'});
-  }
-  
-}
-
-const addFriend = async (req, res, next) => {
-  try {
-    User.findByIdAndUpdate(req.user.id, { friends: req.body.friends });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-}
+// const getUser = async (req, res) => {
+//   const user = await User.findById(req.user.id);
+//   try {
+//     res.status(200)
+//       .json({
+//         id: user.id,
+//         firstName: user.firstName,
+//         lastName: user.lastName,
+//         email: user.email,
+//         friends: user.friends
+//       })
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: 'Internal server error'});
+//   }
+// }
 
 const grantOauthJWT = (req, res, next) => {
   // console.log('grantOauthJWT middleware req.user._id ===>', req.user._id);
@@ -125,4 +120,4 @@ const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {expiresIn: '30d'})
 }
 
-module.exports = { registerUser, loginUser, getUser, grantOauthJWT };
+module.exports = { getUsers, registerUser, loginUser, /* getUser, */ grantOauthJWT };

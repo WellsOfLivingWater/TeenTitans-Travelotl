@@ -352,3 +352,49 @@ button {
   overflow: hidden;
   font-weight: light;
 }
+
+/* formPages/PAGES.JSX */
+.activities-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 75px;
+}
+.activity-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  opacity: .8;
+  border-radius: 10px;
+  border: 1px solid #0B1320;
+  box-shadow: 0px 0px 10px #0B1320;;
+  color: #0B1320;
+  font-weight: 500;
+  margin-top: 20px;
+  width: 100%;
+}
+.activity-btns {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+}
+
+.activity-btn {
+  background-color: #0B1320;
+  color: white;
+  width: 30%;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.activity-btn:hover {
+  background-color: #232a36;
+}
+
+.activity-link {
+  color:  #0B1320;
+  margin-top: 5px;
+}

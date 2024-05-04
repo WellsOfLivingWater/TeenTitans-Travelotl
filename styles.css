@@ -344,7 +344,7 @@ button {
 }
 
 .modal-backdrop {
-  background-color: rgba(0, 0, 0, 0.154);
+  background-color: rgba(8, 8, 8, 0.528);
 }
 
 #suggestion-card-spinner {

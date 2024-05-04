@@ -80,7 +80,7 @@ const Header = () => {
       </Navbar.Brand>
       <Navbar.Collapse id='basic-navbar-nav'>
         <Nav>
-          <Nav.Link as={Link} to='/form'>Create</Nav.Link>
+          <Nav.Link as={Link} to='/form' hidden={!loggedIn}>Create</Nav.Link>
           <Nav.Link as={Link} to='/manager' hidden={!loggedIn}>Manager</Nav.Link>
           <Nav.Link as={Link} to='/friends' hidden={!loggedIn}>Friends</Nav.Link>
         </Nav>

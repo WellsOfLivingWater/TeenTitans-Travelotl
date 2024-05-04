@@ -1,10 +1,11 @@
+import React from 'react';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import UpdateModal from './UpdateModal';
 import { useState } from 'react';
 import image from '../../assets/placeholder-image.jpg';
-import React, { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectOldActivity, updateLoading, updateSuggestions, setShowModal } from '../../components/itineraryComponents/suggestionsReducer';
 import ActivityDetailsModal from './ActivityDetailsModal';
 

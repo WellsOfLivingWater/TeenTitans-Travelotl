@@ -117,8 +117,8 @@ const Manager = () => {
   })
 
   return (<div>
-    <p id="itinerary-title">Itinerary Manager</p>
-    <div id='itinerary-grid'>{renderList}</div>
+    <p id="itinerary-title" className="invert">Itinerary Manager</p>
+    <div id='itinerary-grid' className="invert">{renderList}</div>
   </div>)
 }
 

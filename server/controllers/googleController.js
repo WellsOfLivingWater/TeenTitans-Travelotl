@@ -139,6 +139,22 @@ googleController.getSuggestionDetailsByText = async (req, res, next) => {
   next();
 };
 
+googleController.getPlaceList = async (req, res, next) => {
+  const { placeName } = req.params;
+  console.log('hellooooo  -->', placeName);
+  const placeAutoCompleteURL = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${placeName}&types=geocode&key=${apikey}`;
+  try {
+    const response = await fetch(placeAutoCompleteURL);
+    const placeList = await response.json();
+    console.log(placeList);
+    res.locals.placeList = placeList.predictions;
+    return next();
+  } catch (err) {
+    throw new Error('Error fetching Place list: ' + err.message);
+  }
+  return next();
+};
+
 async function getPlaceInfo(text) {
   const textQuery = JSON.stringify({ textQuery: `${text}` });
   console.log('get the ID for this ', textQuery);

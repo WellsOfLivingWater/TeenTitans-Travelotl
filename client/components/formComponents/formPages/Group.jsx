@@ -70,9 +70,9 @@ const Group = forwardRef((props, ref) => {
 
         // Display the form page if the loading state is false
         <>
-          <p>What best describes your travel group...</p>
-          <label className="text-2xl">
-            No. of Travelers:
+          <p className='text-2xl text-center'>What best describes your travel group...</p>
+          <label className="text-2xl" id='travelers-title'>
+            <p>No. of Travelers:</p>
             <input
               className="typed-input"
               type="number"
@@ -84,6 +84,7 @@ const Group = forwardRef((props, ref) => {
           </label>
 
           {/* Radio buttons for selecting the group description */}
+          <div className="groups-container">
           <ul className="groups">
             <li>
               <label className='group-card'>
@@ -95,7 +96,7 @@ const Group = forwardRef((props, ref) => {
                   checked={groupDescription === 'Solo traveler'}
                   onKeyDown={handleKeyDown}
                 />
-                Solo traveler
+               <p>Solo traveler</p>
               </label>
             </li>
             <li>
@@ -108,7 +109,7 @@ const Group = forwardRef((props, ref) => {
                   checked={groupDescription === 'Family with young kids'}
                   onKeyDown={handleKeyDown}
                 />
-                Family (young kids)
+                <p>Family (young kids)</p>
               </label>
             </li>
             <li>
@@ -121,7 +122,7 @@ const Group = forwardRef((props, ref) => {
                   checked={groupDescription === 'Family of all ages'}
                   onKeyDown={handleKeyDown}
                 />
-                Family (all ages)
+               <p> Family (all ages)</p>
               </label>
             </li>
             <li>
@@ -134,7 +135,7 @@ const Group = forwardRef((props, ref) => {
                   checked={groupDescription === 'Family of adults'}
                   onKeyDown={handleKeyDown}
                 />
-                Family (adults)
+                <p>Family (adults)</p>
               </label>
             </li>
             <li>
@@ -147,10 +148,11 @@ const Group = forwardRef((props, ref) => {
                   checked={groupDescription === 'Friends'}
                   onKeyDown={handleKeyDown}
                 />
-                Friends
+                <p>Friends</p>
               </label>
             </li>
           </ul>
+          </div>
         </>
       }
     </div>

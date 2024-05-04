@@ -394,3 +394,33 @@ button {
   color:  #0B1320;
   margin-top: 5px;
 }
+
+
+/* formPages/GROUP.JSX */
+#travelers-title p {
+  margin-top: 20px;
+  font-weight: 500;
+  color: white;
+  text-shadow: 1px 1px 10px #0B1320;
+
+}
+.group-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  opacity: .8;
+  border-radius: 10px;
+  border: 1px solid #0B1320;
+  box-shadow: 0px 0px 10px #0B1320;;
+  color: #0B1320;
+  font-weight: 500;
+  margin-top: 20px;
+  width: 90%;
+  height: 100%;
+}
+
+.group-card p {
+  margin-left: 5px;
+  font-size: 22px;
+}

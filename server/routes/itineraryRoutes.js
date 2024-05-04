@@ -6,10 +6,6 @@ const googleController = require('../controllers/googleController');
 
 router.post(
   '/build',
-  (req, res, next) => {
-    console.log('build route invoked');
-    return next();
-  },
   authController.protect,
   tripController.buildTrip,
   googleController.getPlaceDetailsByText,
@@ -54,6 +50,42 @@ router.delete(
   tripController.deleteTrip,
   (req, res) => {
     res.status(200).send('Trip deleted successfully.');
+  }
+);
+
+router.post(
+  '/addEditor',
+  authController.protect,
+  tripController.addEditor,
+  (req, res) => {
+    res.status(200).send('Editor added successfully.');
+  }
+);
+
+router.post(
+  '/removeEditor',
+  authController.protect,
+  tripController.removeEditor,
+  (req, res) => {
+    res.status(200).send('Editor removed successfully.');
+  }
+);
+
+router.post(
+  '/addViewer',
+  authController.protect,
+  tripController.addViewer,
+  (req, res) => {
+    res.status(200).send('Viewer added successfully.');
+  }
+);
+
+router.post(
+  '/removeViewer',
+  authController.protect,
+  tripController.removeViewer,
+  (req, res) => {
+    res.status(200).send('Viewer removed successfully.');
   }
 );
 

@@ -77,7 +77,8 @@ const Activities = forwardRef((props, ref) => {
 
   const ActivityCard = ({ activity, key }) => {
     return (
-      <li key={key} className='activity-card'>
+      <div className='activities-container'> 
+        <li key={key} className='activity-card'>
         <label>
           <input
             type="checkbox"
@@ -89,12 +90,13 @@ const Activities = forwardRef((props, ref) => {
           <span> {activity}</span>
         </label>
       </li>
+      </div>
     );
   };
 
   const NewActivities = () => {
     return (
-      <button
+      <button className='activity-btn'
         onClick={() => {
           const fetchMoreActivities = async () => {
             try {
@@ -115,20 +117,20 @@ const Activities = forwardRef((props, ref) => {
           fetchMoreActivities();
         }}
       >
-        More Activities
+        <p>More Activities</p>
       </button>
     );
   };
 
   const ResetActivities = () => {
     return (
-      <button
+      <button className='activity-link'
         onClick={() => {
           dispatch(updateActivities([]));
           setSelected([]);
         }}
       >
-        Start Over
+        <p>Start Over</p>
       </button>
     );
   }
@@ -141,8 +143,10 @@ const Activities = forwardRef((props, ref) => {
       <ul className="activities">
         {activityCards}
       </ul>
-      <NewActivities />
+     <div className='activity-btns'>
+     <NewActivities />
       <ResetActivities />
+     </div>
     </div>
   );
 });

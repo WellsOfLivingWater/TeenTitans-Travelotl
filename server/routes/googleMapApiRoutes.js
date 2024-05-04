@@ -26,4 +26,12 @@ router.get(
   }
 );
 
+router.get(
+  '/autocomplete/:placeName',
+  googleController.getPlaceList,
+  (req, res) => {
+    res.status(200).send(res.locals.placeList);
+  }
+);
+
 module.exports = router;

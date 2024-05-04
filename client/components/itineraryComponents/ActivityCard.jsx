@@ -3,17 +3,25 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import UpdateModal from './UpdateModal';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import image from '../../assets/placeholder-image.jpg';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectOldActivity, updateLoading, updateSuggestions, setShowModal } from '../../components/itineraryComponents/suggestionsReducer';
 import ActivityDetailsModal from './ActivityDetailsModal';
 
 const ActivityCard = ({ itinerary, itineraryID, time, suggestion, toastify }) => {
+  const dispatch = useDispatch();
   const [modalShow, setModalShow] = useState(false);
   const [isFetched, setIsFetched] = useState(false);
-  const dispatch = useDispatch();
   const [detailsModalShow, setDetailModalShow] = React.useState(false);
+  const [colorScheme, setColorScheme] = useState('light');
+
+  useEffect(() => {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+      setColorScheme(event.matches ? "dark" : "light");
+    });
+  }, []);
+
   const hideModal = async (e) => {
     setModalShow(false);
     setIsFetched(false);
@@ -62,7 +70,7 @@ const ActivityCard = ({ itinerary, itineraryID, time, suggestion, toastify }) =>
   const photoSrc = suggestion.photo != '' ? suggestion.photo : image;
 
   return (
-    <Card style={{ width: '18rem' }} className='card-background'>
+    <Card style={{ width: '18rem' }} bg={colorScheme}>
       {/* <Card.Img variant="top" src={image} width="100%"/> */}
 
       <div id='card-img-container' className='card-img-top'>

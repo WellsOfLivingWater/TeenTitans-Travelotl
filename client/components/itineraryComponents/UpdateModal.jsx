@@ -12,8 +12,13 @@ const UpdateModal = (props) => {
   const { loading, suggestions } = useSelector(state => state.suggestions);
   const { itinerary, itineraryID } = useSelector(state => state.itinerary);
   const { newActivity, selectedTime } = useSelector(state => state.suggestions);
+  const [colorScheme, setColorScheme] = useState('light');
 
-  // console.log("Update Modal Activity:", selectedTime);
+  useEffect(() => {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+      setColorScheme(event.matches ? "dark" : "light");
+    });
+  }, []);
   
   const saveUpdate = () => {
     // console.log("before:", itinerary);

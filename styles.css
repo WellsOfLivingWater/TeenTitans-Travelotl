@@ -101,23 +101,6 @@
   }
 }
 
-/* .navbar-background {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  @media (prefers-color-scheme: light) {
-    background-color: #f8f9fa;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    background-color: #212529;
-  }
-}
-
-.navbar-text {
-  color: #0d6efd;
-} */
-
 /*================End of Main Page Styling===============*/
 
 /*======= Manager Page Styling========*/
@@ -136,7 +119,7 @@
 }
 
 .trip-tile {
-  border: 0.75px solid rgb(160, 160, 160);
+  /* border: 0.75px solid rgb(160, 160, 160); */
   border-radius: 5px;
   padding: 20px;
   /* padding-left: 20px;
@@ -146,11 +129,12 @@
 
   @media (prefers-color-scheme: light) {
     box-shadow: 5px 3px 3px rgb(224, 224, 224);
+    border: 0.75px solid rgb(160, 160, 160);
   }
 
   @media (prefers-color-scheme: dark) {
     /* border: 0.75px solid #ddd; */
-    background-color: #dddddd1f;
+    background-color: #ffffff14;
     color: #b1b1b1;
   }
 }

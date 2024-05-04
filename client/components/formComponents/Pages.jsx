@@ -10,6 +10,7 @@ import Dates from './formPages/Dates';
 import Activities from './formPages/Activities';
 import Budget from './formPages/Budget';
 import Group from './formPages/Group';
+import random from '../../assets/random-img.jpg'
 
 const Pages = forwardRef((props, ref) => {
   const { step, transitionDirection } = useSelector((state) => state.trip);
@@ -45,6 +46,7 @@ const Pages = forwardRef((props, ref) => {
       {renderPage(3, Budget)}
       {renderPage(4, Group)}
       {renderPage(5, Group)}
+      <img src={random} alt="" />
     </Box>
   );
 });

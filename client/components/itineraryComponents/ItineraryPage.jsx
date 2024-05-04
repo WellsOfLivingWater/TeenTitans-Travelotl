@@ -30,9 +30,11 @@ const ItineraryPage = () => {
   }, []);
 
   return (
-    <div>
-      <p id="itinerary-title">Your trip to {destination}</p>
-      <Itinerary itinerary={itinerary} itineraryID={itineraryID}/>
+    <div id='itinerary-page'>
+      <div>
+        <p id="itinerary-title">Your trip to {destination}</p>
+        <Itinerary itinerary={itinerary} itineraryID={itineraryID}/>
+      </div>
     </div>
   );
 };

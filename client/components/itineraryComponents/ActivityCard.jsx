@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import UpdateModal from './UpdateModal';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import image from '../../assets/placeholder-image.jpg';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -14,17 +14,22 @@ import {
 } from '../../components/itineraryComponents/suggestionsReducer';
 import ActivityDetailsModal from './ActivityDetailsModal';
 
-const ActivityCard = ({
-  itinerary,
-  itineraryID,
-  time,
-  suggestion,
-  toastify,
-}) => {
+const ActivityCard = ({ itinerary, itineraryID, time, suggestion, toastify }) => {
+  const dispatch = useDispatch();
   const [modalShow, setModalShow] = useState(false);
   const [isFetched, setIsFetched] = useState(false);
-  const dispatch = useDispatch();
   const [detailsModalShow, setDetailModalShow] = React.useState(false);
+  const [colorScheme, setColorScheme] = useState('light');
+
+  useEffect(() => {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setColorScheme("dark");
+    };
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+      setColorScheme(event.matches ? "dark" : "light");
+    });
+  }, []);
+
   const hideModal = async (e) => {
     setModalShow(false);
     setIsFetched(false);
@@ -73,7 +78,7 @@ const ActivityCard = ({
   const photoSrc = suggestion.photo != '' ? suggestion.photo : image;
 
   return (
-    <Card style={{ width: '18rem' }}>
+    <Card style={{ width: '18rem' }} bg={colorScheme}>
       {/* <Card.Img variant="top" src={image} width="100%"/> */}
 
       <div id='card-img-container' className='card-img-top'>
@@ -84,8 +89,9 @@ const ActivityCard = ({
         </div>
       </div>
       <Card.Body id='card-description-container'>
-        <Card.Text>{suggestion.placeName}</Card.Text>
+        {/* <Card.Text>{suggestion.placeName}</Card.Text> */}
         {/* <Card.Title>{suggestion.activity}</Card.Title> */}
+        <Card.Title className='time-of-day'>{time.timeOfDay}</Card.Title>
         <Card.Text id='card-addr-label'>ADDRESS</Card.Text>
         <Card.Text>{suggestion.address}</Card.Text>
       </Card.Body>

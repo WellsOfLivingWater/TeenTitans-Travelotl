@@ -18,7 +18,6 @@ const Main = () => {
     <div id='main'>
       <div className="text-container">
         <h1 className="mainpage-text">Let us plan the trip of your dreams...</h1>
-        {/* <button>Click here to get started...</button> */}
         { loggedIn &&  <Link to='/form' id='start'>Click here to get started... </Link> }
       </div>
       <div className="wallpaper">

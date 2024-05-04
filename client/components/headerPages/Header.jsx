@@ -35,7 +35,7 @@ const Header = () => {
   useEffect(() => {
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       setColorScheme("dark");
-      }
+    };
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
       setColorScheme(event.matches ? "dark" : "light");
     });
@@ -81,35 +81,35 @@ const Header = () => {
       <Navbar.Brand as={Link} to='/' className='navbar-brand'>
         <img src={logo} style={{ width: '100px' }} alt='logo' />
       </Navbar.Brand>
-      <Navbar.Collapse id='basic-navbar-nav'>
+        <Navbar.Collapse id='basic-navbar-nav'>
+          <Nav>
+            <Nav.Link as={Link} to='/form' hidden={!loggedIn}>Create</Nav.Link>
+            <Nav.Link as={Link} to='/manager' hidden={!loggedIn}>Manager</Nav.Link>
+            <Nav.Link as={Link} to='/friends' hidden={!loggedIn}>Friends</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
         <Nav>
-          <Nav.Link as={Link} to='/form' hidden={!loggedIn}>Create</Nav.Link>
-          <Nav.Link as={Link} to='/manager' hidden={!loggedIn}>Manager</Nav.Link>
-          <Nav.Link as={Link} to='/friends' hidden={!loggedIn}>Friends</Nav.Link>
+          <Nav>
+            <Nav.Link as={Link} to='/about'>About</Nav.Link>
+            <div>
+              {
+                !loggedIn ?
+                  <button className='login-btn' onClick={() => setOpenSignin(true)}>
+                    Sign In
+                  </button>
+                  :
+                  <button className='login-btn' onClick={logOut}>
+                    Sign Out
+                  </button>
+              }
+              <Signin
+                show={openSignin && !loggedIn}
+                onHide={() => setOpenSignin(false)}
+              />
+            </div>
+          </Nav>
+          <Navbar.Toggle aria-controls='basic-navbar-nav' />
         </Nav>
-      </Navbar.Collapse>
-      <Nav>
-        <Nav>
-          <Nav.Link as={Link} to='/about'>About</Nav.Link>
-          <div>
-            {
-              !loggedIn ?
-                <button className='login-btn' onClick={() => setOpenSignin(true)}>
-                  Sign In
-                </button>
-                :
-                <button className='login-btn' onClick={logOut}>
-                  Sign Out
-                </button>
-            }
-            <Signin
-              show={openSignin && !loggedIn}
-              onHide={() => setOpenSignin(false)}
-            />
-          </div>
-        </Nav>
-        <Navbar.Toggle aria-controls='basic-navbar-nav' />
-      </Nav>
     </Navbar>
   );
 };

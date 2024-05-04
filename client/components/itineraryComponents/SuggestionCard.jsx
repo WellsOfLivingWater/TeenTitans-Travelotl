@@ -8,9 +8,19 @@ import { selectNewActivity } from '../../components/itineraryComponents/suggesti
 
 const SuggestionCard = ({ itineraryID, suggestion }) => {
   // console.log("suggestionCard rendered:", suggestion.activity);
+  const dispatch = useDispatch();
   const [buttonVariant, setVariant] = useState('primary');
   const { newActivity } = useSelector((state) => state.suggestions);
-  const dispatch = useDispatch();
+  const [colorScheme, setColorScheme] = useState('light');
+
+  useEffect(() => {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setColorScheme("dark");
+    };
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+      setColorScheme(event.matches ? "dark" : "light");
+    });
+  }, []);
 
   useEffect(() => {
     suggestion.activity === newActivity.activity
@@ -24,7 +34,7 @@ const SuggestionCard = ({ itineraryID, suggestion }) => {
   const photoSrc = suggestion.photo != '' ? suggestion.photo : image;
   //border={isSelected ? 'primary' : ''}
   return (
-    <Card style={{ width: '18rem' }}>
+    <Card style={{ width: '18rem' }} bg={colorScheme}>
       <Card.Img variant='top' src={photoSrc} />
       <Card.Body>
         <Card.Title>{suggestion.activity}</Card.Title>

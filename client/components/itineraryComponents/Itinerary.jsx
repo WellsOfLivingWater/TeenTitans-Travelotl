@@ -54,17 +54,19 @@ const Itinerary = ({ itinerary, itineraryID }) => {
           <div>
             <p className='date'>{convertDate(date)}</p>
           </div>
-          <div className="day-details">
-            {Object.entries(timesOfDay).map(([timeOfDay, suggestion]) => (
-              <ActivityCard 
-                key={timeOfDay} 
-                time={{date, timeOfDay}} 
-                itinerary={itinerary} 
-                itineraryID={itineraryID} 
-                suggestion={suggestion}
-                toastify={showToastMessage}
-              />
-            ))}
+          <div className='day-details-container'>
+            <div className="day-details">
+              {Object.entries(timesOfDay).map(([timeOfDay, suggestion]) => (
+                <ActivityCard 
+                  key={timeOfDay} 
+                  time={{date, timeOfDay}} 
+                  itinerary={itinerary} 
+                  itineraryID={itineraryID} 
+                  suggestion={suggestion}
+                  toastify={showToastMessage}
+                />
+              ))}
+            </div>
           </div>
         </div>
       ))}

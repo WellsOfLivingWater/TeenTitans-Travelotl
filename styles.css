@@ -18,7 +18,7 @@
 .activities {
   column-count: 4;
 }
-  
+
 .activity-card {
   border-radius: 25px;
   background: rgba(37, 99, 235);
@@ -31,7 +31,7 @@
   font-size: 1rem;
   margin: 5px;
 }
-  
+
 .groups {
   column-count: 2;
 }
@@ -133,25 +133,25 @@
 }
 
 #manager-header {
-    display: flex;
-    align-items: center;
-    text-align: center;
+  display: flex;
+  align-items: center;
+  text-align: center;
 }
 
 #itinerary-title {
-    font-size: x-large;
-    font-weight: 300;
-    padding: 10px;
-    padding-bottom: 10px;
-    padding-left: 20px;
-    /* margin-right: 20px; */
+  font-size: x-large;
+  font-weight: 300;
+  padding: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  /* margin-right: 20px; */
 }
 
 #manager-add-trip-button {
-    border:#5d5d5d 0.75px solid;
-    border-radius: 5px;
-    padding: 5px;
-    display: flex;
+  border: #5d5d5d 0.75px solid;
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
 }
 
 /*================End of Manager Styling===============*/
@@ -347,4 +347,28 @@ button {
 
   overflow: hidden;
   font-weight: light;
+}
+
+.dropdown-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.9
+  ); /* Adjust the alpha value for transparency */
+  border: 1px solid #ccc; /* Optional: Add border for styling */
+  border-radius: 4px; /* Optional: Add border-radius for rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add box-shadow for depth effect */
+}
+
+.dropdown-list li {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.dropdown-list li:hover {
+  background-color: #f0f0f0; /* Optional: Change background color on hover */
 }

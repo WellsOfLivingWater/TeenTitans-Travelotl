@@ -6,10 +6,21 @@ import UpdateModal from './UpdateModal';
 import { useState } from 'react';
 import image from '../../assets/placeholder-image.jpg';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectOldActivity, updateLoading, updateSuggestions, setShowModal } from '../../components/itineraryComponents/suggestionsReducer';
+import {
+  selectOldActivity,
+  updateLoading,
+  updateSuggestions,
+  setShowModal,
+} from '../../components/itineraryComponents/suggestionsReducer';
 import ActivityDetailsModal from './ActivityDetailsModal';
 
-const ActivityCard = ({ itinerary, itineraryID, time, suggestion, toastify }) => {
+const ActivityCard = ({
+  itinerary,
+  itineraryID,
+  time,
+  suggestion,
+  toastify,
+}) => {
   const [modalShow, setModalShow] = useState(false);
   const [isFetched, setIsFetched] = useState(false);
   const dispatch = useDispatch();
@@ -73,6 +84,7 @@ const ActivityCard = ({ itinerary, itineraryID, time, suggestion, toastify }) =>
         </div>
       </div>
       <Card.Body id='card-description-container'>
+        <Card.Text>{suggestion.placeName}</Card.Text>
         {/* <Card.Title>{suggestion.activity}</Card.Title> */}
         <Card.Text id='card-addr-label'>ADDRESS</Card.Text>
         <Card.Text>{suggestion.address}</Card.Text>

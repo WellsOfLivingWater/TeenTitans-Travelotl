@@ -116,10 +116,14 @@ const Manager = () => {
     </div>)
   })
 
-  return (<div>
-    <p id="itinerary-title" className="invert">Itinerary Manager</p>
-    <div id='itinerary-grid' className="invert">{renderList}</div>
-  </div>)
+  return (
+  <div id="manager-page">
+    <div id="manager-container">
+      <p id="itinerary-title">Itinerary Manager</p>
+      <div id='itinerary-grid' >{renderList}</div>
+    </div>
+  </div>
+  )
 }
 
 export default Manager;

@@ -62,7 +62,7 @@ const ActivityCard = ({ itinerary, itineraryID, time, suggestion, toastify }) =>
   const photoSrc = suggestion.photo != '' ? suggestion.photo : image;
 
   return (
-    <Card style={{ width: '18rem' }}>
+    <Card style={{ width: '18rem' }} className='card-background'>
       {/* <Card.Img variant="top" src={image} width="100%"/> */}
 
       <div id='card-img-container' className='card-img-top'>
@@ -73,7 +73,7 @@ const ActivityCard = ({ itinerary, itineraryID, time, suggestion, toastify }) =>
         </div>
       </div>
       <Card.Body id='card-description-container'>
-        {/* <Card.Title>{suggestion.activity}</Card.Title> */}
+        <Card.Title className='time-of-day'>{time.timeOfDay}</Card.Title>
         <Card.Text id='card-addr-label'>ADDRESS</Card.Text>
         <Card.Text>{suggestion.address}</Card.Text>
       </Card.Body>

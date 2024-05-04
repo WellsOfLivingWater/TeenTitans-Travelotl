@@ -5,7 +5,7 @@
 
 #body {
   @media (prefers-color-scheme: dark) {
-    background-color: black;
+    background-color: #121212;
   }
 }
 
@@ -255,10 +255,6 @@
   position: absolute;
   top: 8px;
   left: 16px;
-}
-
-.modal-content {
-  min-width: 70vw;
 }
 
 .card {

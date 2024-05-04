@@ -10,21 +10,20 @@ import { configureStore } from '@reduxjs/toolkit';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 // Reducers
-import tripReducer from './reducers/tripReducer';
-import itineraryReducer from './reducers/itineraryReducer';
-import suggestionsReducer from './reducers/suggestionsReducer';
-import userReducer from "./reducers/userReducer";
+import tripReducer from './components/formComponents/tripReducer';
+import itineraryReducer from './components/itineraryComponents/itineraryReducer';
+import suggestionsReducer from './components/itineraryComponents/suggestionsReducer';
+import userReducer from "./components/itineraryComponents/userReducer";
 
 // Components
 import App from './App';
 import Main from './components/Main';
-import About from './components/About';
-import Register from './components/Register';
-import Login from './components/Login';
-import Manager from './components/Manager';
-import Form from './components/Form';
+import About from './components/headerPages/About';
+import Manager from './components/headerPages/Manager';
+import Friends from './components/headerPages/Friends';
+// import Login from './components/headerPages/Login';
+import Form from './components/formComponents/Form';
 import ItineraryPage from './components/itineraryComponents/ItineraryPage';
-
 
 // Styles
 import '../styles.css';
@@ -62,10 +61,11 @@ createRoot(root).render(
             <Route index element={<Main />} />
 
               {/* Header link routes */}
-              <Route path='/manager' element={<Manager />} />
               <Route path='/about' element={<About />} />
+              <Route path='/manager' element={<Manager />} />
+              <Route path='/friends' element={<Friends />} />
               {/* <Route path='/login' element={<Login />} /> */}
-              <Route path='/register' element={<Register />} />
+              {/* <Route path='/register' element={<Register />} /> */}
 
             {/* Form route */}
             <Route path="/form" element={<Form />} />

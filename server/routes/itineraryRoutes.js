@@ -15,7 +15,7 @@ router.post(
   googleController.getPlaceDetailsByText,
   tripController.saveTrip,
   (req, res) => {
-    res.status(201).send(res.locals.detailedTtinerary);
+    res.status(201).send(res.locals.detailedItinerary);
   }
 );
 

@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import image from '../../assets/placeholder-image.jpg';
-import { selectNewActivity } from '../../reducers/suggestionsReducer';
+import { selectNewActivity } from '../../components/itineraryComponents/suggestionsReducer';
 
 const SuggestionCard = ({ itineraryID, suggestion }) => {
   // console.log("suggestionCard rendered:", suggestion.activity);

@@ -6,15 +6,19 @@
  */
 // Package dependencies
 import { Outlet } from 'react-router-dom';
-import React from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import Header from './components/headerPages/Header';
+
+import '../styles.css';
 
 // Application component
 export default function App() {
   return (
-      <div>
-          <Outlet />
-      </div>
-  )
+    <div>
+      <Header />
+      <Outlet />
+    </div>
+  );
 };

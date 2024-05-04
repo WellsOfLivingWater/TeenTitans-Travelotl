@@ -1,4 +1,3 @@
-import React from 'react';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
@@ -6,21 +5,10 @@ import UpdateModal from './UpdateModal';
 import { useState } from 'react';
 import image from '../../assets/placeholder-image.jpg';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectOldActivity,
-  updateLoading,
-  updateSuggestions,
-  setShowModal,
-} from '../../reducers/suggestionsReducer';
+import { selectOldActivity, updateLoading, updateSuggestions, setShowModal } from '../../components/itineraryComponents/suggestionsReducer';
 import ActivityDetailsModal from './ActivityDetailsModal';
 
-const ActivityCard = ({
-  itinerary,
-  itineraryID,
-  time,
-  suggestion,
-  toastify,
-}) => {
+const ActivityCard = ({ itinerary, itineraryID, time, suggestion, toastify }) => {
   const [modalShow, setModalShow] = useState(false);
   const [isFetched, setIsFetched] = useState(false);
   const dispatch = useDispatch();

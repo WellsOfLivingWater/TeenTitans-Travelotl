@@ -6,7 +6,7 @@
  * @returns {JSX.Element} The rendered loader component.
  */
 // Assets
-import video from "../assets/loader.mp4"
+import video from "../../assets/loader.mp4"
 
 const Loader = () => {
   return (

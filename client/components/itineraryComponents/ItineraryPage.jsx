@@ -8,21 +8,17 @@
 // Package dependencies
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import React from 'react';
 
 import Container from 'react-bootstrap/Container';
 // Redux reducer actions
-import { resetTrip } from '../../reducers/tripReducer';
-import { updateLoading } from '../../reducers/itineraryReducer';
+import { resetTrip } from "../../components/formComponents/tripReducer";
+import { updateLoading } from "../../components/itineraryComponents/itineraryReducer";
 
 // Components
-import Header from '../Header';
-import Itinerary from './Itinerary';
+import Itinerary from "./Itinerary"
 
 const ItineraryPage = () => {
-  const { destination, itinerary, itineraryID } = useSelector(
-    (state) => state.itinerary
-  );
+  const { destination, itinerary, itineraryID } = useSelector(state => state.itinerary);
 
   const dispatch = useDispatch();
 
@@ -35,11 +31,8 @@ const ItineraryPage = () => {
 
   return (
     <div>
-      <Container>
-        <Header />
-        <p id='itinerary-title'>Your trip to {destination}</p>
-        <Itinerary itinerary={itinerary} itineraryID={itineraryID} />
-      </Container>
+      <p id="itinerary-title">Your trip to {destination}</p>
+      <Itinerary itinerary={itinerary} itineraryID={itineraryID}/>
     </div>
   );
 };

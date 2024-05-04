@@ -20,6 +20,9 @@ cookieController.setCookiesBasic = (req, res, next) => {
 
 cookieController.clearCookies = (req, res, next) => {
   res.clearCookie('logCode');
+  res.clearCookie('SSID');
+  res.clearCookie('user');
+  res.clearCookie('connect.sid');
   return next();
 }
 

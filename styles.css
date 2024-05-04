@@ -3,38 +3,37 @@
 @tailwind components;
 @tailwind utilities;
 
-.header-container {
-  /* text-decoration: underline;
-    text-decoration-color: blue;
-    column-count: 3;
-    background: rgb(145,206,224);
-    background: radial-gradient(circle, rgba(145,206,224,1) 0%, rgba(167,166,166,1) 100%);
-    border-radius: 10px;
-    border-width: 4px;
-    border-color: rgb(4, 153, 153); */
+#body {
+  @media (prefers-color-scheme: dark) {
+    background-color: black;
+  }
+}
+
+.invert {
+  @media (prefers-color-scheme: dark) {
+    filter: invert(1);
+  }
 }
 
 .activities {
-  column-count: 3;
+  column-count: 4;
 }
-
-.groups {
-  column-count: 2;
-}
-
+  
 .activity-card {
   border-radius: 25px;
   background: rgba(37, 99, 235);
   box-shadow: 10px 5px 5px black;
   color: white;
-  padding: 24px;
-  width: 200px;
-  height: 85px;
-  text-align: center;
-  text-justify: center;
-  font-weight: bold;
-  font-size: 150%;
+  padding: 5px;
+  width: auto;
+  height: auto;
+  text-align: start;
+  font-size: 1rem;
   margin: 5px;
+}
+  
+.groups {
+  column-count: 2;
 }
 
 .group-card {
@@ -68,6 +67,40 @@
   margin: 5px;
   position: relative;
 }
+
+.background {
+  @media (prefers-color-scheme: dark) {
+    background-color: black;
+  }
+}
+/*======= Main Page Styling========*/
+.wallpaper {
+  width: 70%;
+  margin: auto;
+}
+
+.text-container {
+  text-align: center;
+  margin: 20px;
+}
+
+.mainpage-text {
+  font-size: 28px;
+  font-weight: 800;
+  margin: 10px;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(1);
+  }
+}
+
+#start {
+  color: blue;
+  text-decoration: underline;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(1);
+  }
+}
+/*================End of Main Page Styling===============*/
 
 /*======= Manager Page Styling========*/
 #itinerary-grid {
@@ -128,11 +161,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-#start {
-  color: blue;
-  text-decoration: underline;
 }
 
 #itinerary-details {
@@ -295,6 +323,24 @@ button {
   height: 500px;
   width: 100%;
 }
+
+/* ========= Friends Page Styling ==========*/
+.flex-container {
+  display: flex;
+  justify-content: space-evenly;
+  justify-self: center;
+  width: 67%;
+}
+
+.userlist-container {
+  width: 100%;
+}
+
+.userlist {
+  display: flex;
+  justify-content: space-between;
+}
+/*================End of Friends Page Styling===============*/
 
 .largeFont {
   font-size: 88px;

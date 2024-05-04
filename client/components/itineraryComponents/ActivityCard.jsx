@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import UpdateModal from './UpdateModal';
 import { useState } from 'react';
 import image from '../../assets/placeholder-image.jpg';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useDispatch, useSelector } from 'react-redux';
 import { selectOldActivity, updateLoading, updateSuggestions, setShowModal } from '../../components/itineraryComponents/suggestionsReducer';
 import ActivityDetailsModal from './ActivityDetailsModal';
 

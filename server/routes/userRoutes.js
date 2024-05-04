@@ -34,7 +34,7 @@ router.post('/logout', clearCookies, (req, res) => {
 router.get('/isAuthenticated', protect, (req, res) => {
   const response = req.user ? { user: req.user } : { user: null };
   res.status(200).json(response);
-})
+});
 
 /**
  * @route GET /api/users/user/friends

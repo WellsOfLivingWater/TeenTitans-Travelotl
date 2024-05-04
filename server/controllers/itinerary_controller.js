@@ -1,7 +1,8 @@
 //Controller to call the Open AI API for information on destinations for the itinerary
-// import { Configuration, OpenAI } from "openai";
 const OpenAI = require('openai');
 const Itinerary = require('../models/Itinerary');
+
+const createErr = require('../utils/createErr');
 
 const openai = new OpenAI({ apiKey: process.env.OPEN_AI_API_KEY });
 
@@ -54,7 +55,6 @@ const tripController = {
         response_format: { type: 'json_object' },
       });
 
-      // console.log(completion.choices[0]);
       res.locals.itinerary = JSON.parse(completion.choices[0].message.content);
 
       return next();
@@ -65,9 +65,7 @@ const tripController = {
 
   // saveTrip - To save the contents of the generated itinerary into the database
   async saveTrip(req, res, next) {
-    // const { email } = req.body;
     Itinerary.create({
-      // email: req.body.email,
       user: req.user._id,
       tripName: res.locals.tripName,
       destination: req.body.destination,
@@ -223,6 +221,90 @@ const tripController = {
       return next();
     } catch (err) {
       console.log(err);
+    }
+  },
+
+  /*=======Collaboration Feature=======*/
+
+  // addEditor - To add an editor to the itinerary
+  async addEditor(req, res, next) {
+    const { friendId, tripId } = req.body;
+    try {
+      await Itinerary.findOneAndUpdate(
+        { _id: tripId },
+        {
+          $push: { editors: friendId },
+        },
+        { new: true }
+      );
+      return next();
+    } catch (err) {
+      return next(createErr({
+        method: 'itinerary_controller.addEditor',
+        type: 'editor addition',
+        err
+      }));
+    }
+  },
+
+  // removeEditor - To remove an editor from the itinerary
+  async removeEditor(req, res, next) {
+    const { friendId, tripId } = req.body;
+    try {
+      await Itinerary.findOneAndUpdate(
+        { _id: tripId },
+        {
+          $pull: { editors: friendId },
+        },
+        { new: true }
+      );
+      return next();
+    } catch (err) {
+      return next(createErr({
+        method: 'itinerary_controller.removeEditor',
+        type: 'editor removal',
+        err
+      }));
+    }
+  },
+
+  // addViewer - To add a viewer to the itinerary
+  async addViewer(req, res, next) {
+    const { friendId, tripId } = req.body;
+    try {
+      await Itinerary.findOneAndUpdate(
+        { _id: tripId },
+        {
+          $push: { viewers: friendId },
+        },
+        { new: true }
+      );
+    } catch (err) {
+      return next(createErr({
+        method: 'itinerary_controller.addViewer',
+        type: 'viewer addition',
+        err
+      }));
+    }
+  },
+
+  // removeViewer - To remove a viewer from the itinerary
+  async removeViewer(req, res, next) {
+    const { friendId, tripId } = req.body;
+    try {
+      await Itinerary.findOneAndUpdate(
+        { _id: tripId },
+        {
+          $pull: { viewers: friendId },
+        },
+        { new: true }
+      );
+    } catch (err) {
+      return next(createErr({
+        method: 'itinerary_controller.removeViewer',
+        type: 'viewer removal',
+        err
+      }));
     }
   },
 };

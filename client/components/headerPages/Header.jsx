@@ -34,8 +34,11 @@ const Header = () => {
 
   useEffect(() => {
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setColorScheme('dark');
-    }
+      setColorScheme("dark");
+      }
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+      setColorScheme(event.matches ? "dark" : "light");
+    });
   }, []);
 
   useEffect(() => {
